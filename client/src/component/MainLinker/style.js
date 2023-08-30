@@ -33,8 +33,10 @@ export const LinkerSection = styled.div`
   flex-direction: column;
 
   width: 80vw;
-  border-radius: 2rem;
   margin-bottom: 2rem;
+  border-radius: 1rem;
+
+  box-shadow: 0.1rem 0.3rem 0.6rem rgb(0 0 0 / 0.4);
 `;
 
 export const LinkerImageWrapper = styled.div`
@@ -52,6 +54,7 @@ export const LinkerImage = styled.img`
   width: inherit;
   height: inherit;
   object-fit: cover;
+  border-radius: 1rem 1rem 0rem 0rem;
 `;
 
 export const LinkerLabelWrapper = styled.div`

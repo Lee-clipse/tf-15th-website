@@ -45,6 +45,15 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
+  .scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   @font-face {
     font-family: 'GmarketSansTTFBold';
     src: local('GmarketSansTTFBold'), local('GmarketSansTTFBold');

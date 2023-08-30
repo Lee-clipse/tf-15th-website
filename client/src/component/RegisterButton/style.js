@@ -17,7 +17,8 @@ export const ButtonContainer = styled.div`
 
   border-radius: 2rem;
   background: ${(props) => props.theme.color.MAIN_BLUE};
-  box-shadow: 0.3rem 0.3rem rgb(0, 0, 0, 0.4);
+  box-shadow: 0.3rem 0.3rem 0.8rem rgb(0 0 0 / 0.6);
+
   width: 100%;
 `;
 
