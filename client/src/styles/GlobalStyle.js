@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import theme from "./Theme";
+import GmarketSansTTFBold from "../fonts/GmarketSansTTFBold.ttf";
+import GmarketSansTTFMedium from "../fonts/GmarketSansTTFMedium.ttf";
+import GmarketSansTTFLight from "../fonts/GmarketSansTTFLight.ttf";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -23,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: ${theme.COLORS.ASH_WHITE}
+    background-color: ${theme.color.BACKGROUND}
   }
 
   #root {
@@ -40,6 +43,25 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
+  }
+
+  @font-face {
+    font-family: 'GmarketSansTTFBold';
+    src: local('GmarketSansTTFBold'), local('GmarketSansTTFBold');
+    font-style: normal;
+    src: url(${GmarketSansTTFBold}) format('truetype');
+  }
+  @font-face {
+    font-family: 'GmarketSansTTFMedium';
+    src: local('GmarketSansTTFMedium'), local('GmarketSansTTFMedium');
+    font-style: normal;
+    src: url(${GmarketSansTTFMedium}) format('truetype');
+  }
+  @font-face {
+    font-family: 'GmarketSansTTFLight';
+    src: local('GmarketSansTTFLight'), local('GmarketSansTTFLight');
+    font-style: normal;
+    src: url(${GmarketSansTTFLight}) format('truetype');
   }
 `;
 

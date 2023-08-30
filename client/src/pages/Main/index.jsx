@@ -1,10 +1,11 @@
 import React from "react";
 import PageTemplate from "../PageTemplate";
+import MainLogo from "../../component/MainLogo/index";
 
 const Main = () => {
   return (
     <PageTemplate>
-      <h1>청건부산</h1>
+      <MainLogo></MainLogo>
     </PageTemplate>
   );
 };
