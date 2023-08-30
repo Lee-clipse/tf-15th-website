@@ -54,6 +54,12 @@ const GlobalStyle = createGlobalStyle`
     scrollbar-width: none;
   }
 
+  input {
+    outline: none;
+    border: none;
+    border-bottom: 0.1rem solid ${theme.color.TEXT_BLACK}
+  }
+
   @font-face {
     font-family: 'GmarketSansTTFBold';
     src: local('GmarketSansTTFBold'), local('GmarketSansTTFBold');

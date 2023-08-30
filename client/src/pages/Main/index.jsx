@@ -4,7 +4,7 @@ import MainLogo from "../../component/MainLogo/index";
 import MainLinker from "../../component/MainLinker/index";
 import YoutubeSection from "../../component/YoutubeSection";
 
-const Main = () => {
+const MainPage = () => {
   return (
     <PageTemplate>
       <MainLogo></MainLogo>
@@ -14,4 +14,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default MainPage;

@@ -4,6 +4,7 @@ import { Suspense, lazy } from "react";
 import React from "react";
 
 const MainPage = lazy(() => import("./pages/Main/index"));
+const RegisterPage = lazy(() => import("./pages/Register/index"));
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path={RoutePath.MAIN} element={<MainPage />}></Route>
+          <Route path={RoutePath.REGISTER} element={<RegisterPage />}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>
