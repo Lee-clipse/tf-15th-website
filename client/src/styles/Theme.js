@@ -7,12 +7,12 @@ const color = {
 };
 
 const font = {
-  MAIN_LIGHT: "GmarketSansTTFLight",
-  MAIN_MEDIUM: "GmarketSansTTFMedium",
-  MAIN_BOLD: "GmarketSansTTFBold",
+  GS_LIGHT: "GmarketSansTTFLight",
+  GS_MEDIUM: "GmarketSansTTFMedium",
+  GS_BOLD: "GmarketSansTTFBold",
   size: {
     SMALL: "1.2rem",
-    MEDIUM: "1.6rem",
+    MEDIUM: "1.4rem",
     LARGE: "2rem",
   },
 };

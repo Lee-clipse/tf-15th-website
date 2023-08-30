@@ -6,15 +6,19 @@ export const LogoWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
+  padding-bottom: 7rem;
 `;
 
 export const LogoImage = styled.img`
-  width: 100vw;
-  height: auto;
+  align-items: flex-end;
+
+  width: 76vw;
 `;
 
 export const LogoMessage = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.MAIN_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.MEDIUM};
+  font-family: ${(props) => props.theme.font.GS_MEDIUM};
+  font-size: ${(props) => props.theme.font.size.LARGE};
+
+  margin-top: 4vh;
 `;
