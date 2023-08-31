@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as s from "./style";
 
 import PageTemplate from "../PageTemplate";
@@ -16,6 +16,10 @@ const RegisterPage = () => {
   ];
 
   const [formData, setFormData] = useState({});
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // 1, 2, 3 질문
   const handleChange = (event, index) => {

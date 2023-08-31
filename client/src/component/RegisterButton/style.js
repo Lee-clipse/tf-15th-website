@@ -4,13 +4,12 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80vw;
 
   position: fixed;
   bottom: 4%;
 `;
 
-export const ButtonContainer = styled.div`
+export const ButtonContainer = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +18,7 @@ export const ButtonContainer = styled.div`
   background: ${(props) => props.theme.color.MAIN_BLUE};
   box-shadow: 0.3rem 0.3rem 0.8rem rgb(0 0 0 / 0.6);
 
-  width: 100%;
+  width: 80vw;
 `;
 
 export const ButtonText = styled.div`
