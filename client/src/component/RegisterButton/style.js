@@ -24,7 +24,7 @@ export const ButtonContainer = styled.div`
 
 export const ButtonText = styled.div`
   color: ${(props) => props.theme.color.TEXT_WHITE};
-  font-family: ${(props) => props.theme.font.GS_MAIN};
+  font-family: ${(props) => props.theme.font.GS_MEDIUM};
   font-size: ${(props) => props.theme.font.size.MEDIUM};
   padding: 1.4rem;
 `;

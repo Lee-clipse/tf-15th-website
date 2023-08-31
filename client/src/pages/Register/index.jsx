@@ -92,7 +92,18 @@ const RegisterPage = () => {
           </PlaneSection>
         </s.PlaneSectionWrapper>
 
-        <button onClick={handleSubmit}>제출</button>
+        <s.PlaneSectionWrapper>
+          <PlaneSection key="announcment">
+            <s.AnnouncementWrapper>
+              <s.AnnouncmentContent>
+                제출 후 화면 상의 QR 코드를 반드시 캡쳐해주세요! <br />
+                개인을 식별하여, 접수 및 제로게임 팀 편성에 사용됩니다.
+              </s.AnnouncmentContent>
+            </s.AnnouncementWrapper>
+          </PlaneSection>
+        </s.PlaneSectionWrapper>
+
+        <s.SubmitButton onClick={handleSubmit}>제출</s.SubmitButton>
       </s.PageWrapper>
     </PageTemplate>
   );

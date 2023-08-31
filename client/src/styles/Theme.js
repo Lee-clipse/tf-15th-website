@@ -12,7 +12,7 @@ const font = {
   GS_BOLD: "GmarketSansTTFBold",
   size: {
     SMALL: "1rem",
-    MEDIUM: "1.4rem",
+    MEDIUM: "1.3rem",
     LARGE: "2.2rem",
   },
 };

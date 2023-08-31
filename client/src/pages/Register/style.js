@@ -5,7 +5,7 @@ export const PageWrapper = styled.div`
   height: 100%;
   overflow-y: scroll;
   background: ${(props) => props.theme.color.SOFT_BLUE};
-  padding: 3rem 0rem 3rem 0rem;
+  padding: 4rem 0rem 4rem 0rem;
 
   display: flex;
   justify-content: center;
@@ -34,4 +34,32 @@ export const Input = styled.input`
   color: ${(props) => props.theme.color.TEXT_BLACK};
   font-family: ${(props) => props.theme.font.GS_MEDIUM};
   font-size: ${(props) => props.theme.font.size.SMALL};
+`;
+
+export const SubmitButton = styled.button`
+  width: 90vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  background: ${(props) => props.theme.color.MAIN_BLUE};
+  box-shadow: 0.3rem 0.3rem 0.8rem rgb(0 0 0 / 0.6);
+
+  color: ${(props) => props.theme.color.TEXT_WHITE};
+  font-family: ${(props) => props.theme.font.GS_MEDIUM};
+  font-size: ${(props) => props.theme.font.size.MEDIUM};
+  padding: 1.4rem;
+  margin-top: 2rem;
+`;
+
+export const AnnouncementWrapper = styled.div`
+  padding: 1.4rem;
+`;
+
+export const AnnouncmentContent = styled.p`
+  color: ${(props) => props.theme.color.TEXT_BLACK};
+  font-family: ${(props) => props.theme.font.GS_MEDIUM};
+  font-size: ${(props) => props.theme.font.size.SMALL};
+
+  line-height: 140%;
 `;
