@@ -13,7 +13,7 @@ const font = {
   size: {
     SMALL: "1rem",
     MEDIUM: "1.3rem",
-    LARGE: "2.2rem",
+    LARGE: "1.8rem",
   },
 };
 

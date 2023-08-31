@@ -5,7 +5,7 @@ export const PageWrapper = styled.div`
   height: 100%;
   overflow-y: scroll;
   background: ${(props) => props.theme.color.SOFT_BLUE};
-  padding: 4rem 0rem 4rem 0rem;
+  padding: 6rem 0rem 4rem 0rem;
 
   display: flex;
   justify-content: center;

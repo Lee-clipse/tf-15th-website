@@ -7,6 +7,7 @@ import LocationDropDown from "../../component/LocationDropDown";
 import Agreement from "../../component/Agreement";
 import PlaneSection from "../../common/layer/PlaneSection";
 import DonationForm from "../../component/DonationForm";
+import TopNavBar from "../../common/layer/TopNavBar";
 
 const RegisterPage = () => {
   const simpleFormList = [
@@ -58,6 +59,7 @@ const RegisterPage = () => {
 
   return (
     <PageTemplate>
+      <TopNavBar title={"접수"} />
       <s.PageWrapper>
         <PlaneSection>
           <RegisterLabel />
