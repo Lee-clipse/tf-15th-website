@@ -13,7 +13,7 @@ export const NavBarWrapper = styled.div`
   align-items: center;
   flex-direction: row;
 
-  padding: 1rem 0;
+  padding: 1.4rem 0rem 1.2rem 0rem;
   z-index: 1000;
 `;
 
@@ -34,7 +34,7 @@ export const CenterTextWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-grow: 1;
-  margin-right: 2.2rem;
+  margin-right: 2.4rem;
 `;
 
 export const CenterText = styled.p`
