@@ -3,7 +3,9 @@ import styled from "styled-components";
 export const PageWrapper = styled.div`
   width: 100vw;
   height: 100%;
+  overflow-y: scroll;
   background: ${(props) => props.theme.color.SOFT_BLUE};
+  padding: 3rem 0rem 3rem 0rem;
 
   display: flex;
   justify-content: center;

@@ -4,7 +4,9 @@ import * as s from "./style";
 import PageTemplate from "../PageTemplate";
 import RegisterLabel from "../../component/RegisterLabel";
 import LocationDropDown from "../../component/LocationDropDown";
+import Agreement from "../../component/Agreement";
 import PlaneSection from "../../common/layer/PlaneSection";
+import DonationForm from "../../component/DonationForm";
 
 const RegisterPage = () => {
   const simpleFormList = [
@@ -29,6 +31,14 @@ const RegisterPage = () => {
     setFormData((prevData) => ({
       ...prevData,
       location: location,
+    }));
+  };
+
+  // 6 질문
+  const handleSelectDonation = (donation) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      donation: donation,
     }));
   };
 
@@ -63,11 +73,25 @@ const RegisterPage = () => {
             </PlaneSection>
           </s.PlaneSectionWrapper>
         ))}
+
         <s.PlaneSectionWrapper>
           <PlaneSection key="location">
             <LocationDropDown onSelectLocation={handleSelectLocation} />
           </PlaneSection>
         </s.PlaneSectionWrapper>
+
+        <s.PlaneSectionWrapper>
+          <PlaneSection key="agreement">
+            <Agreement agreement={formData.agreement} onAgreementChange={handleChange} />
+          </PlaneSection>
+        </s.PlaneSectionWrapper>
+
+        <s.PlaneSectionWrapper>
+          <PlaneSection key="donation">
+            <DonationForm onSelectDonation={handleSelectDonation} />
+          </PlaneSection>
+        </s.PlaneSectionWrapper>
+
         <button onClick={handleSubmit}>제출</button>
       </s.PageWrapper>
     </PageTemplate>
