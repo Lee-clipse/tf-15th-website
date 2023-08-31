@@ -1,8 +1,8 @@
 import React from "react";
 import PageTemplate from "../PageTemplate";
-import MainLogo from "../../component/MainLogo/index";
-import MainLinker from "../../component/MainLinker/index";
-import YoutubeSection from "../../component/YoutubeSection";
+import MainLogo from "@components/MainLogo";
+import MainLinker from "@components/MainLinker";
+import YoutubeSection from "@components/YoutubeSection";
 
 const MainPage = () => {
   return (

@@ -1,12 +1,13 @@
 import React from "react";
 import * as s from "./style";
 import { Link } from "react-router-dom";
+import { RoutePath } from "@constants/enums";
 
 const MainLinker = () => {
   const linkerList = [
-    { imageName: "linker_1.png", link: "/introduce", label: "청건부산 행사 소개 보러 가기" },
-    { imageName: "linker_2.jpg", link: "/event", label: "0923 행사 미리 보러 가기" },
-    { imageName: "linker_3.png", link: "/mission", label: "제로게임 미션 보러 가기" },
+    { imageName: "linker_1.png", link: RoutePath.INTRODUCE, label: "청건부산 행사 소개 보러 가기" },
+    { imageName: "linker_2.jpg", link: RoutePath.EVENT, label: "0923 행사 미리 보러 가기" },
+    { imageName: "linker_3.png", link: RoutePath.MISSION, label: "제로게임 미션 보러 가기" },
   ];
   return (
     <s.LinkerWrapper>

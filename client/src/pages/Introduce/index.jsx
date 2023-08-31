@@ -1,7 +1,7 @@
 import React from "react";
 import * as s from "./style";
 import PageTemplate from "../PageTemplate";
-import TopNavBar from "../../common/layer/TopNavBar";
+import TopNavBar from "@common/layer/TopNavBar";
 
 const IntroducePage = () => {
   return (

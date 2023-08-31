@@ -34,20 +34,6 @@ const DonationForm = ({ onSelectDonation }) => {
           </option>
         ))}
       </s.Select>
-      {/* <s.SectionWrapper>
-        {donationAmounts.map((amount) => (
-          <s.RadioLabel key={amount.value}>
-            <s.RadioText
-              type="radio"
-              name="donationAmount"
-              value={amount.value}
-              checked={donationAmount === amount.value}
-              onChange={onDonationAmountChange}
-            />
-            {amount.label}
-          </s.RadioLabel>
-        ))}
-      </s.SectionWrapper> */}
     </s.Wrapper>
   );
 };

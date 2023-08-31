@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import * as s from "./style";
 
 import PageTemplate from "../PageTemplate";
-import RegisterLabel from "../../component/RegisterLabel";
-import LocationDropDown from "../../component/LocationDropDown";
-import Agreement from "../../component/Agreement";
-import PlaneSection from "../../common/layer/PlaneSection";
-import DonationForm from "../../component/DonationForm";
-import TopNavBar from "../../common/layer/TopNavBar";
+import RegisterLabel from "@components/RegisterLabel";
+import LocationDropDown from "@components/LocationDropDown";
+import Agreement from "@components/Agreement";
+import PlaneSection from "@common/layer/PlaneSection";
+import DonationForm from "@components/DonationForm";
+import TopNavBar from "@common/layer/TopNavBar";
 
 const RegisterPage = () => {
   const simpleFormList = [

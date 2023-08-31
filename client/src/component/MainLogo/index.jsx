@@ -1,6 +1,6 @@
 import React from "react";
 import * as s from "./style";
-import RegisterButton from "../RegisterButton";
+import RegisterButton from "@components/RegisterButton";
 
 const MainLogo = () => {
   return (
