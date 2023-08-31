@@ -7,9 +7,9 @@ import YoutubeSection from "../../component/YoutubeSection";
 const MainPage = () => {
   return (
     <PageTemplate>
-      <MainLogo></MainLogo>
-      <MainLinker></MainLinker>
-      <YoutubeSection></YoutubeSection>
+      <MainLogo />
+      <MainLinker />
+      <YoutubeSection />
     </PageTemplate>
   );
 };
