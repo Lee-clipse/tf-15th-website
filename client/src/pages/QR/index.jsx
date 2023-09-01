@@ -4,7 +4,7 @@ import QRCode from "qrcode";
 
 import { Link, useLocation } from "react-router-dom";
 import { ENV } from "@constants/env";
-import { motion, useAnimationControls } from "framer-motion";
+import { motion } from "framer-motion";
 import { RoutePath } from "@constants/enums";
 
 import PageTemplate from "../PageTemplate";
@@ -12,28 +12,24 @@ import PageTemplate from "../PageTemplate";
 const QRPage = () => {
   const location = useLocation();
   //! TEMP FOR DEV
-  // const userId = location.state.userId;
-  const userId = "51da7992e107910cd713c4761773877b";
+  const userId = location.state.userId;
+  // const userId = "51da7992e107910cd713c4761773877b";
 
   const [show, setShow] = useState(false);
   const [qrImageUrl, setQrImageUrl] = useState("");
 
-  const controls = useAnimationControls();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
-    const qrUrl = `${ENV.CLIENT_DOMAIN}/admin/qr?user_id=${userId}`;
+    const qrUrl = `${ENV.CLIENT_PROD_DOMAIN}/admin/qr?user_id=${userId}`;
     // userId를 이용하여 QR 코드 생성
     QRCode.toDataURL(qrUrl, function (err, url) {
       setQrImageUrl(url);
     });
     setShow(true);
   }, [userId]);
-
-  useEffect(() => {
-    if (show) {
-      controls.start({ scale: 1, rotateZ: 360 });
-    }
-  }, [controls, show]);
 
   return (
     <PageTemplate>

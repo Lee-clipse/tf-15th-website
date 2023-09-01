@@ -12,7 +12,7 @@ const QRPage = lazy(() => import("./pages/QR/index"));
 const App = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div></div>}>
         <Routes>
           <Route path={RoutePath.MAIN} element={<MainPage />}></Route>
           <Route path={RoutePath.REGISTER} element={<RegisterPage />}></Route>

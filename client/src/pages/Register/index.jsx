@@ -61,7 +61,7 @@ const RegisterPage = () => {
       return;
     }
     try {
-      const res = await axios.post(ENV.SERVER_DOMAIN + API.USER_REGISTER, formData);
+      const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.USER_REGISTER, formData);
       navigate(RoutePath.QR, {
         state: {
           userId: res.data.userId,
