@@ -1,7 +1,7 @@
 import React from "react";
 import * as s from "./style";
 
-const Agreement = ({ agreement, onAgreementChange }) => {
+const Agreement = ({ agreePI, onAgreementChange }) => {
   return (
     <s.Wrapper>
       <s.AgreementWrapper>
@@ -27,9 +27,9 @@ const Agreement = ({ agreement, onAgreementChange }) => {
         <s.RadioLabel>
           <s.RadioText
             type="radio"
-            name="agreement"
-            value="예"
-            checked={agreement === "예"}
+            name="agreePI"
+            value="1"
+            checked={agreePI === "1"}
             onChange={onAgreementChange}
           />
           예
@@ -37,9 +37,9 @@ const Agreement = ({ agreement, onAgreementChange }) => {
         <s.RadioLabel>
           <s.RadioText
             type="radio"
-            name="agreement"
-            value="아니오"
-            checked={agreement === "아니오"}
+            name="agreePI"
+            value="0"
+            checked={agreePI === "0"}
             onChange={onAgreementChange}
           />
           아니오

@@ -8,12 +8,15 @@ import Agreement from "@components/Agreement";
 import PlaneSection from "@common/layer/PlaneSection";
 import DonationForm from "@components/DonationForm";
 import TopNavBar from "@common/layer/TopNavBar";
+import { ENV, API } from "@constants/env";
+
+import axios from "axios";
 
 const RegisterPage = () => {
   const simpleFormList = [
     { name: "name", title: "1. 귀하의 이름을 적어주세요.", placeholder: "내 답변" },
     { name: "age", title: "2. 귀하의 만 나이를 적어주세요.", placeholder: "내 답변" },
-    { name: "phone", title: "3. 귀하의 핸드폰 번호를 적어주세요.", placeholder: "내 답변" },
+    { name: "phoneNumber", title: "3. 귀하의 핸드폰 번호를 적어주세요.", placeholder: "내 답변" },
   ];
 
   const [formData, setFormData] = useState({});
@@ -49,8 +52,8 @@ const RegisterPage = () => {
 
   const handleSubmit = async () => {
     try {
-      // const response = await axios.post("/submit-url", formData);
-      // console.log(response.data); // 서버 응답 처리
+      const response = await axios.post(ENV.SERVER_DOMAIN + API.USER_REGISTER, formData);
+      console.log(response.data);
       console.log(formData);
     } catch (error) {
       console.error(error);
@@ -65,7 +68,7 @@ const RegisterPage = () => {
           <RegisterLabel />
         </PlaneSection>
         {simpleFormList.map((item, index) => (
-          <s.PlaneSectionWrapper>
+          <s.PlaneSectionWrapper key={index}>
             <PlaneSection key={item.name}>
               <s.SingleSectionWrapper>
                 <s.SectionTitle>{item.title}</s.SectionTitle>
@@ -87,8 +90,8 @@ const RegisterPage = () => {
         </s.PlaneSectionWrapper>
 
         <s.PlaneSectionWrapper>
-          <PlaneSection key="agreement">
-            <Agreement agreement={formData.agreement} onAgreementChange={handleChange} />
+          <PlaneSection key="agreePI">
+            <Agreement agreePI={formData.agreePI} onAgreementChange={handleChange} />
           </PlaneSection>
         </s.PlaneSectionWrapper>
 
