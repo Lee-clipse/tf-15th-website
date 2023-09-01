@@ -4,6 +4,7 @@ const color = {
   TEXT_WHITE: "#FBFBFB",
   SOFT_BLUE: "#CEE4FE",
   BACKGROUND: "#FFFFFF",
+  PURPLE: "#53389E",
 };
 
 const font = {

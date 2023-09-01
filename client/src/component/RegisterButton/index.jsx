@@ -6,7 +6,7 @@ import { RoutePath } from "@constants/enums";
 const RegisterButton = () => {
   return (
     <s.ButtonWrapper>
-      <Link to={RoutePath.REGISTER}>
+      <Link to={RoutePath.RULE_CHOOSE}>
         <s.ButtonContainer>
           <s.ButtonText>접수하러 가기</s.ButtonText>
         </s.ButtonContainer>
