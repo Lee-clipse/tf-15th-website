@@ -4,9 +4,9 @@ import QRCode from "qrcode";
 
 import { useLocation } from "react-router-dom";
 import { ENV } from "@constants/env";
+import { motion, useAnimationControls } from "framer-motion";
 
 import PageTemplate from "../PageTemplate";
-import { AnnouncementWrapper } from "../Register/style";
 
 const QRPage = () => {
   const location = useLocation();
@@ -14,7 +14,10 @@ const QRPage = () => {
   // const userId = location.state.userId;
   const userId = "51da7992e107910cd713c4761773877b";
 
+  const [show, setShow] = useState(false);
   const [qrImageUrl, setQrImageUrl] = useState("");
+
+  const controls = useAnimationControls();
 
   useEffect(() => {
     const qrUrl = `${ENV.CLIENT_DOMAIN}/admin/qr?user_id=${userId}`;
@@ -22,7 +25,14 @@ const QRPage = () => {
     QRCode.toDataURL(qrUrl, function (err, url) {
       setQrImageUrl(url);
     });
+    setShow(true);
   }, [userId]);
+
+  useEffect(() => {
+    if (show) {
+      controls.start({ scale: 1, rotateZ: 360 });
+    }
+  }, [controls, show]);
 
   return (
     <PageTemplate>
@@ -33,7 +43,25 @@ const QRPage = () => {
             <s.Announcment>접수 QR</s.Announcment>
           </s.AnnouncmentWrapper>
           <s.CaptureInduceWrapper>
-            <s.CaptureInduceText>캡쳐해주세요!</s.CaptureInduceText>
+            {/* <s.CaptureInduceText>캡쳐해주세요!</s.CaptureInduceText> */}
+            <s.CaptureInduceText>
+              <motion.p
+                initial={{ opacity: 0, scale: 0.2 }}
+                animate={{ opacity: 1, scale: 1.2 }}
+                transition={{
+                  duration: 0.3,
+                  ease: [0, 0.71, 0.2, 1.01],
+                  scale: {
+                    type: "spring",
+                    damping: 5,
+                    stiffness: 200,
+                    restDelta: 0.001,
+                  },
+                }}
+              >
+                {show ? "캡쳐해주세요!" : ""}
+              </motion.p>
+            </s.CaptureInduceText>
           </s.CaptureInduceWrapper>
           <s.QRImageWrapper>
             {qrImageUrl && <s.QRImage src={qrImageUrl} alt="QR Code" />}
