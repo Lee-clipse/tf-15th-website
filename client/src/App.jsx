@@ -8,6 +8,8 @@ const RegisterPage = lazy(() => import("./pages/Register/index"));
 const IntroducePage = lazy(() => import("./pages/Introduce/index"));
 const RuleChoosePage = lazy(() => import("./pages/RuleChoose/index"));
 const QRPage = lazy(() => import("./pages/QR/index"));
+const EventPage = lazy(() => import("./pages/Event/index"));
+const MissionPage = lazy(() => import("./pages/Mission/index"));
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
           <Route path={RoutePath.INTRODUCE} element={<IntroducePage />}></Route>
           <Route path={RoutePath.RULE_CHOOSE} element={<RuleChoosePage />}></Route>
           <Route path={RoutePath.QR} element={<QRPage />}></Route>
+          <Route path={RoutePath.EVENT} element={<EventPage />}></Route>
+          <Route path={RoutePath.MISSION} element={<MissionPage />}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>
