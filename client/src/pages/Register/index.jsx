@@ -50,11 +50,16 @@ const RegisterPage = () => {
     }));
   };
 
+  // 제출 버튼 클릭
   const handleSubmit = async () => {
+    const { name, age, phoneNumber, location, agreePI, donation } = formData;
+    if (!name || !age || !phoneNumber || !location || !agreePI || !donation) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
     try {
       const response = await axios.post(ENV.SERVER_DOMAIN + API.USER_REGISTER, formData);
       console.log(response.data);
-      console.log(formData);
     } catch (error) {
       console.error(error);
     }
