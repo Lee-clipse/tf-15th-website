@@ -9,17 +9,17 @@ const EventIntroSection = () => {
         <s.Title>고민하는 청년 : 소그룹 활동</s.Title>
         <s.ImageList>
           <s.Image
-            style={{ width: "50vw", height: "50vw" }}
+            style={{ width: "40vw", height: "40vw" }}
             src={"/assets/intro1.png"}
             alt={"intro1"}
           />
           <s.Image
-            style={{ width: "50vw", height: "50vw" }}
+            style={{ width: "40vw", height: "40vw" }}
             src={"/assets/intro2.png"}
             alt={"intro2"}
           />
           <s.Image
-            style={{ width: "50vw", height: "50vw" }}
+            style={{ width: "80vw", height: "50vw" }}
             src={"/assets/intro3.jpg"}
             alt={"intro3"}
           />
@@ -37,17 +37,17 @@ const EventIntroSection = () => {
         <s.Title>소통하는 청년 : 제로게임, 문화공연, 강연</s.Title>
         <s.ImageList>
           <s.Image
-            style={{ width: "50vw", height: "50vw" }}
+            style={{ width: "80vw", height: "50vw" }}
             src={"/assets/event1.png"}
             alt={"event1"}
           />
           <s.Image
-            style={{ width: "50vw", height: "50vw" }}
+            style={{ width: "80vw", height: "50vw" }}
             src={"/assets/event2.png"}
             alt={"event2"}
           />
           <s.Image
-            style={{ width: "50vw", height: "50vw" }}
+            style={{ width: "80vw", height: "50vw" }}
             src={"/assets/event3.png"}
             alt={"event3"}
           />
