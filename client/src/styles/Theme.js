@@ -5,6 +5,7 @@ const color = {
   SOFT_BLUE: "#CEE4FE",
   BACKGROUND: "#FFFFFF",
   PURPLE: "#53389E",
+  PINK: "#E026C2",
 };
 
 const font = {
@@ -15,6 +16,7 @@ const font = {
     SMALL: "1rem",
     MEDIUM: "1.3rem",
     LARGE: "1.8rem",
+    XL: "3.6rem",
   },
 };
 

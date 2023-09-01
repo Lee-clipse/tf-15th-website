@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as s from "./style";
+import { useNavigate } from "react-router-dom";
 
 import PageTemplate from "../PageTemplate";
 import RegisterLabel from "@components/RegisterLabel";
@@ -8,22 +9,24 @@ import Agreement from "@components/Agreement";
 import PlaneSection from "@common/layer/PlaneSection";
 import DonationForm from "@components/DonationForm";
 import TopNavBar from "@common/layer/TopNavBar";
+import { RoutePath } from "@constants/enums";
 import { ENV, API } from "@constants/env";
 
 import axios from "axios";
 
 const RegisterPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+
   const simpleFormList = [
     { name: "name", title: "1. 귀하의 이름을 적어주세요.", placeholder: "내 답변" },
     { name: "age", title: "2. 귀하의 만 나이를 적어주세요.", placeholder: "내 답변" },
     { name: "phoneNumber", title: "3. 귀하의 핸드폰 번호를 적어주세요.", placeholder: "내 답변" },
   ];
-
-  const [formData, setFormData] = useState({});
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   // 1, 2, 3 질문
   const handleChange = (event, index) => {
@@ -58,8 +61,13 @@ const RegisterPage = () => {
       return;
     }
     try {
-      const response = await axios.post(ENV.SERVER_DOMAIN + API.USER_REGISTER, formData);
-      console.log(response.data);
+      const res = await axios.post(ENV.SERVER_DOMAIN + API.USER_REGISTER, formData);
+      navigate(RoutePath.QR, {
+        state: {
+          userId: res.data.userId,
+        },
+      });
+      console.log(res.data);
     } catch (error) {
       console.error(error);
     }
