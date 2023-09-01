@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import * as s from "./style";
 import QRCode from "qrcode";
 
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ENV } from "@constants/env";
 import { motion, useAnimationControls } from "framer-motion";
+import { RoutePath } from "@constants/enums";
 
 import PageTemplate from "../PageTemplate";
 
@@ -67,9 +68,11 @@ const QRPage = () => {
             {qrImageUrl && <s.QRImage src={qrImageUrl} alt="QR Code" />}
           </s.QRImageWrapper>
           <s.MainButtonWrapper>
-            <s.MainButton>
-              <s.ButtonText>캡쳐 완료했어요</s.ButtonText>
-            </s.MainButton>
+            <Link to={RoutePath.MAIN}>
+              <s.MainButton>
+                <s.ButtonText>캡쳐 완료했어요</s.ButtonText>
+              </s.MainButton>
+            </Link>
           </s.MainButtonWrapper>
         </s.Container>
       </s.Wrapper>
