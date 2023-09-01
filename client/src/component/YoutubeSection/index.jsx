@@ -23,14 +23,14 @@ const YoutubeSection = () => {
         <s.SectionLogo>영상</s.SectionLogo>
         <s.SectionSlider>
           {videoList.map((video, index) => (
-            <s.SectionCard>
+            <s.SectionCard key={index}>
               <s.Section>
                 <iframe
                   src={`${video.src}`}
                   title="YouTube video player"
-                  frameborder="0"
+                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
+                  allowFullScreen
                 ></iframe>
               </s.Section>
               <s.SectionLabel>{video.label}</s.SectionLabel>

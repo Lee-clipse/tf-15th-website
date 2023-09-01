@@ -14,7 +14,7 @@ const MainLinker = () => {
       <s.LinkerContainer>
         <s.LinkerLogo>소개</s.LinkerLogo>
         {linkerList.map((linker, index) => (
-          <Link to={`${linker.link}`}>
+          <Link to={`${linker.link}`} key={index}>
             <s.LinkerSection>
               <s.LinkerImageWrapper>
                 <s.LinkerImage

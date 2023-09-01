@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as s from "./style";
 import { Link } from "react-router-dom";
 import { RoutePath } from "@constants/enums";
@@ -7,6 +7,10 @@ import PageTemplate from "../PageTemplate";
 import TopNavBar from "@common/layer/TopNavBar";
 
 const RuleChoosePage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <PageTemplate>
       <TopNavBar title={"접수"} />
