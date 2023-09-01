@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './entity/user.entity';
 import { UserFormDto } from './dto/user_form.dto';
-import { v4 as uuidv4 } from 'uuid';
+import * as md5 from 'md5';
 
 @Injectable()
 export class UserService {
@@ -12,7 +12,9 @@ export class UserService {
     private userRepository: Repository<UserEntity>,
   ) {}
   registerUser(userForm: UserFormDto) {
-    const userId = uuidv4();
+    // 이름 + 번호 뒷 4자리 => HASH
+    const identifier = userForm.name + userForm.phoneNumber.slice(-4);
+    const userId = md5(identifier).toString();
     this.userRepository.save({
       id: userId,
       ...userForm,
