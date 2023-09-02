@@ -29,7 +29,7 @@ const RuleChoosePage = () => {
           <s.ButtonSection as={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Link to={RoutePath.STEP_GOOGLE_FORM}>
               <s.StepButton>
-                <s.ButtonInnerText>스텝</s.ButtonInnerText>
+                <s.StepButtonInnerText>스텝</s.StepButtonInnerText>
               </s.StepButton>
             </Link>
             <s.Description>준비 및 행사를 돕는 스텝으로 신청할래요!</s.Description>

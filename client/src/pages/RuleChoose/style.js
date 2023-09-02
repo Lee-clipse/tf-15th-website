@@ -32,11 +32,11 @@ export const ParticipantButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  background: ${(props) => props.theme.color.MAIN_BLUE};
-  border-radius: 2rem;
-  box-shadow: 0.3rem 0.3rem 0.8rem rgb(0 0 0 / 0.6);
+  background: ${(props) => props.theme.color.BACKGROUND};
+  border-radius: 1.6rem;
+  border: 0.26rem solid ${(props) => props.theme.color.MAIN_BLUE};
 
-  width: 86vw;
+  width: 80vw;
 `;
 
 export const StepButton = styled.button`
@@ -44,24 +44,31 @@ export const StepButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  background: ${(props) => props.theme.color.PURPLE};
-  border-radius: 2rem;
-  box-shadow: 0.3rem 0.3rem 0.8rem rgb(0 0 0 / 0.6);
+  background: ${(props) => props.theme.color.BACKGROUND};
+  border-radius: 1.6rem;
+  border: 0.26rem solid ${(props) => props.theme.color.PURPLE};
 
-  width: 86vw;
+  width: 80vw;
 `;
 
 export const ButtonInnerText = styled.p`
-  color: ${(props) => props.theme.color.TEXT_WHITE};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.LARGE};
-  padding: 1.4rem;
+  color: ${(props) => props.theme.color.MAIN_BLUE};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.XL};
+  padding: 1.2rem;
+`;
+
+export const StepButtonInnerText = styled.p`
+  color: ${(props) => props.theme.color.PURPLE};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.XL};
+  padding: 1.2rem;
 `;
 
 export const Description = styled.p`
-  color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.MEDIUM};
+  color: ${(props) => props.theme.color.TEXT_LIGHT_BLACK};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.S};
 
   width: 80%;
   margin-top: 1.8rem;

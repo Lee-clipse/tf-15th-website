@@ -118,7 +118,8 @@ const RegisterPage = () => {
           <PlaneSection key="announcment">
             <s.AnnouncementWrapper>
               <s.AnnouncmentContent>
-                제출 후 화면 상의 QR 코드를 반드시 캡쳐해주세요! <br />
+                제출 후 화면 상의 <s.PinkHighlightText>QR 코드</s.PinkHighlightText>를 반드시{" "}
+                <s.PinkHighlightText>캡쳐</s.PinkHighlightText>해주세요! <br />
                 개인을 식별하여, 접수 및 제로게임 팀 편성에 사용됩니다.
               </s.AnnouncmentContent>
             </s.AnnouncementWrapper>

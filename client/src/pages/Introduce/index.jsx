@@ -13,12 +13,8 @@ const IntroducePage = () => {
   return (
     <PageTemplate>
       <TopNavBar title={"소개"} />
-      <s.Wrapper>
-        <s.Container>
-          <IntroSection />
-          <EventIntroSection />
-        </s.Container>
-      </s.Wrapper>
+      <IntroSection />
+      <EventIntroSection />
     </PageTemplate>
   );
 };

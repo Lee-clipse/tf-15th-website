@@ -6,8 +6,8 @@ export const Wrapper = styled.div`
 
 export const Title = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.SMALL};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.S};
 
   margin-bottom: 2.4vh;
 `;
@@ -18,8 +18,8 @@ export const AgreementWrapper = styled.div`
 
 export const AgreementContents = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_LIGHT};
-  font-size: ${(props) => props.theme.font.size.SMALL};
+  font-family: ${(props) => props.theme.font.LIGHT};
+  font-size: ${(props) => props.theme.font.size.S};
 
   margin-bottom: 1vh;
   letter-spacing: 120%;
@@ -28,14 +28,19 @@ export const AgreementContents = styled.p`
 
 export const SectionWrapper = styled.div``;
 
+export const LabelWrapper = styled.div``;
+
 export const RadioLabel = styled.label`
+  color: ${(props) => props.theme.color.TEXT_BLACK};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.S};
   margin-right: 1rem;
 `;
 
 export const RadioText = styled.input`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_LIGHT};
-  font-size: ${(props) => props.theme.font.size.SMALL};
+  font-family: ${(props) => props.theme.font.LIGHT};
+  font-size: ${(props) => props.theme.font.size.S};
 
   margin-right: 0.4rem;
 `;

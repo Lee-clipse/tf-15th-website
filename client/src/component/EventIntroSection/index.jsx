@@ -6,7 +6,9 @@ const EventIntroSection = () => {
     <s.EventWrapper>
       {/* 소그룹 */}
       <s.EventSection>
-        <s.Title>고민하는 청년 : 소그룹 활동</s.Title>
+        <s.Title>
+          고민하는 청년 <s.SubTitle>소그룹 활동</s.SubTitle>
+        </s.Title>
         <s.ImageList>
           <s.Image
             style={{ width: "40vw", height: "40vw" }}
@@ -34,7 +36,9 @@ const EventIntroSection = () => {
 
       {/* 제로게임, 공연 */}
       <s.EventSection>
-        <s.Title>소통하는 청년 : 제로게임, 문화공연, 강연</s.Title>
+        <s.Title>
+          소통하는 청년 <s.SubTitle>제로게임, 문화공연, 강연</s.SubTitle>
+        </s.Title>
         <s.ImageList>
           <s.Image
             style={{ width: "80vw", height: "50vw" }}

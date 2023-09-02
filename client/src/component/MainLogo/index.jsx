@@ -1,6 +1,7 @@
 import React from "react";
 import * as s from "./style";
 import { motion } from "framer-motion";
+import { OchestraList, OchestraYItem } from "@styles/animation";
 
 const MainLogo = () => {
   return (
@@ -17,15 +18,10 @@ const MainLogo = () => {
       >
         <s.LogoImage src="/assets/main_logo.png" alt="메인로고" />
       </motion.div>
-      <motion.div
-        className="logo-text"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          delay: 0.2,
-        }}
-      >
-        <s.LogoMessage>"청년이 건강해야 부산이 산다."</s.LogoMessage>
+      <motion.div variants={OchestraList} initial="hidden" animate="visible">
+        <s.LogoMessage as={motion.div} variants={OchestraYItem}>
+          "청년이 건강해야 부산이 산다."
+        </s.LogoMessage>
       </motion.div>
     </s.LogoWrapper>
   );

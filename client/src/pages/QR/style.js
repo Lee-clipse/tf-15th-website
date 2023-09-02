@@ -23,15 +23,15 @@ export const AnnouncmentWrapper = styled.div`
 `;
 export const Announcment = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_BOLD};
-  font-size: ${(props) => props.theme.font.size.MEDIUM};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.M};
 
   margin-right: 1rem;
 `;
 export const LightAnnouncment = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.MEDIUM};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.M};
 `;
 
 export const Logo = styled.img`
@@ -45,8 +45,8 @@ export const CaptureInduceWrapper = styled.div`
 `;
 export const CaptureInduceText = styled.p`
   color: ${(props) => props.theme.color.PINK};
-  font-family: ${(props) => props.theme.font.GS_BOLD};
-  font-size: ${(props) => props.theme.font.size.XL};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.XXXL};
 `;
 
 export const QRImageWrapper = styled.div`
@@ -64,13 +64,14 @@ export const MainButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 1rem;
-  border: 0.3rem solid ${(props) => props.theme.color.MAIN_BLUE};
+  border-radius: 1.6rem;
+  border: 0.26rem solid ${(props) => props.theme.color.MAIN_BLUE};
+  width: 80vw;
 `;
 export const ButtonText = styled.p`
   color: ${(props) => props.theme.color.MAIN_BLUE};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.MEDIUM};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.ML};
 
-  padding: 1rem;
+  padding: 1.4rem;
 `;

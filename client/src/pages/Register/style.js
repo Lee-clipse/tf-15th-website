@@ -5,7 +5,7 @@ export const PageWrapper = styled.div`
   height: 100%;
   overflow-y: scroll;
   background: ${(props) => props.theme.color.SOFT_BLUE};
-  padding: 6rem 0rem 4rem 0rem;
+  padding: 8rem 0rem 4rem 0rem;
 
   display: flex;
   justify-content: center;
@@ -23,8 +23,8 @@ export const SingleSectionWrapper = styled.div`
 
 export const SectionTitle = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.SMALL};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.S};
 
   margin-bottom: 2.4vh;
 `;
@@ -32,8 +32,8 @@ export const SectionTitle = styled.p`
 export const Input = styled.input`
   width: 100%;
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.SMALL};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.S};
 `;
 
 export const SubmitButton = styled.button`
@@ -46,8 +46,8 @@ export const SubmitButton = styled.button`
   box-shadow: 0.3rem 0.3rem 0.8rem rgb(0 0 0 / 0.6);
 
   color: ${(props) => props.theme.color.TEXT_WHITE};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.MEDIUM};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.ML};
   padding: 1.4rem;
   margin-top: 2rem;
 `;
@@ -58,8 +58,15 @@ export const AnnouncementWrapper = styled.div`
 
 export const AnnouncmentContent = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.SMALL};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.S};
 
   line-height: 140%;
+`;
+
+export const PinkHighlightText = styled.span`
+  color: ${(props) => props.theme.color.PINK};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.S};
+  margin: 0rem 0.2rem 0rem 0.2rem;
 `;

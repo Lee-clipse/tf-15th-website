@@ -1,14 +1,19 @@
 import React from "react";
 import * as s from "./style";
+import { motion } from "framer-motion";
+import { OchestraList, OchestraXItem, OchestraYItem } from "@styles/animation";
 
 const IntroSection = () => {
   return (
-    <s.IntroSection>
-      <s.StampWrpper>
-        <s.Stamp src={`/assets/logo_stamp.svg`} alt={`logo_stamp`} />
-      </s.StampWrpper>
+    <s.IntroSection as={motion.div} variants={OchestraList} initial="hidden" animate="visible">
+      <s.IntroTitle as={motion.div} variants={OchestraYItem}>
+        청건부산이란?
+      </s.IntroTitle>
+      <s.StampWrapper as={motion.div} variants={OchestraXItem}>
+        <s.Stamp src={`/assets/banner.png`} alt={`banner`} />
+      </s.StampWrapper>
 
-      <s.TextWrapper>
+      <s.TextWrapper as={motion.div} variants={OchestraYItem}>
         <s.Text>
           청건부산 행사는 부산의 20~30대 부산청년들 100여명이 중심이 되어, 모든 기획과 재정, 운영 및
           홍보까지 직접 준비하는 행사입니다.
