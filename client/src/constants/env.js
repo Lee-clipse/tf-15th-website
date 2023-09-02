@@ -7,4 +7,5 @@ export const ENV = {
 
 export const API = {
   USER_REGISTER: "/user/register",
+  IS_DUPLICATE: "/user/duplicate",
 };

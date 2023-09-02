@@ -66,7 +66,7 @@ export const StepButtonInnerText = styled.p`
 `;
 
 export const Description = styled.p`
-  color: ${(props) => props.theme.color.TEXT_LIGHT_BLACK};
+  color: ${(props) => props.theme.color.TEXT_BLACK};
   font-family: ${(props) => props.theme.font.BOLD};
   font-size: ${(props) => props.theme.font.size.S};
 
@@ -77,4 +77,32 @@ export const Description = styled.p`
 
 export const BR = styled.div`
   margin: 2.2rem;
+`;
+
+export const ReQRWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  position: fixed;
+  bottom: 15%;
+  width: 100%;
+`;
+
+export const ReQRLable = styled.div`
+  color: ${(props) => props.theme.color.TEXT_LIGHT_BLACK};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.M};
+
+  margin-bottom: 1rem;
+  text-align: center;
+`;
+
+export const ReQRLinker = styled.p`
+  color: ${(props) => props.theme.color.MAIN_BLUE};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.M};
+  text-decoration: underline;
+  text-decoration-thickness: 0.14rem;
 `;

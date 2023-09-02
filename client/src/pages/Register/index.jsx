@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as s from "./style";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import PageTemplate from "../PageTemplate";
 import RegisterLabel from "@components/RegisterLabel";
@@ -11,8 +12,6 @@ import DonationForm from "@components/DonationForm";
 import TopNavBar from "@common/layer/TopNavBar";
 import { RoutePath } from "@constants/enums";
 import { ENV, API } from "@constants/env";
-
-import axios from "axios";
 
 const RegisterPage = () => {
   useEffect(() => {

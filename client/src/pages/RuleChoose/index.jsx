@@ -34,6 +34,13 @@ const RuleChoosePage = () => {
             </Link>
             <s.Description>준비 및 행사를 돕는 스텝으로 신청할래요!</s.Description>
           </s.ButtonSection>
+
+          <s.ReQRWrapper as={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <s.ReQRLable>이미 참가자로 접수하였다면?</s.ReQRLable>
+            <Link to={RoutePath.QR_DUPLICATE}>
+              <s.ReQRLinker>내 QR 코드 보러가기</s.ReQRLinker>
+            </Link>
+          </s.ReQRWrapper>
         </s.Container>
       </s.Wrapper>
     </PageTemplate>
