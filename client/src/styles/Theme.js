@@ -2,21 +2,24 @@ const color = {
   MAIN_BLUE: "#2347C6",
   TEXT_BLACK: "#2C343F",
   TEXT_WHITE: "#FBFBFB",
-  SOFT_BLUE: "#CEE4FE",
+  SOFT_BLUE: "#DCECFF",
   BACKGROUND: "#FFFFFF",
   PURPLE: "#53389E",
   PINK: "#E026C2",
 };
 
 const font = {
-  GS_LIGHT: "GmarketSansTTFLight",
-  GS_MEDIUM: "GmarketSansTTFMedium",
-  GS_BOLD: "GmarketSansTTFBold",
+  LIGHT: "NanumSquareRoundL",
+  NORMAL: "NanumSquareRoundB",
+  BOLD: "NanumSquareRoundEB",
   size: {
-    SMALL: "1rem",
-    MEDIUM: "1.3rem",
-    LARGE: "1.8rem",
-    XL: "3.6rem",
+    S: "1rem",
+    SM: "1.2rem",
+    M: "1.4rem",
+    ML: "1.6rem",
+    L: "1.8rem",
+    XL: "2.2rem",
+    XXL: "2.2rem",
   },
 };
 

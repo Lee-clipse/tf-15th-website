@@ -20,8 +20,8 @@ export const LinkerContainer = styled.div`
 
 export const LinkerLogo = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.LARGE};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.XL};
 
   margin-bottom: 4rem;
 `;
@@ -71,8 +71,8 @@ export const LinkerLabelWrapper = styled.div`
 
 export const LinkerLabel = styled.p`
   color: ${(props) => props.theme.color.TEXT_WHITE};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.SMALL};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.S};
 `;
 
 export const LinkerArrow = styled.img``;

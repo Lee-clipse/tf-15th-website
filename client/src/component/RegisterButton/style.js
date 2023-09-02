@@ -7,7 +7,7 @@ export const ButtonWrapper = styled.div`
   align-items: center;
 
   position: fixed;
-  bottom: 5%;
+  bottom: 6%;
 `;
 
 export const ButtonContainer = styled.button`
@@ -24,7 +24,7 @@ export const ButtonContainer = styled.button`
 
 export const ButtonText = styled.div`
   color: ${(props) => props.theme.color.TEXT_WHITE};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.MEDIUM};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.M};
   padding: 1.4rem;
 `;

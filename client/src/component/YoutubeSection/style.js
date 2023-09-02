@@ -20,8 +20,8 @@ export const SectionContainer = styled.div`
 
 export const SectionLogo = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.LARGE};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.XL};
 
   margin-bottom: 4rem;
 `;
@@ -62,8 +62,8 @@ export const Thumbnail = styled.img`
 
 export const SectionLabel = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.SMALL};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.S};
 
   margin-top: 4vh;
 `;

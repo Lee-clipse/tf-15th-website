@@ -13,7 +13,7 @@ export const NavBarWrapper = styled.div`
   align-items: center;
   flex-direction: row;
 
-  padding: 1.4rem 0rem 1.2rem 0rem;
+  padding: 1.6rem 0rem 1.6rem 0rem;
   z-index: 1000;
 `;
 
@@ -39,6 +39,6 @@ export const CenterTextWrapper = styled.div`
 
 export const CenterText = styled.p`
   color: ${(props) => props.theme.color.TEXT_WHITE};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.LARGE};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.L};
 `;

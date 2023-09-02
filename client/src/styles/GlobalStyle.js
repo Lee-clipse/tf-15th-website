@@ -1,9 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import theme from "./Theme";
-import GmarketSansTTFBold from "../fonts/GmarketSansTTFBold.ttf";
-import GmarketSansTTFMedium from "../fonts/GmarketSansTTFMedium.ttf";
-import GmarketSansTTFLight from "../fonts/GmarketSansTTFLight.ttf";
+import NanumSquareRoundB from "../fonts/NanumSquareRoundB.ttf";
+import NanumSquareRoundEB from "../fonts/NanumSquareRoundEB.ttf";
+import NanumSquareRoundL from "../fonts/NanumSquareRoundL.ttf";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -61,22 +61,22 @@ const GlobalStyle = createGlobalStyle`
   }
 
   @font-face {
-    font-family: 'GmarketSansTTFBold';
-    src: local('GmarketSansTTFBold'), local('GmarketSansTTFBold');
+    font-family: 'NanumSquareRoundB';
+    src: local('NanumSquareRoundB'), local('NanumSquareRoundB');
     font-style: normal;
-    src: url(${GmarketSansTTFBold}) format('truetype');
+    src: url(${NanumSquareRoundB}) format('truetype');
   }
   @font-face {
-    font-family: 'GmarketSansTTFMedium';
-    src: local('GmarketSansTTFMedium'), local('GmarketSansTTFMedium');
+    font-family: 'NanumSquareRoundEB';
+    src: local('NanumSquareRoundEB'), local('NanumSquareRoundEB');
     font-style: normal;
-    src: url(${GmarketSansTTFMedium}) format('truetype');
+    src: url(${NanumSquareRoundEB}) format('truetype');
   }
   @font-face {
-    font-family: 'GmarketSansTTFLight';
-    src: local('GmarketSansTTFLight'), local('GmarketSansTTFLight');
+    font-family: 'NanumSquareRoundL';
+    src: local('NanumSquareRoundL'), local('NanumSquareRoundL');
     font-style: normal;
-    src: url(${GmarketSansTTFLight}) format('truetype');
+    src: url(${NanumSquareRoundL}) format('truetype');
   }
 `;
 

@@ -10,11 +10,11 @@ const MainLinker = () => {
   const { ref, animation } = useObserver();
 
   const opacityVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0.3 },
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
       },
     },
   };

@@ -12,13 +12,13 @@ export const LogoWrapper = styled.div`
 export const LogoImage = styled.img`
   align-items: flex-end;
 
-  width: 76vw;
+  width: 74vw;
 `;
 
 export const LogoMessage = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
-  font-family: ${(props) => props.theme.font.GS_MEDIUM};
-  font-size: ${(props) => props.theme.font.size.LARGE};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.L};
 
-  margin-top: 4vh;
+  margin-top: 3vh;
 `;
