@@ -1,30 +1,65 @@
 import React from "react";
 import * as s from "./style";
+import { motion } from "framer-motion";
+import { OchestraList, OchestraYItem } from "@styles/animation";
 
 const EventIntroSection = () => {
   return (
-    <s.EventWrapper>
+    <s.EventWrapper as={motion.div} variants={OchestraList} initial="hidden" animate="visible">
       {/* 소그룹 */}
-      <s.EventSection>
+      <s.EventSection as={motion.div} variants={OchestraYItem}>
         <s.Title>
           고민하는 청년 <s.SubTitle>소그룹 활동</s.SubTitle>
         </s.Title>
         <s.ImageList>
-          <s.Image
-            style={{ width: "40vw", height: "40vw" }}
-            src={"/assets/intro1.png"}
-            alt={"intro1"}
-          />
-          <s.Image
-            style={{ width: "40vw", height: "40vw" }}
-            src={"/assets/intro2.png"}
-            alt={"intro2"}
-          />
-          <s.Image
-            style={{ width: "80vw", height: "50vw" }}
-            src={"/assets/intro3.jpg"}
-            alt={"intro3"}
-          />
+          <s.ImageRowL>
+            <s.ImageWrapper>
+              <s.Image
+                style={{ width: "40vw", height: "40vw" }}
+                src={"/assets/intro1.png"}
+                alt={"intro1"}
+              />
+            </s.ImageWrapper>
+            <s.ImageWrapper>
+              <s.Image
+                style={{ width: "40vw", height: "40vw" }}
+                src={"/assets/intro2.png"}
+                alt={"intro2"}
+              />
+            </s.ImageWrapper>
+          </s.ImageRowL>
+          <s.ImageRowR>
+            <s.ImageWrapper>
+              <s.Image
+                style={{ width: "30vw", height: "30vw" }}
+                src={"/assets/intro3.png"}
+                alt={"intro3"}
+              />
+            </s.ImageWrapper>
+            <s.ImageWrapper>
+              <s.Image
+                style={{ width: "30vw", height: "30vw" }}
+                src={"/assets/intro4.png"}
+                alt={"intro4"}
+              />
+            </s.ImageWrapper>
+            <s.ImageWrapper>
+              <s.Image
+                style={{ width: "30vw", height: "30vw" }}
+                src={"/assets/intro5.png"}
+                alt={"intro5"}
+              />
+            </s.ImageWrapper>
+          </s.ImageRowR>
+          <s.ImageRowL>
+            <s.ImageWrapper>
+              <s.Image
+                style={{ width: "70vw", height: "40vw" }}
+                src={"/assets/intro6.jpg"}
+                alt={"intro6"}
+              />
+            </s.ImageWrapper>
+          </s.ImageRowL>
         </s.ImageList>
         <s.DescriptionWrapper>
           <s.Description>
@@ -40,21 +75,27 @@ const EventIntroSection = () => {
           소통하는 청년 <s.SubTitle>제로게임, 문화공연, 강연</s.SubTitle>
         </s.Title>
         <s.ImageList>
-          <s.Image
-            style={{ width: "80vw", height: "50vw" }}
-            src={"/assets/event1.png"}
-            alt={"event1"}
-          />
-          <s.Image
-            style={{ width: "80vw", height: "50vw" }}
-            src={"/assets/event2.png"}
-            alt={"event2"}
-          />
-          <s.Image
-            style={{ width: "80vw", height: "50vw" }}
-            src={"/assets/event3.png"}
-            alt={"event3"}
-          />
+          <s.ImageRowL>
+            <s.Image
+              style={{ width: "70vw", height: "40vw" }}
+              src={"/assets/event1.png"}
+              alt={"event1"}
+            />
+          </s.ImageRowL>
+          <s.ImageRowR>
+            <s.Image
+              style={{ width: "70vw", height: "40vw" }}
+              src={"/assets/event2.png"}
+              alt={"event2"}
+            />
+          </s.ImageRowR>
+          <s.ImageRowL>
+            <s.Image
+              style={{ width: "70vw", height: "40vw" }}
+              src={"/assets/event3.png"}
+              alt={"event3"}
+            />
+          </s.ImageRowL>
         </s.ImageList>
         <s.DescriptionWrapper>
           <s.Description>

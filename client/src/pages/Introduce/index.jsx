@@ -4,6 +4,7 @@ import PageTemplate from "../PageTemplate";
 import TopNavBar from "@common/layer/TopNavBar";
 import IntroSection from "../../component/IntroSection";
 import EventIntroSection from "../../component/EventIntroSection";
+import BlogBookMarker from "../../component/BlogBookMarker";
 
 const IntroducePage = () => {
   useEffect(() => {
@@ -15,6 +16,7 @@ const IntroducePage = () => {
       <TopNavBar title={"소개"} />
       <IntroSection />
       <EventIntroSection />
+      <BlogBookMarker />
     </PageTemplate>
   );
 };

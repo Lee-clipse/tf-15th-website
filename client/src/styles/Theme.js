@@ -1,7 +1,7 @@
 const color = {
   MAIN_BLUE: "#2347C6",
   TEXT_BLACK: "#2C343F",
-  TEXT_LIGHT_BLACK: "#424B57",
+  TEXT_LIGHT_BLACK: "#656C77",
   TEXT_WHITE: "#FBFBFB",
   SOFT_BLUE: "#DCECFF",
   BACKGROUND_BLUE: "#E4EFFF",
@@ -15,6 +15,7 @@ const font = {
   NORMAL: "NanumSquareRoundB",
   BOLD: "NanumSquareRoundEB",
   size: {
+    XS: "0.6rem",
     S: "1rem",
     SM: "1.2rem",
     M: "1.4rem",

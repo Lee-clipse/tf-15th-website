@@ -11,6 +11,11 @@ export const OchestraList = {
   },
 };
 
+export const OchestraLeftXItem = {
+  hidden: { opacity: 0, x: -70 },
+  visible: { opacity: 1, x: 0 },
+};
+
 export const OchestraXItem = {
   hidden: { opacity: 0, x: 70 },
   visible: { opacity: 1, x: 0 },
