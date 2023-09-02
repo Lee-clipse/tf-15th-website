@@ -26,7 +26,7 @@ export const EventSection = styled.div`
 export const Title = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
   font-family: ${(props) => props.theme.font.BOLD};
-  font-size: ${(props) => props.theme.font.size.XXL};
+  font-size: ${(props) => props.theme.font.size.XL};
 
   margin-bottom: 1rem;
 `;

@@ -13,7 +13,7 @@ export const IntroSection = styled.div`
 export const IntroTitle = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
   font-family: ${(props) => props.theme.font.BOLD};
-  font-size: ${(props) => props.theme.font.size.XXL};
+  font-size: ${(props) => props.theme.font.size.XL};
 
   margin: 9rem 0rem 1rem 0rem;
 `;
