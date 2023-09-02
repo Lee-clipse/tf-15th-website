@@ -15,7 +15,7 @@ export const SectionContainer = styled.div`
   flex-direction: column;
   width: 100%;
   background: ${(props) => props.theme.color.TEXT_WHITE};
-  padding: 4rem 0rem 10rem 0rem;
+  padding: 4rem 0rem 13rem 0rem;
 `;
 
 export const SectionLogo = styled.p`
@@ -49,7 +49,9 @@ export const SectionCard = styled.li`
   flex-direction: column;
 `;
 
-export const Section = styled.div`
+export const Section = styled.a``;
+
+export const Thumbnail = styled.img`
   width: 90vw;
 
   & > iframe {

@@ -6,7 +6,7 @@ export const ButtonWrapper = styled.div`
   align-items: center;
 
   position: fixed;
-  bottom: 4%;
+  bottom: 5%;
 `;
 
 export const ButtonContainer = styled.button`
