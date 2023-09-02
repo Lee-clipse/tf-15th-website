@@ -1,6 +1,5 @@
 import React from "react";
 import * as s from "./style";
-import RegisterButton from "@components/RegisterButton";
 import { motion } from "framer-motion";
 
 const MainLogo = () => {
@@ -28,7 +27,6 @@ const MainLogo = () => {
       >
         <s.LogoMessage>"청년이 건강해야 부산이 산다."</s.LogoMessage>
       </motion.div>
-      <RegisterButton></RegisterButton>
     </s.LogoWrapper>
   );
 };
