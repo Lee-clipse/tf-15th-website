@@ -37,4 +37,15 @@ export class UserService {
     }
     return { code: 200, userId };
   }
+
+  async getUserInfo(userId: string) {
+    const userInfo = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.user_id = :userId', { userId })
+      .getOne();
+    if (userInfo === null) {
+      return { code: 404 };
+    }
+    return { code: 200, userInfo: JSON.stringify(userInfo) };
+  }
 }

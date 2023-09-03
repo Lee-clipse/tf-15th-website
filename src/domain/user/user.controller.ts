@@ -35,4 +35,17 @@ export class UserController {
   ) {
     return this.userService.reconfirmQR(name, phoneNumber);
   }
+
+  @Get('/info')
+  @ApiOperation({
+    summary: '사용자 정보 반환',
+  })
+  @ApiQuery({
+    name: 'userId',
+    type: 'string',
+  })
+  async getUserInfo(@Query('userId') userId: string) {
+    console.log(userId);
+    return this.userService.getUserInfo(userId);
+  }
 }
