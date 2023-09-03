@@ -42,7 +42,6 @@ const QRReconfirmPage = () => {
           phoneNumber: formData.phoneNumber,
         },
       });
-      console.log(res.data);
       if (Number(res.data.code) === 200) {
         navigate(RoutePath.QR, {
           state: {
