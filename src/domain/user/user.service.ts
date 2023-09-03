@@ -11,6 +11,7 @@ export class UserService {
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
   ) {}
+
   registerUser(userForm: UserFormDto) {
     // 이름 + 번호 뒷 4자리 => HASH
     const identifier = userForm.name + userForm.phoneNumber.slice(-4);
@@ -21,6 +22,19 @@ export class UserService {
       teamId: 0,
       score: 0,
     });
-    return { res: 200, userId };
+    return { code: 200, userId };
+  }
+
+  async reconfirmQR(name: string, phoneNumber: string) {
+    const identifier = name + phoneNumber;
+    const userId = md5(identifier).toString();
+    const userExist = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.user_id = :userId', { userId })
+      .getOne();
+    if (userExist === null) {
+      return { code: 404 };
+    }
+    return { code: 200, userId };
   }
 }

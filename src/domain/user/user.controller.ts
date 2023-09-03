@@ -1,6 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiOperation, ApiTags, ApiBody } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiBody, ApiQuery } from '@nestjs/swagger';
 import { UserFormDto } from './dto/user_form.dto';
 
 @Controller('api/user')
@@ -15,5 +15,24 @@ export class UserController {
   @ApiBody({ type: () => UserFormDto })
   registerUserForm(@Body() userForm: UserFormDto) {
     return this.userService.registerUser(userForm);
+  }
+
+  @Get('/reconfirm-qr')
+  @ApiOperation({
+    summary: '사용자 QR 재확인 요청',
+  })
+  @ApiQuery({
+    name: 'name',
+    type: 'string',
+  })
+  @ApiQuery({
+    name: 'phoneNumber',
+    type: 'string',
+  })
+  async reconfirmQR(
+    @Query('name') name: string,
+    @Query('phoneNumber') phoneNumber: string,
+  ) {
+    return this.userService.reconfirmQR(name, phoneNumber);
   }
 }
