@@ -85,8 +85,6 @@ export const ReQRWrapper = styled.div`
   align-items: center;
   flex-direction: column;
 
-  position: fixed;
-  bottom: 15%;
   width: 100%;
 `;
 

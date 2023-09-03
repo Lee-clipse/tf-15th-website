@@ -8,7 +8,7 @@ import TopNavBar from "@common/layer/TopNavBar";
 import { RoutePath } from "@constants/enums";
 import { ENV, API } from "@constants/env";
 
-const QRDuplicatePage = () => {
+const QRReconfirmPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -36,8 +36,12 @@ const QRDuplicatePage = () => {
       return;
     }
     try {
-      console.log(formData);
-      const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.IS_DUPLICATE, formData);
+      const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.RECONFIRM_QR, {
+        params: {
+          name: formData.name,
+          phoneNumber: formData.phoneNumber,
+        },
+      });
       console.log(res.data);
       if (Number(res.data.code) === 200) {
         navigate(RoutePath.QR, {
@@ -80,4 +84,4 @@ const QRDuplicatePage = () => {
   );
 };
 
-export default QRDuplicatePage;
+export default QRReconfirmPage;
