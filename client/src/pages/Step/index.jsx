@@ -11,11 +11,12 @@ const StepPage = () => {
 
   const { purpose } = useParams();
   const [searchParams] = useSearchParams();
+  const userId = searchParams.get("user_id");
 
   return (
     <div>
       {purpose === "register" && <StepRegisterForm />}
-      {purpose === "qr" && <QRViewer />}
+      {purpose === "qr" && <QRViewer userId={userId} />}
     </div>
   );
 };
