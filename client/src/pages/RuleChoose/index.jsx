@@ -12,6 +12,9 @@ const RuleChoosePage = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const STEP_GOOGLE_FORM =
+    "https://docs.google.com/forms/d/e/1FAIpQLSf9hrEpXCUEBd0epFID7QqK52g_P8B6tMQBipyu9rmH1q9Idw/viewform";
+
   return (
     <PageTemplate>
       <TopNavBar title={"접수"} />
@@ -27,7 +30,7 @@ const RuleChoosePage = () => {
           </s.ButtonSection>
           <s.BR />
           <s.ButtonSection as={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <Link to={RoutePath.STEP_GOOGLE_FORM}>
+            <Link to={STEP_GOOGLE_FORM}>
               <s.StepButton>
                 <s.StepButtonInnerText>스텝</s.StepButtonInnerText>
               </s.StepButton>

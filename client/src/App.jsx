@@ -11,6 +11,7 @@ const QRPage = lazy(() => import("./pages/QR/index"));
 const EventPage = lazy(() => import("./pages/Event/index"));
 const MissionPage = lazy(() => import("./pages/Mission/index"));
 const QRReconfirmPage = lazy(() => import("./pages/QRReconfirm/index"));
+const StepPage = lazy(() => import("./pages/Step/index"));
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path={RoutePath.RECONFIRM_QR} element={<QRReconfirmPage />}></Route>
           <Route path={RoutePath.EVENT} element={<EventPage />}></Route>
           <Route path={RoutePath.MISSION} element={<MissionPage />}></Route>
+          <Route path={RoutePath.STEP} element={<StepPage />}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>
