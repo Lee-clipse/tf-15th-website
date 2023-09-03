@@ -12,7 +12,7 @@ const QRViewer = ({ userId }) => {
     // 랜더링과 동시에 데이터 받아오기
     const getUserInfoFromServer = async () => {
       try {
-        const res = await axios.get(ENV.SERVER_DEV_DOMAIN + API.USER_INFO, {
+        const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.USER_INFO, {
           params: { userId },
         });
         const newUserInfo = JSON.parse(res.data.userInfo);
