@@ -6,7 +6,7 @@ export const LogoWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 11rem;
+  padding-bottom: 16rem;
 `;
 
 export const LogoImage = styled.img`
@@ -20,5 +20,5 @@ export const LogoMessage = styled.p`
   font-family: ${(props) => props.theme.font.NORMAL};
   font-size: ${(props) => props.theme.font.size.L};
 
-  margin-top: 3vh;
+  margin-top: 2vh;
 `;

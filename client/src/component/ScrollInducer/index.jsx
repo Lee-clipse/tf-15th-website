@@ -1,34 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import * as s from "./style";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const ScrollInducer = () => {
-  const [showScrollIcon, setShowScrollIcon] = useState(true);
-
-  useEffect(() => {
-    const blinkInterval = setInterval(() => {
-      setShowScrollIcon((prevShowScrollIcon) => !prevShowScrollIcon);
-    }, 500);
-
-    return () => {
-      clearInterval(blinkInterval);
-    };
-  }, []);
+  const variants = {
+    hidden: {
+      opacity: 0.2,
+      y: 15,
+    },
+    visible: () => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.2,
+        duration: 1,
+        repeat: Infinity,
+        repeatType: "reverse",
+      },
+    }),
+  };
 
   return (
     <s.Wrapper>
-      <AnimatePresence>
-        {showScrollIcon && (
-          <motion.div
-            initial={{ opacity: 0.5, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.5 }}
-          >
-            <s.Image src="/assets/scroll_inducer.svg" alt="Scroll Down" />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div initial="hidden" animate="visible" variants={variants}>
+        <s.Image src="/assets/scroll_inducer.svg" alt="Scroll Down" />
+      </motion.div>
     </s.Wrapper>
   );
 };
