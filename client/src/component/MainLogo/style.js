@@ -6,13 +6,13 @@ export const LogoWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 7rem;
+  padding-bottom: 11rem;
 `;
 
 export const LogoImage = styled.img`
   align-items: flex-end;
 
-  width: 74vw;
+  width: 66vw;
 `;
 
 export const LogoMessage = styled.p`
