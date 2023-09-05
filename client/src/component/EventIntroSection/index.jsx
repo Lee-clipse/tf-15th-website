@@ -100,7 +100,7 @@ const EventIntroSection = () => {
         <s.DescriptionWrapper>
           <s.Description>
             부산에 거주하는 청년예술가들에게 재능을 펼칠 수 있는 문화의 장을 제공하고, 우리 세대가
-            맞닥뜨릴 문제인 기후위기에 대한 메세지와 경감식을 청년들에게 던지고자 한다.
+            맞닥뜨릴 문제인 기후위기에 대한 메세지와 경각심을 청년들에게 던지고자 한다.
           </s.Description>
         </s.DescriptionWrapper>
       </s.EventSection>
