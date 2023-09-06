@@ -23,7 +23,7 @@ const QRPage = () => {
   }, []);
 
   useEffect(() => {
-    const qrUrl = `${ENV.CLIENT_PROD_DOMAIN}/admin/qr?user_id=${userId}`;
+    const qrUrl = `${ENV.CLIENT_PROD_DOMAIN}/step/qr?user_id=${userId}`;
     // userId를 이용하여 QR 코드 생성
     QRCode.toDataURL(qrUrl, function (err, url) {
       setQrImageUrl(url);
