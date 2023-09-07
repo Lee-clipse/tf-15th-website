@@ -25,7 +25,7 @@ export class UserEntity {
 
   // zero game
   @Column({ name: 'team_id' })
-  teamId!: number;
+  teamId!: string;
 
   @Column({})
   score!: number;

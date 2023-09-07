@@ -7,6 +7,7 @@ import { TeamService } from './team.service';
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
+  // Create Team
   @Post('/create')
   @ApiOperation({
     summary: '스텝이 팀 생성',
