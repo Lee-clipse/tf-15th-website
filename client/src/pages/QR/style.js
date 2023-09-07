@@ -21,7 +21,7 @@ export const AnnouncmentWrapper = styled.div`
   align-items: center;
   flex-direction: row;
 `;
-export const Announcment = styled.p`
+export const Announcment = styled.div`
   color: ${(props) => props.theme.color.TEXT_BLACK};
   font-family: ${(props) => props.theme.font.BOLD};
   font-size: ${(props) => props.theme.font.size.M};

@@ -40,24 +40,22 @@ const QRPage = () => {
             <s.Announcment>접수 QR</s.Announcment>
           </s.AnnouncmentWrapper>
           <s.CaptureInduceWrapper>
-            {/* <s.CaptureInduceText>캡쳐해주세요!</s.CaptureInduceText> */}
-            <s.CaptureInduceText>
-              <motion.p
-                initial={{ opacity: 0, scale: 0.2 }}
-                animate={{ opacity: 1, scale: 1.2 }}
-                transition={{
-                  duration: 0.3,
-                  ease: [0, 0.71, 0.2, 1.01],
-                  scale: {
-                    type: "spring",
-                    damping: 5,
-                    stiffness: 200,
-                    restDelta: 0.001,
-                  },
-                }}
-              >
-                {show ? "캡쳐해주세요!" : ""}
-              </motion.p>
+            <s.CaptureInduceText
+              as={motion.div}
+              initial={{ opacity: 0, scale: 0.2 }}
+              animate={{ opacity: 1, scale: 1.2 }}
+              transition={{
+                duration: 0.3,
+                ease: [0, 0.71, 0.2, 1.01],
+                scale: {
+                  type: "spring",
+                  damping: 5,
+                  stiffness: 200,
+                  restDelta: 0.001,
+                },
+              }}
+            >
+              {show ? "캡쳐해주세요!" : ""}
             </s.CaptureInduceText>
           </s.CaptureInduceWrapper>
           <s.QRImageWrapper>
