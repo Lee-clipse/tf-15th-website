@@ -70,16 +70,14 @@ export class UserService {
     }
 
     // 팀 정원이 다 찬 경우 (스텝의 미스 클릭)
-    const currTeamCount = await this.teamService.getCurrTeamCount(teamId);
-    if (Number(currTeamCount) >= this.TEAM_MAX_COUNT) {
+    const teamRow = await this.teamService.getTeamRow(teamId);
+    const currTeamCount = Number(teamRow.count);
+    if (currTeamCount >= this.TEAM_MAX_COUNT) {
       return { code: 202, message: 'Full Team Count' };
     }
 
     // 등록
-    this.userRepository.save({
-      ...userInfo,
-      teamId,
-    });
+    this.userRepository.update(userId, { teamId: teamId });
     const count = await this.teamService.plusTeamCount(teamId);
     return { code: 200, teamId, count };
   }

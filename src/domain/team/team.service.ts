@@ -32,33 +32,17 @@ export class TeamService {
 
   // Plus Team Score
   async plusTeamScore(teamId: string, plusScore: number) {
+    this.teamRepository.update(teamId, { score: () => `score + ${plusScore}` });
     const teamRow = await this.getTeamRow(teamId);
-    const currScore = Number(teamRow.score);
-    this.teamRepository.save({
-      ...teamRow,
-      score: currScore + plusScore,
-    });
-    return { code: 200, score: currScore + plusScore };
+    return { code: 200, score: teamRow.score };
   }
 
   // UserService에서 호출
   // 해당 팀의 멤버 수를 증가
   async plusTeamCount(teamId: string) {
+    this.teamRepository.update(teamId, { count: () => 'count + 1' });
     const teamRow = await this.getTeamRow(teamId);
-    const currCount = Number(teamRow.count);
-    this.teamRepository.save({
-      ...teamRow,
-      count: currCount + 1,
-    });
-    return { count: currCount + 1 };
-  }
-
-  // UserService에서 호출
-  // 해당 팀의 멤버 수를 반환
-  async getCurrTeamCount(teamId: string) {
-    const teamInfo = await this.getTeamRow(teamId);
-    const currCount = Number(teamInfo.count);
-    return currCount;
+    return { count: teamRow.count + 1 };
   }
 
   // View Waiting Team

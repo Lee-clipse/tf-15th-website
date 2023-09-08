@@ -58,7 +58,6 @@ export class UserController {
     summary: '스텝이 사용자를 팀에 참가',
   })
   @ApiBody({ type: () => UserJoinDto })
-  // registerUserForm(@Body() userForm: UserFormDto) {
   async joinTeam(@Body() userJoinDto: UserJoinDto) {
     return this.userService.joinTeam(userJoinDto);
   }
