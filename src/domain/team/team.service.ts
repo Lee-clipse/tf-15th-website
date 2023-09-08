@@ -30,13 +30,24 @@ export class TeamService {
     return { code: 200, teamId, count: 0 };
   }
 
+  // Plus Team Score
+  async plusTeamScore(teamId: string, plusScore: number) {
+    const teamRow = await this.getTeamRow(teamId);
+    const currScore = Number(teamRow.score);
+    this.teamRepository.save({
+      ...teamRow,
+      score: currScore + plusScore,
+    });
+    return { code: 200, score: currScore + plusScore };
+  }
+
   // UserService에서 호출
   // 해당 팀의 멤버 수를 증가
   async plusTeamCount(teamId: string) {
-    const teamInfo = await this.getTeamRow(teamId);
-    const currCount = Number(teamInfo.count);
+    const teamRow = await this.getTeamRow(teamId);
+    const currCount = Number(teamRow.count);
     this.teamRepository.save({
-      ...teamInfo,
+      ...teamRow,
       count: currCount + 1,
     });
     return { count: currCount + 1 };
@@ -50,6 +61,7 @@ export class TeamService {
     return currCount;
   }
 
+  // View Waiting Team
   // UserService에서 호출
   // 현재 정원 미달 팀들의 정보를 반환
   async getWaitingTeam() {
