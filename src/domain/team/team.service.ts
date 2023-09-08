@@ -57,6 +57,12 @@ export class TeamService {
       .getMany();
   }
 
+  // View Team Score
+  async getTeamScore(teamId: string) {
+    const teamRow = await this.getTeamRow(teamId);
+    return { code: 200, teamId, score: teamRow.score };
+  }
+
   async getTeamRow(teamId: string) {
     return await this.teamRepository
       .createQueryBuilder('team')

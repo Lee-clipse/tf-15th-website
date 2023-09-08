@@ -44,4 +44,17 @@ export class TeamController {
     const { teamId, score } = teamScoreDto;
     return this.teamService.plusTeamScore(teamId, score);
   }
+
+  // View Team Score
+  @Get('score')
+  @ApiOperation({
+    summary: '팀 점수 조회',
+  })
+  @ApiQuery({
+    name: 'teamId',
+    type: 'string',
+  })
+  async getUserInfo(@Query('teamId') teamId: string) {
+    return this.teamService.getTeamScore(teamId);
+  }
 }
