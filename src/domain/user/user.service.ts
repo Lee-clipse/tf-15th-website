@@ -58,13 +58,13 @@ export class UserService {
   async joinTeam(userJoinDto: UserJoinDto) {
     const { userId, teamId } = userJoinDto;
 
-    const userInfo = await this.getUserRow(userId);
-    if (userInfo === null) {
+    const userRow = await this.getUserRow(userId);
+    if (userRow === null) {
       return { code: 404, message: 'Undefined User' };
     }
 
     // 이미 해당 팀에 소속된 참가자인 경우 (스텝의 미스 클릭)
-    const currTeamId = userInfo.teamId;
+    const currTeamId = userRow.teamId;
     if (currTeamId === teamId) {
       return { code: 202, message: 'Already Join Same Team' };
     }
@@ -80,6 +80,15 @@ export class UserService {
     this.userRepository.update(userId, { teamId: teamId });
     const count = await this.teamService.plusTeamCount(teamId);
     return { code: 200, teamId, count };
+  }
+
+  // Get User Team
+  async getUserTeam(userId: string) {
+    const userRow = await this.getUserRow(userId);
+    if (userRow === null) {
+      return { code: 404, message: 'Undefined User' };
+    }
+    return { code: 200, teamId: userRow.teamId };
   }
 
   async getUserRow(userId: string) {

@@ -61,4 +61,17 @@ export class UserController {
   async joinTeam(@Body() userJoinDto: UserJoinDto) {
     return this.userService.joinTeam(userJoinDto);
   }
+
+  // Get User Team
+  @Get('/team')
+  @ApiOperation({
+    summary: '사용자의 팀을 반환',
+  })
+  @ApiQuery({
+    name: 'userId',
+    type: 'string',
+  })
+  async getUserTeam(@Query('userId') userId: string) {
+    return this.userService.getUserTeam(userId);
+  }
 }
