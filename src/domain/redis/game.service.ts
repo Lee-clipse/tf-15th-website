@@ -1,3 +1,4 @@
+import { MAP_INDEX, NEXT_INDEX, BATTLE_BOOTH } from './../../constants/consts';
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
 import { InjectRedis } from '@liaoliaots/nestjs-redis';
@@ -6,24 +7,9 @@ import { InjectRedis } from '@liaoliaots/nestjs-redis';
 export class GameService {
   constructor(@InjectRedis() private readonly redis: Redis) {}
 
-  MAP_INDEX = [
-    '10',
-    '11',
-    '12',
-    '13',
-    '20',
-    '21',
-    '22',
-    '23',
-    '24',
-    '30',
-    '31',
-    '32',
-    '40',
-    '41',
-    '42',
-    '43',
-  ];
+  MAP_INDEX = MAP_INDEX;
+  NEXT_INDEX = NEXT_INDEX;
+  BATTLE_BOOTH = BATTLE_BOOTH;
 
   // Init Team Map Index
   async createTeam(teamId: string) {
@@ -36,5 +22,148 @@ export class GameService {
   async getTeamIndex(teamId: string) {
     const currIndex = await this.redis.get(teamId);
     return { index: currIndex };
+  }
+
+  // Roll Dice
+  async rollDice(teamId: string) {
+    const currIndex = await this.redis.get(teamId);
+    if (currIndex === null) {
+      return { nextIndex: null };
+    }
+    /*
+      @@ 유도 알고리즘 @@
+      다음 라인 중에 대결 부스가 있는가?
+        - 그렇다: 그 대결 부스에 대기 중인 팀 수는?
+          - 0: 나머지 부스 중 빈 자리에 랜덤 배치
+          - 1: 최우선순위
+          - 2: X
+        - 아니다: 나머지 부스 중 빈 자리에 랜덤 배치
+    */
+    // 현재 대기소에서 주사위를 굴린 경우
+    if (Number(currIndex) % 10 === 0) {
+      const promises = this.NEXT_INDEX[currIndex].map(async (index: string) => {
+        const val = await this.redis.hget('map', index);
+        return [index, val];
+      });
+      const res = await Promise.all(promises);
+
+      // 다음 라인들
+      // ex) { '11': '0', '12': '1', '13': '1' }
+      const nextLine = Object.fromEntries(res);
+
+      // 다음 라인 중 대결 부스 목록
+      // ex) ['11']
+      const nextBattleBoothIndex = this.BATTLE_BOOTH[currIndex];
+
+      let nextIndex = '';
+      // 다음 라인에 대결 부스 0개
+      if (nextBattleBoothIndex.length == 0) {
+        nextIndex = this.getRandomRoll(nextLine);
+      }
+      // 다음 라인에 대결 부스 1개
+      else if (nextBattleBoothIndex.length == 1) {
+        const waitingTeamCount = Number(nextLine[nextBattleBoothIndex]);
+
+        // 대결 부스에 0팀
+        // '0' 0 0 / '0' 0 1 / '0' 1 1 모두 1 이상 제외 랜덤
+        if (waitingTeamCount === 0) {
+          nextIndex = this.getRandomRoll(nextLine);
+        }
+        // 대결 부스에 1팀
+        // '1' * 이면 1 최우선 배치
+        else if (waitingTeamCount === 1) {
+          nextIndex = nextBattleBoothIndex;
+        }
+        // 대결 부스에 2팀
+        // '2' 0 0 / '2' 0 1 / '2' 1 1 모두 1 이상 제외 랜덤
+        else if (waitingTeamCount === 2) {
+          nextIndex = this.getRandomRoll(nextLine);
+        }
+        // 에러
+        else {
+          console.log(waitingTeamCount);
+          return { message: '1 Booth Error' };
+        }
+      }
+      // 다음 라인에 대결 부스 2개
+      else if (nextBattleBoothIndex.length == 2) {
+        const waitingTeamCountList = nextLine[nextBattleBoothIndex];
+        const [countL, countR] = [
+          Number(waitingTeamCountList[0]),
+          Number(waitingTeamCountList[1]),
+        ];
+
+        // 00, 11, 22의 경우
+        // 아무 곳이나 상관없음
+        if (countL === countR) {
+          nextIndex = this.getRandomRoll(nextLine);
+        }
+        // 01의 경우
+        // 대기 중인 1로 배치
+        else if (countL + countR === 1) {
+          nextIndex =
+            countL === 1 ? waitingTeamCountList[0] : waitingTeamCountList[1];
+        }
+        // 12의 경우
+        // 대기 중인 1로 배치
+        else if (countL + countR === 2) {
+          nextIndex =
+            countL === 1 ? waitingTeamCountList[0] : waitingTeamCountList[1];
+        }
+        // 02의 경우
+        // 아무 곳이나 상관 없지만 0으로 배치
+        else if (countL + countR === 2 && countL * countR === 0) {
+          nextIndex =
+            countL === 0 ? waitingTeamCountList[0] : waitingTeamCountList[1];
+        }
+        // 에러
+        else {
+          console.log(waitingTeamCountList);
+          return { message: '2 Booth Error' };
+        }
+      }
+      // 에러
+      else {
+        console.log(nextBattleBoothIndex);
+        return { message: 'Booth Error' };
+      }
+
+      // 이동
+      this.redis.hincrby('map', currIndex, -1);
+      this.redis.hincrby('map', nextIndex, 1);
+      this.redis.set(teamId, nextIndex);
+    }
+    // 현재 라인에서 주사위를 굴린 경우
+    else {
+      const nextIndex = this.NEXT_INDEX[currIndex];
+
+      // 이동
+      this.redis.hincrby('map', currIndex, -1);
+      this.redis.hincrby('map', nextIndex, 1);
+      this.redis.set(teamId, nextIndex);
+    }
+  }
+
+  // 대결 부스가 없는 현재 이 라인에서 랜덤 배치
+  // Input ex) { '11': '0', '12': '1', '13': '1' }
+  getRandomRoll(nextLine: { [k: string]: any }): string {
+    // 값이 0인 요소의 키들을 필터링
+    const zeroValueKeys = Object.keys(nextLine).filter(
+      (key) => nextLine[key] === '0',
+    );
+
+    let nextIndex = '';
+    // 랜덤 추출 가능
+    if (zeroValueKeys.length > 0) {
+      const randomIndex = Math.floor(Math.random() * zeroValueKeys.length);
+      nextIndex = zeroValueKeys[randomIndex];
+    }
+    // 빈 부스가 없는 경우 전체 랜덤 추출
+    else {
+      const allKeys = Object.keys(nextLine);
+      const randomIndex = Math.floor(Math.random() * allKeys.length);
+      nextIndex = allKeys[randomIndex];
+    }
+    return nextIndex;
   }
 }

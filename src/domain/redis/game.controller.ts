@@ -33,4 +33,17 @@ export class GameController {
   async getUserTeam(@Query('teamId') teamId: string) {
     return this.gameService.getTeamIndex(teamId);
   }
+
+  // Roll Dice
+  @Post('/next')
+  @ApiOperation({
+    summary: '주사위 굴려서 다음에 가야하는 칸 반환',
+  })
+  @ApiBody({
+    type: () => TeamInitDto,
+  })
+  async rollDice(@Body() teamInitDto: TeamInitDto) {
+    const teamId = teamInitDto.teamId;
+    return this.gameService.rollDice(teamId);
+  }
 }
