@@ -12,6 +12,8 @@ export class TeamService {
     private teamRepository: Repository<TeamEntity>,
   ) {}
 
+  TEAM_MAX_COUNT = 5;
+
   // Create Team
   createTeam() {
     // 현재 시간을 시드로 hash 생성
@@ -29,6 +31,7 @@ export class TeamService {
   }
 
   // UserService에서 호출
+  // 해당 팀의 멤버 수를 증가
   async plusTeamCount(teamId: string) {
     const teamInfo = await this.getTeamRow(teamId);
     const currCount = Number(teamInfo.count);
@@ -40,10 +43,22 @@ export class TeamService {
   }
 
   // UserService에서 호출
+  // 해당 팀의 멤버 수를 반환
   async getCurrTeamCount(teamId: string) {
     const teamInfo = await this.getTeamRow(teamId);
     const currCount = Number(teamInfo.count);
     return currCount;
+  }
+
+  // UserService에서 호출
+  // 현재 정원 미달 팀들의 정보를 반환
+  async getWaitingTeam() {
+    return await this.teamRepository
+      .createQueryBuilder('team')
+      .where('team.count < :TEAM_MAX_COUNT', {
+        TEAM_MAX_COUNT: this.TEAM_MAX_COUNT,
+      })
+      .getMany();
   }
 
   async getTeamRow(teamId: string) {

@@ -49,7 +49,6 @@ export class UserController {
     type: 'string',
   })
   async getUserInfo(@Query('userId') userId: string) {
-    console.log(userId);
     return this.userService.getUserInfo(userId);
   }
 

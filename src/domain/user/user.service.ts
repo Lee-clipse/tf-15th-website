@@ -48,7 +48,14 @@ export class UserService {
     if (userInfo === null) {
       return { code: 404, message: 'Undefined User' };
     }
-    return { code: 200, userInfo: JSON.stringify(userInfo) };
+
+    // 현재 정원 미달 팀들의 정보
+    const waitingTeamInfo = await this.teamService.getWaitingTeam();
+    return {
+      code: 200,
+      userInfo,
+      teamList: waitingTeamInfo,
+    };
   }
 
   // Join User
