@@ -6,13 +6,29 @@ import { InjectRedis } from '@liaoliaots/nestjs-redis';
 export class GameService {
   constructor(@InjectRedis() private readonly redis: Redis) {}
 
-  async test() {
-    const map = await this.redis.hgetall('map');
-    console.log(map);
-  }
+  MAP_INDEX = [
+    '10',
+    '11',
+    '12',
+    '13',
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '30',
+    '31',
+    '32',
+    '40',
+    '41',
+    '42',
+    '43',
+  ];
 
-  createTeam() {
-    // `set` in redis
-    return { code: 200, index: 0 };
+  // Init Team Map Index
+  async createTeam(teamId: string) {
+    const beginIndex = this.MAP_INDEX[0];
+    this.redis.set(teamId, beginIndex);
+    return { code: 200, index: beginIndex };
   }
 }

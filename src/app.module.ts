@@ -7,8 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath:
-        process.env.NODE_ENV === 'dev' ? './env/dev.env' : './env/prod.env',
+      envFilePath: './env/prod.env',
     }),
     RedisModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
