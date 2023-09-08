@@ -1,4 +1,4 @@
-import { MAP_INDEX, NEXT_INDEX, BATTLE_BOOTH } from './../../constants/consts';
+import { MAP_INDEX, NEXT_INDEX, BATTLE_BOOTH } from '../../constants/consts';
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
 import { InjectRedis } from '@liaoliaots/nestjs-redis';

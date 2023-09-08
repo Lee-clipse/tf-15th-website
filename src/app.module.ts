@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { GameModule } from './domain/redis/game.module';
+import { GameModule } from './domain/game/game.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
