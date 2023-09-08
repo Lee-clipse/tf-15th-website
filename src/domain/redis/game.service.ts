@@ -29,6 +29,12 @@ export class GameService {
   async createTeam(teamId: string) {
     const beginIndex = this.MAP_INDEX[0];
     this.redis.set(teamId, beginIndex);
-    return { code: 200, index: beginIndex };
+    return { index: beginIndex };
+  }
+
+  // View Map Index
+  async getTeamIndex(teamId: string) {
+    const currIndex = await this.redis.get(teamId);
+    return { index: currIndex };
   }
 }

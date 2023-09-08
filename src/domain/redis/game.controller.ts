@@ -20,4 +20,17 @@ export class GameController {
     const teamId = teamInitDto.teamId;
     return this.gameService.createTeam(teamId);
   }
+
+  // View Map Index
+  @Get('/where')
+  @ApiOperation({
+    summary: '팀의 현재 위치를 반환',
+  })
+  @ApiQuery({
+    name: 'teamId',
+    type: 'string',
+  })
+  async getUserTeam(@Query('teamId') teamId: string) {
+    return this.gameService.getTeamIndex(teamId);
+  }
 }
