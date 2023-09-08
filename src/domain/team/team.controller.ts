@@ -8,6 +8,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { TeamService } from './team.service';
+import { TeamScoreDto } from './dto/team_score.dto';
 
 @Controller('api/team')
 @ApiTags('TEAM API')
@@ -34,22 +35,13 @@ export class TeamController {
   }
 
   // Plus Team Score
-  @Get('/plus')
+  @Post('/plus')
   @ApiOperation({
     summary: '팀 점수 획득',
   })
-  @ApiQuery({
-    name: 'teamId',
-    type: 'string',
-  })
-  @ApiQuery({
-    name: 'plusScore',
-    type: 'number',
-  })
-  async plusTeamScore(
-    @Query('teamId') teamId: string,
-    @Query('plusScore', ParseIntPipe) plusScore: number,
-  ) {
-    return this.teamService.plusTeamScore(teamId, plusScore);
+  @ApiBody({ type: () => TeamScoreDto })
+  async plusTeamScore(@Body() teamScoreDto: TeamScoreDto) {
+    const { teamId, score } = teamScoreDto;
+    return this.teamService.plusTeamScore(teamId, score);
   }
 }
