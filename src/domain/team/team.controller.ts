@@ -15,4 +15,14 @@ export class TeamController {
   async createTeam() {
     return this.teamService.createTeam();
   }
+
+  // View Waiting Team
+  @Get('/waiting')
+  @ApiOperation({
+    summary: '현재 대기중인 팀 목록 조회',
+  })
+  async getWaitingTeam() {
+    const teamList = await this.teamService.getWaitingTeam();
+    return { code: 200, teamList };
+  }
 }

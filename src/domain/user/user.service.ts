@@ -50,12 +50,8 @@ export class UserService {
     }
 
     // 현재 정원 미달 팀들의 정보
-    const waitingTeamInfo = await this.teamService.getWaitingTeam();
-    return {
-      code: 200,
-      userInfo,
-      teamList: waitingTeamInfo,
-    };
+    const teamList = await this.teamService.getWaitingTeam();
+    return { code: 200, userInfo, teamList };
   }
 
   // Join User
