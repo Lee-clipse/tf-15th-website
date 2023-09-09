@@ -3,7 +3,8 @@ export const ENV = {
   SERVER_DEV_DOMAIN: "http://localhost:4000/api",
   CLIENT_PROD_DOMAIN: "https://busan-tf.n-e.kr",
   SERVER_PROD_DOMAIN: "/api",
-  GAME_SERVER_DOMAIN: "/game-api",
+  GAME_SERVER_DEV_DOMAIN: "http://localhost:4500/game-api",
+  GAME_SERVER_PROD_DOMAIN: "/game-api",
 };
 
 export const API = {

@@ -8,9 +8,13 @@ const StepTeamCreate = () => {
 
   const handleTeamListLoad = async () => {
     // API: View Waiting Team
-    const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.VIEW_WAITING_TEAM);
-    const newTeamList = res.data.teamList;
-    setTeamList(newTeamList);
+    try {
+      const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.VIEW_WAITING_TEAM);
+      const newTeamList = res.data.teamList;
+      setTeamList(newTeamList);
+    } catch (error) {
+      console.error("FOR PROD SERVER");
+    }
   };
 
   useEffect(() => {
@@ -25,6 +29,12 @@ const StepTeamCreate = () => {
     // API: Create Team
     const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.CREATE_TEAM);
     setTeamList((prevTeamList) => [...prevTeamList, { ...res.data.teamRow }]);
+
+    // API: Init Team Map Index
+    const gameRes = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.INIT_TEAM_MAP_INDEX, {
+      teamId: res.data.teamRow.id,
+    });
+
     alert(`${res.data.teamRow.name}팀이 생성되었습니다!`);
   };
 
