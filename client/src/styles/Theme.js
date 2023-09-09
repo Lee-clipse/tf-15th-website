@@ -11,6 +11,7 @@ const color = {
   PINK: "#E026C2",
   RED: "#E22525",
   GREEN: "#16BA13",
+  DEEP_BLUE: "#1641B8",
 };
 
 const font = {
