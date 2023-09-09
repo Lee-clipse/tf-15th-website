@@ -15,7 +15,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         config: {
           host: configService.get<string>('REDIS_HOST'),
           port: configService.get<number>('REDIS_PORT'),
-          username: configService.get<string>('USERNAME'),
+          username: 'default',
           password: configService.get<string>('PASSWORD'),
         },
       }),
