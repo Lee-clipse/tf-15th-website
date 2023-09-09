@@ -12,6 +12,7 @@ import DonationForm from "@components/DonationForm";
 import TopNavBar from "@common/layer/TopNavBar";
 import { RoutePath } from "@constants/enums";
 import { ENV, API } from "@constants/env";
+import Swal from "sweetalert2";
 
 const RegisterPage = () => {
   useEffect(() => {
@@ -56,7 +57,7 @@ const RegisterPage = () => {
   const handleSubmit = async () => {
     const { name, age, phoneNumber, location, agreePI, donation } = formData;
     if (!name || !age || !phoneNumber || !location || !agreePI || !donation) {
-      alert("모든 항목을 입력해주세요.");
+      Swal.fire("입력 오류!", "모든 항목을 입력해주세요.", "error");
       return;
     }
     try {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as s from "./style";
 import axios from "axios";
 import { ENV, API } from "@constants/env";
+import Swal from "sweetalert2";
 
 const StepTeamCreate = () => {
   const [teamList, setTeamList] = useState(null);
@@ -13,7 +14,7 @@ const StepTeamCreate = () => {
       const newTeamList = res.data.teamList;
       setTeamList(newTeamList);
     } catch (error) {
-      console.error("FOR PROD SERVER");
+      Swal.fire("API 접근 오류", "API: View Waiting Team", "error");
     }
   };
 
@@ -35,7 +36,7 @@ const StepTeamCreate = () => {
       teamId: res.data.teamRow.id,
     });
 
-    alert(`${res.data.teamRow.name}팀이 생성되었습니다!`);
+    Swal.fire(`${res.data.teamRow.name}팀이 생성되었습니다!`, "", "success");
   };
 
   return (

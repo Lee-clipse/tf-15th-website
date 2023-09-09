@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as s from "./style";
 import axios from "axios";
 import { ENV, API } from "@constants/env";
+import Swal from "sweetalert2";
 
 const StepManageTeam = ({ userInfo, teamList }) => {
   const [score, setScore] = useState("");
@@ -33,9 +34,9 @@ const StepManageTeam = ({ userInfo, teamList }) => {
         teamId: userInfo.teamId,
         score: Number(score),
       });
-      alert(`${Number(score)}점 추가!\n현재 ${res.data.score}점`);
+      Swal.fire(`${Number(score)}점 추가!\n현재 ${res.data.score}점`, "", "success");
     } else {
-      alert("점수를 입력해주세요.");
+      Swal.fire("입력 오류!", "점수를 입력해주세요.", "error");
     }
   };
 
@@ -50,14 +51,14 @@ const StepManageTeam = ({ userInfo, teamList }) => {
     const resCode = res.data.code;
     if (Number(resCode) === 202) {
       // TODO: 모달로 구현 (팀 변경 의사 묻기)
-      alert("해당 팀은 이미 참가되어 있는 팀입니다.");
+      Swal.fire("입력 오류!", "해당 팀은 이미 참가되어 있는 팀입니다.", "error");
     } else {
       setTeamCounts((prevCounts) => ({
         ...prevCounts,
         [thisTeamId]: res.data.count,
       }));
       setTeamName(res.data.teamName);
-      alert(`${userInfo.name}님 ${thisTeamName}팀 참가!`);
+      Swal.fire(`${userInfo.name}님 ${thisTeamName}팀 참가!`, "", "success");
     }
   };
 

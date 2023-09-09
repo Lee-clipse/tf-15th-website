@@ -7,6 +7,7 @@ import PageTemplate from "../PageTemplate";
 import TopNavBar from "@common/layer/TopNavBar";
 import { RoutePath } from "@constants/enums";
 import { ENV, API } from "@constants/env";
+import Swal from "sweetalert2";
 
 const QRReconfirmPage = () => {
   useEffect(() => {
@@ -32,7 +33,7 @@ const QRReconfirmPage = () => {
   const handleSubmit = async () => {
     const { name, phoneNumber } = formData;
     if (!name || !phoneNumber) {
-      alert("모든 항목을 입력해주세요.");
+      Swal.fire("입력 오류!", "모든 항목을 입력해주세요.", "error");
       return;
     }
     try {
@@ -49,7 +50,7 @@ const QRReconfirmPage = () => {
           },
         });
       } else {
-        alert("접수되지 않은 사용자입니다.");
+        Swal.fire("접근 오류!", "접수되지 않은 사용자입니다.", "error");
       }
     } catch (error) {
       console.error(error);

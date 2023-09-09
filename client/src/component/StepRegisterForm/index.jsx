@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as s from "./style";
 import StepRegisterSuccess from "@components/StepRegisterSuccess";
+import Swal from "sweetalert2";
 
 const StepRegisterForm = () => {
   const [inputValue, setInputValue] = useState("");
@@ -9,7 +10,7 @@ const StepRegisterForm = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (localStorage.getItem("key") === "tf") {
-      alert("이미 등록된 스텝입니다.");
+      Swal.fire("잠깐!", "이미 등록된 스텝입니다.", "info");
       setIsSubmitted(true);
     }
   }, []);
@@ -23,7 +24,7 @@ const StepRegisterForm = () => {
       localStorage.setItem("key", "tf");
       setIsSubmitted(true);
     } else {
-      alert("올바르지 않은 입력입니다.");
+      Swal.fire("땡!", "올바르지 않은 입력입니다.", "error");
     }
   };
 
