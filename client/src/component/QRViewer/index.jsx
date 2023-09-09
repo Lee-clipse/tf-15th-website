@@ -3,16 +3,21 @@ import React, { useEffect, useState } from "react";
 import * as s from "./style";
 import axios from "axios";
 import { ENV, API } from "@constants/env";
+import StepManageTeam from "../StepManageTeam";
 
 const QRViewer = ({ userId }) => {
   const [userInfo, setUserInfo] = useState(null);
+  const [teamList, setTeamList] = useState(null);
 
   const handleUserInfoLoad = async () => {
+    //! FOR DEV
     const res = await axios.get(ENV.SERVER_DEV_DOMAIN + API.USER_INFO, {
       params: { userId },
     });
-    const newUserInfo = JSON.parse(res.data.userInfo);
+    const newUserInfo = res.data.userInfo;
+    const newTeamList = res.data.teamList;
     setUserInfo(newUserInfo);
+    setTeamList(newTeamList);
   };
 
   useEffect(() => {
@@ -24,20 +29,28 @@ const QRViewer = ({ userId }) => {
 
   return (
     <s.Wrapper>
-      <s.Container>
-        <s.InfoWrapper>
-          {userInfo && (
+      {userInfo && (
+        <s.Container>
+          <s.InfoWrapper>
             <s.InfoSection>
-              <s.InfoText>{userInfo.name}</s.InfoText>
-              <s.InfoText>{userInfo.age}</s.InfoText>
+              <s.InfoText>
+                {userInfo.name} / {userInfo.age}
+              </s.InfoText>
               <s.InfoText>{userInfo.phoneNumber}</s.InfoText>
               <s.InfoText>{userInfo.location}</s.InfoText>
-              <s.InfoText>개인정보 제공 {userInfo.agreePI === 1 ? "동의" : "비동의"}</s.InfoText>
-              <s.InfoText>기부 금액: {userInfo.donation}만원</s.InfoText>
+              <s.InfoText>
+                개인정보 제공:{" "}
+                {userInfo.agreePI === 1 ? "동의" : <s.NotAgreeText>비동의</s.NotAgreeText>}
+              </s.InfoText>
+              <s.InfoText>
+                기부 금액: <s.DonationText>{userInfo.donation}만원</s.DonationText>
+              </s.InfoText>
             </s.InfoSection>
-          )}
-        </s.InfoWrapper>
-      </s.Container>
+          </s.InfoWrapper>
+          {/* 스텝 팀 관리 폼 */}
+          <StepManageTeam userInfo={userInfo} teamList={teamList} />
+        </s.Container>
+      )}
     </s.Wrapper>
   );
 };

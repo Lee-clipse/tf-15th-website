@@ -1,15 +1,50 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+`;
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100%;
+`;
 
-export const InfoWrapper = styled.div``;
+export const InfoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  width: 100%;
+  flex-grow: 1;
+  margin: 2rem;
+`;
 
 export const InfoSection = styled.ul``;
 
-export const InfoText = styled.li``;
+export const InfoText = styled.li`
+  color: ${(props) => props.theme.color.TEXT_BLACK};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.XXL};
 
-// 제로게임
+  margin-bottom: 1rem;
+`;
 
-export const TeamRegisterWrapper = styled.div``;
+export const NotAgreeText = styled.span`
+  color: ${(props) => props.theme.color.RED};
+  font-family: ${(props) => props.theme.font.BOLD};
+`;
+export const DonationText = styled.span`
+  color: ${(props) => props.theme.color.MAIN_BLUE};
+  font-family: ${(props) => props.theme.font.BOLD};
+`;

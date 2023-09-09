@@ -7,7 +7,10 @@ const color = {
   BACKGROUND_BLUE: "#E4EFFF",
   BACKGROUND: "#FFFFFF",
   PURPLE: "#8A3BDA",
+  SOFT_PURPLE: "#F3E8FF",
   PINK: "#E026C2",
+  RED: "#E22525",
+  GREEN: "#16BA13",
 };
 
 const font = {
