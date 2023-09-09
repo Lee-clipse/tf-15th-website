@@ -10,8 +10,7 @@ const QRViewer = ({ userId }) => {
   const [teamList, setTeamList] = useState(null);
 
   const handleUserInfoLoad = async () => {
-    //! FOR DEV
-    const res = await axios.get(ENV.SERVER_DEV_DOMAIN + API.USER_INFO, {
+    const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.USER_INFO, {
       params: { userId },
     });
     const newUserInfo = res.data.userInfo;
