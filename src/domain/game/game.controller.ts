@@ -44,6 +44,8 @@ export class GameController {
   })
   async rollDice(@Body() teamInitDto: TeamInitDto) {
     const teamId = teamInitDto.teamId;
-    return this.gameService.rollDice(teamId);
+    const res = await this.gameService.rollDice(teamId);
+    console.log(res);
+    return res;
   }
 }

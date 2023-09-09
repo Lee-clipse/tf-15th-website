@@ -14,7 +14,9 @@ export class GameService {
   // Init Team Map Index
   async createTeam(teamId: string) {
     const beginIndex = this.MAP_INDEX[0];
+    // 팀, map 둘 다 갱신
     this.redis.set(teamId, beginIndex);
+    this.redis.hincrby('map', '10', 1);
     return { index: beginIndex };
   }
 
@@ -29,6 +31,10 @@ export class GameService {
     const currIndex = await this.redis.get(teamId);
     if (currIndex === null) {
       return { nextIndex: null };
+    }
+    // 클리어
+    if (Number(currIndex) === 50) {
+      return { nextIndex: 0 };
     }
     /*
       @@ 유도 알고리즘 @@
@@ -87,10 +93,9 @@ export class GameService {
       }
       // 다음 라인에 대결 부스 2개
       else if (nextBattleBoothIndex.length == 2) {
-        const waitingTeamCountList = nextLine[nextBattleBoothIndex];
         const [countL, countR] = [
-          Number(waitingTeamCountList[0]),
-          Number(waitingTeamCountList[1]),
+          Number(nextLine[nextBattleBoothIndex[0]]),
+          Number(nextLine[nextBattleBoothIndex[1]]),
         ];
 
         // 00, 11, 22의 경우
@@ -102,23 +107,23 @@ export class GameService {
         // 대기 중인 1로 배치
         else if (countL + countR === 1) {
           nextIndex =
-            countL === 1 ? waitingTeamCountList[0] : waitingTeamCountList[1];
+            countL === 1 ? nextBattleBoothIndex[0] : nextBattleBoothIndex[1];
         }
         // 12의 경우
         // 대기 중인 1로 배치
-        else if (countL + countR === 2) {
+        else if (countL + countR === 3) {
           nextIndex =
-            countL === 1 ? waitingTeamCountList[0] : waitingTeamCountList[1];
+            countL === 1 ? nextBattleBoothIndex[0] : nextBattleBoothIndex[1];
         }
         // 02의 경우
         // 아무 곳이나 상관 없지만 0으로 배치
         else if (countL + countR === 2 && countL * countR === 0) {
           nextIndex =
-            countL === 0 ? waitingTeamCountList[0] : waitingTeamCountList[1];
+            countL === 0 ? nextBattleBoothIndex[0] : nextBattleBoothIndex[1];
         }
         // 에러
         else {
-          console.log(waitingTeamCountList);
+          console.log(nextBattleBoothIndex);
           return { message: '2 Booth Error' };
         }
       }
@@ -132,6 +137,8 @@ export class GameService {
       this.redis.hincrby('map', currIndex, -1);
       this.redis.hincrby('map', nextIndex, 1);
       this.redis.set(teamId, nextIndex);
+
+      return { nextIndex };
     }
     // 현재 라인에서 주사위를 굴린 경우
     else {
@@ -141,6 +148,8 @@ export class GameService {
       this.redis.hincrby('map', currIndex, -1);
       this.redis.hincrby('map', nextIndex, 1);
       this.redis.set(teamId, nextIndex);
+
+      return { nextIndex };
     }
   }
 
