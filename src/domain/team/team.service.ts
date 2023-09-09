@@ -63,7 +63,7 @@ export class TeamService {
   // View Team Score
   async getTeamScore(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
-    return { code: 200, teamId, score: teamRow.score };
+    return { code: 200, teamId, teamName: teamRow.name, score: teamRow.score };
   }
 
   // UserService에서 호출

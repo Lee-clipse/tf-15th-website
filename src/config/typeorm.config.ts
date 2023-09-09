@@ -9,7 +9,6 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   constructor(private readonly configService: ConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
-    console.log(this.configService.get<string>('HOST'));
     return {
       type: 'mysql',
       host: this.configService.get<string>('HOST'),
