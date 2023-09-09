@@ -19,7 +19,7 @@ export const ScoreTitle = styled.p`
   font-size: ${(props) => props.theme.font.size.L};
   text-align: center;
 
-  margin-top: 4rem;
+  margin-top: 3rem;
 `;
 
 // 팀이 있을 경우
@@ -66,7 +66,7 @@ export const ScoreButton = styled.button`
 // 현재 참가 가능한 팀 목록
 
 export const TeamListSection = styled.div`
-  margin-top: 6rem;
+  margin-top: 4rem;
 `;
 
 export const ListTitle = styled.p`

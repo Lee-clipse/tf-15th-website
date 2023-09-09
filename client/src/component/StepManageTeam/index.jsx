@@ -4,10 +4,8 @@ import axios from "axios";
 import { ENV, API } from "@constants/env";
 
 const StepManageTeam = ({ userInfo, teamList }) => {
-  //! FOR DEV
-  const teamName = "-";
-
   const [score, setScore] = useState("");
+  const [teamName, setTeamName] = useState(userInfo.teamName);
   const [teamCounts, setTeamCounts] = useState(null);
 
   const handleScoreChange = (e) => {
@@ -57,8 +55,9 @@ const StepManageTeam = ({ userInfo, teamList }) => {
     } else {
       setTeamCounts((prevCounts) => ({
         ...prevCounts,
-        [thisTeamId]: res.data.count.count,
+        [thisTeamId]: res.data.count,
       }));
+      setTeamName(res.data.teamName);
       alert(`${userInfo.name}님 ${thisTeamName}팀 참가!`);
     }
   };
