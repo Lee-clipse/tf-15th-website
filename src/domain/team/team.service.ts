@@ -32,7 +32,9 @@ export class TeamService {
 
   // Plus Team Score
   async plusTeamScore(teamId: string, plusScore: number) {
-    this.teamRepository.update(teamId, { score: () => `score + ${plusScore}` });
+    await this.teamRepository.update(teamId, {
+      score: () => `score + ${plusScore}`,
+    });
     const teamRow = await this.getTeamRow(teamId);
     return { code: 200, score: teamRow.score };
   }
@@ -40,7 +42,7 @@ export class TeamService {
   // UserService에서 호출
   // 해당 팀의 멤버 수를 증가
   async plusTeamCount(teamId: string) {
-    this.teamRepository.update(teamId, { count: () => 'count + 1' });
+    await this.teamRepository.update(teamId, { count: () => 'count + 1' });
     const teamRow = await this.getTeamRow(teamId);
     return { count: teamRow.count + 1 };
   }

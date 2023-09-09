@@ -77,7 +77,7 @@ export class UserService {
     }
 
     // 등록
-    this.userRepository.update(userId, { teamId: teamId });
+    await this.userRepository.update(userId, { teamId: teamId });
     const count = await this.teamService.plusTeamCount(teamId);
     return { code: 200, teamId, count };
   }
