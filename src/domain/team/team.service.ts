@@ -21,13 +21,14 @@ export class TeamService {
     const teamId = md5(currentTime.toISOString());
 
     const teamName = teamNameGenerate();
-    this.teamRepository.save({
+    const teamRow = {
       id: teamId,
       name: teamName,
       score: -100,
       count: 0,
-    });
-    return { code: 200, teamId, count: 0 };
+    };
+    this.teamRepository.save(teamRow);
+    return { code: 200, teamRow };
   }
 
   // Plus Team Score
