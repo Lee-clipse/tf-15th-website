@@ -9,6 +9,8 @@ export const StepWrapper = styled.div`
   width: 100%;
 `;
 
+export const StepContainer = styled.div``;
+
 export const TeamScoreSection = styled.div``;
 
 export const ScoreTitle = styled.p`
