@@ -65,6 +65,13 @@ export class TeamService {
     return { code: 200, teamId, score: teamRow.score };
   }
 
+  // UserService에서 호출
+  // 현재 팀 이름을 반환
+  async getTeamName(teamId: string) {
+    const teamRow = await this.getTeamRow(teamId);
+    return teamRow.name;
+  }
+
   async getTeamRow(teamId: string) {
     return await this.teamRepository
       .createQueryBuilder('team')

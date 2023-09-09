@@ -51,7 +51,11 @@ export class UserService {
 
     // 현재 정원 미달 팀들의 정보
     const teamList = await this.teamService.getWaitingTeam();
-    return { code: 200, userInfo, teamList };
+    let teamName = '-';
+    if (userInfo.teamId !== '-') {
+      teamName = await this.teamService.getTeamName(userInfo.teamId);
+    }
+    return { code: 200, userInfo: { ...userInfo, teamName }, teamList };
   }
 
   // Join User
@@ -79,7 +83,7 @@ export class UserService {
     // 등록
     await this.userRepository.update(userId, { teamId: teamId });
     const count = await this.teamService.plusTeamCount(teamId);
-    return { code: 200, teamId, count };
+    return { code: 200, teamId, teamName: teamRow.name, count };
   }
 
   // Get User Team
