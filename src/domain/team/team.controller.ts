@@ -46,7 +46,7 @@ export class TeamController {
   }
 
   // View Team Score
-  @Get('score')
+  @Get('/score')
   @ApiOperation({
     summary: '팀 점수 조회',
   })

@@ -44,7 +44,7 @@ export class TeamService {
   async plusTeamCount(teamId: string) {
     await this.teamRepository.update(teamId, { count: () => 'count + 1' });
     const teamRow = await this.getTeamRow(teamId);
-    return { count: teamRow.count + 1 };
+    return teamRow.count;
   }
 
   // View Waiting Team
