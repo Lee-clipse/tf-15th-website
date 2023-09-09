@@ -23,6 +23,9 @@ export class UserEntity {
   @Column({})
   donation!: number;
 
+  @Column({})
+  date!: string;
+
   // zero game
   @Column({ name: 'team_id' })
   teamId!: string;

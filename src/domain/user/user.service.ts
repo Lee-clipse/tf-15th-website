@@ -6,6 +6,7 @@ import { UserFormDto } from './dto/user_form.dto';
 import * as md5 from 'md5';
 import { TeamService } from '../team/team.service';
 import { UserJoinDto } from './dto/user_join.dto';
+import { getCurrentDateTime } from 'src/utils/utils';
 
 @Injectable()
 export class UserService {
@@ -27,6 +28,7 @@ export class UserService {
       ...userForm,
       teamId: '-',
       score: 0,
+      date: getCurrentDateTime(),
     });
     return { code: 200, userId };
   }

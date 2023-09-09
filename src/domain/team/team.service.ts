@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TeamEntity } from './entity/team.entity';
-import { teamNameGenerate } from 'src/utils/team_name.generate';
+import { teamNameGenerate } from 'src/utils/utils';
 import * as md5 from 'md5';
 
 @Injectable()
