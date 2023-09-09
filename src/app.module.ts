@@ -9,8 +9,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath:
-        process.env.NODE_ENV === 'prod' ? './env/prod.env' : './env/test.env',
+      envFilePath: './env/test.env',
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
