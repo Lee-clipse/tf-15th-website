@@ -4,6 +4,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import StepRegisterForm from "@components/StepRegisterForm";
 import QRViewer from "@components/QRViewer";
 import StepGuardView from "@components/StepGuardView";
+import StepTeamCreate from "../../component/StepTeamCreate";
 
 const StepPage = () => {
   const [stepKey, setStepKey] = useState(false);
@@ -28,6 +29,7 @@ const StepPage = () => {
       {/* stepKey에 따라 조건부 랜더링 */}
       {!stepKey && <StepGuardView />}
       {purpose === "qr" && stepKey && <QRViewer userId={userId} />}
+      {purpose === "create" && stepKey && <StepTeamCreate />}
     </div>
   );
 };

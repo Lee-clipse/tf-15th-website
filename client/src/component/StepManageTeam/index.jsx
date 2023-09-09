@@ -43,8 +43,7 @@ const StepManageTeam = ({ userInfo, teamList }) => {
   const handleTeamJoinSubmit = async (e) => {
     const [thisTeamId, thisTeamName] = e.target.id.split("/");
     // API: Join User
-    //! DEV
-    const res = await axios.post(ENV.SERVER_DEV_DOMAIN + API.JOIN_USER, {
+    const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.JOIN_USER, {
       userId: userInfo.id,
       teamId: thisTeamId,
     });
