@@ -11,9 +11,7 @@ import PageTemplate from "../PageTemplate";
 
 const QRPage = () => {
   const location = useLocation();
-  //! TEMP FOR DEV
   const userId = location.state.userId;
-  // const userId = "51da7992e107910cd713c4761773877b";
 
   const [show, setShow] = useState(false);
   const [qrImageUrl, setQrImageUrl] = useState("");
@@ -29,6 +27,8 @@ const QRPage = () => {
       setQrImageUrl(url);
     });
     setShow(true);
+    // LS에 저장
+    localStorage.setItem("userId", userId);
   }, [userId]);
 
   return (
