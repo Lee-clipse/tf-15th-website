@@ -6,27 +6,19 @@ export const Wrapper = styled.div`
   align-items: center;
 
   width: 100vw;
-  height: 100vh;
+  padding: 4rem 0rem;
 
   background: ${(props) => props.theme.color.MAIN_BLUE};
 `;
 
 export const Container = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
 
   width: 100%;
   height: 100%;
-
-  padding: 2rem 0rem 4rem 0rem;
-`;
-
-export const TeamScore = styled.p`
-  color: ${(props) => props.theme.color.TEXT_WHITE};
-  font-family: ${(props) => props.theme.font.BOLD};
-  font-size: ${(props) => props.theme.font.size.XXL};
 `;
 
 export const TeamName = styled.p`
@@ -35,14 +27,26 @@ export const TeamName = styled.p`
   font-size: ${(props) => props.theme.font.size.XXL};
 `;
 
+export const TeamScore = styled.p`
+  color: ${(props) => props.theme.color.TEXT_WHITE};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.XXL};
+
+  margin-top: 2rem;
+`;
+
 export const TeamIndex = styled.p`
   color: ${(props) => props.theme.color.TEXT_WHITE};
   font-family: ${(props) => props.theme.font.BOLD};
   font-size: ${(props) => props.theme.font.size.XXL};
+
+  margin-top: 3rem;
 `;
 
 export const Board = styled.img`
-  width: 90vw;
+  width: 80vw;
+
+  margin-top: 3rem;
 `;
 
 export const DiceButton = styled.button`
@@ -55,4 +59,28 @@ export const DiceButton = styled.button`
   padding: 1rem;
   width: 80vw;
   border: 0.36rem solid rgba(0, 0, 0, 1);
+
+  margin-top: 3rem;
+`;
+
+export const TeamQRWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 3rem;
+`;
+export const QRLabel = styled.p`
+  color: ${(props) => props.theme.color.TEXT_WHITE};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.XXL};
+`;
+
+export const ArrowIcon = styled.img`
+  width: 3rem;
+  margin: 1rem 0rem 2rem 0rem;
+`;
+export const TeamQR = styled.img`
+  width: 60vw;
 `;
