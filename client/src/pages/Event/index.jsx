@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import * as s from "./style";
 import PageTemplate from "../PageTemplate";
 import TopNavBar from "@common/layer/TopNavBar";
+import { Link } from "react-router-dom";
+import { RoutePath } from "@constants/enums";
 
 const EventPage = () => {
   useEffect(() => {
@@ -21,10 +23,12 @@ const EventPage = () => {
           스테이지 액티비티 소개
           <s.ArrowIcon src="/assets/right_arrow.svg" />
         </s.Button>
-        <s.Button>
-          제로게임 소개
-          <s.ArrowIcon src="/assets/right_arrow.svg" />
-        </s.Button>
+        <Link to={RoutePath.MISSION}>
+          <s.Button>
+            제로게임 소개
+            <s.ArrowIcon src="/assets/right_arrow.svg" />
+          </s.Button>
+        </Link>
       </s.Wrapper>
     </PageTemplate>
   );

@@ -9,4 +9,5 @@ export const RoutePath = {
   MISSION: "/mission",
   STEP: "/step/:purpose",
   NOTFOUND: "*",
+  ZEROGAME: "/zerogame",
 };

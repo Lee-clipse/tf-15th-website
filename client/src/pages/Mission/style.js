@@ -1,17 +1,18 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  margin: 0;
   background: ${(props) => props.theme.color.DEEP_BLUE};
 `;
 
-export const poster = styled.img`
+export const Poster = styled.img`
   width: 100%;
 `;
 
-export const BoardPoster = styled.img`
-  width: 100%;
+export const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
-  position: relative;
-  bottom: 12rem;
+  margin: 5rem 0rem 10rem 0rem;
 `;
+export const ZeroGameButton = styled.img``;

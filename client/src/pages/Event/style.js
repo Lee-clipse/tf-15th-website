@@ -8,11 +8,13 @@ export const Wrapper = styled.div`
 
   width: 100%;
   margin-top: 9vh;
+
+  padding-bottom: 6rem;
 `;
 
 export const poster = styled.img`
-  width: 100%;
-  height: 56vh;
+  width: 80vw;
+  height: 100%;
 `;
 
 export const Button = styled.div`
