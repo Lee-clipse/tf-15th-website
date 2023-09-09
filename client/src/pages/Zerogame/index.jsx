@@ -16,9 +16,11 @@ const ZerogamePage = () => {
 
   const getTeamData = async () => {
     try {
+      // API: View Team Score
       const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.VIEW_TEAM_SCORE, {
         params: { teamId },
       });
+      // API: View Map Index
       const resRedis = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.VIEW_MAP_INDEX, {
         params: { teamId },
       });
@@ -30,7 +32,7 @@ const ZerogamePage = () => {
         index: resRedis.data.index,
       });
     } catch (error) {
-      Swal.fire("API 접근 오류", "", "error");
+      Swal.fire("API 접근 오류", "API: View Team Score, View Map Index", "error");
     }
   };
 
@@ -40,6 +42,42 @@ const ZerogamePage = () => {
     QRCode.toDataURL(qrUrl, function (err, url) {
       setQrImageUrl(url);
     });
+  };
+
+  const rollDice = async () => {
+    const prevIndex = Number(teamData.index);
+    // API: Roll Dice
+    const res = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.ROLL_DICE, {
+      teamId,
+    });
+    setTeamData((prevTeamData) => ({
+      ...prevTeamData,
+      index: res.data.nextIndex,
+    }));
+    const nextIndex = Number(res.data.nextIndex);
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "center-center",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: `${nextIndex % 10 !== 0 ? nextIndex - prevIndex : "대기소로"} 이동!`,
+    });
+
+    if (nextIndex === 0 || nextIndex === 50) {
+      Swal.fire("제로게임 종료!", `${teamData.score} 점으로 종료했습니다.`, "success");
+      return;
+    }
+    console.log(nextIndex);
   };
 
   useEffect(() => {
@@ -58,7 +96,7 @@ const ZerogamePage = () => {
           <s.TeamScore>{teamData.score} 점</s.TeamScore>
           <s.Board src="/assets/board.svg" />
           <s.TeamIndex>현 위치: {Booth[teamData.index]}</s.TeamIndex>
-          <s.DiceButton>주사위 굴리기</s.DiceButton>
+          <s.DiceButton onClick={rollDice}>주사위 굴리기</s.DiceButton>
           <s.TeamQRWrapper>
             <s.QRLabel>우리 팀 QR 코드</s.QRLabel>
             <s.ArrowIcon src="/assets/down_arrow_double_white.svg" />
