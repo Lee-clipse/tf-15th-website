@@ -57,8 +57,8 @@ export const ScoreButton = styled.button`
   margin-top: 4rem;
 
   color: ${(props) => props.theme.color.TEXT_WHITE};
-  font-family: ${(props) => props.theme.font.BOLD};
-  font-size: ${(props) => props.theme.font.size.M};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.L};
 `;
 
 // 현재 참가 가능한 팀 목록
