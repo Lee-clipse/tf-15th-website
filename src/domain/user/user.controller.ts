@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { ApiOperation, ApiTags, ApiBody, ApiQuery } from '@nestjs/swagger';
 import { UserFormDto } from './dto/user_form.dto';
 import { UserJoinDto } from './dto/user_join.dto';
+import { UserScoreDto } from './dto/user_score.dto';
 
 @Controller('api/user')
 @ApiTags('USER API')
@@ -73,5 +74,16 @@ export class UserController {
   })
   async getUserTeam(@Query('userId') userId: string) {
     return this.userService.getUserTeam(userId);
+  }
+
+  // Plus User Score
+  @Post('/plus')
+  @ApiOperation({
+    summary: '사용자 개인 점수 추가',
+  })
+  @ApiBody({ type: () => UserScoreDto })
+  async plusUserScore(@Body() userScoreDto: UserScoreDto) {
+    const { userId, score } = userScoreDto;
+    return this.userService.plusUserScore(userId, score);
   }
 }

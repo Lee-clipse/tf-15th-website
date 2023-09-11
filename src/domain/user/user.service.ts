@@ -113,6 +113,15 @@ export class UserService {
     );
   }
 
+  // Plus User Score
+  async plusUserScore(userId: string, score: number) {
+    await this.userRepository.update(userId, {
+      score: () => `score + ${score}`,
+    });
+    const userRow = await this.getUserRow(userId);
+    return { code: 200, score: userRow.score };
+  }
+
   async getUserRow(userId: string) {
     return await this.userRepository
       .createQueryBuilder('user')
