@@ -14,7 +14,7 @@ const EventPage = () => {
     <PageTemplate>
       <TopNavBar title={"이벤트"} />
       <s.Wrapper>
-        <s.poster src="/assets/event_main.svg" />
+        <s.Poster src="/assets/event_main.svg" />
         <Link to={RoutePath.EVENT_GROUP}>
           <s.Button>
             소그룹 소개

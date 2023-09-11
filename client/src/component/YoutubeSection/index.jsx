@@ -10,8 +10,8 @@ const YoutubeSection = () => {
     },
     {
       img: "/assets/thumbnail2.png",
-      src: "https://www.youtube.com/embed/Q65BCu8f9MU?si=magM9PqqPS1qR49I",
-      label: "청건부산 행사 리뷰",
+      src: "https://www.youtube.com/watch?v=HUtlB3kCTIc&ab_channel=%EC%B2%AD%EA%B1%B4%EB%B6%80%EC%82%B0",
+      label: "UCC: 환경오염 재판",
     },
     {
       img: "/assets/thumbnail3.png",

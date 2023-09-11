@@ -8,6 +8,7 @@ import TopNavBar from "@common/layer/TopNavBar";
 import { RoutePath } from "@constants/enums";
 import { ENV, API } from "@constants/env";
 import Swal from "sweetalert2";
+import inputChecker from "./inputChecker";
 
 const QRReconfirmPage = () => {
   useEffect(() => {
@@ -31,12 +32,15 @@ const QRReconfirmPage = () => {
   };
 
   const handleSubmit = async () => {
-    const { name, phoneNumber } = formData;
-    if (!name || !phoneNumber) {
-      Swal.fire("입력 오류!", "모든 항목을 입력해주세요.", "error");
+    // 입력 검증 후 alert
+    const { isValid, title, comment, type } = inputChecker(formData);
+    if (!isValid) {
+      Swal.fire(title, comment, type);
       return;
     }
+
     try {
+      // API: Reconfirm QR
       const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.RECONFIRM_QR, {
         params: {
           name: formData.name,
@@ -53,7 +57,7 @@ const QRReconfirmPage = () => {
         Swal.fire("접근 오류!", "접수되지 않은 사용자입니다.", "error");
       }
     } catch (error) {
-      console.error(error);
+      Swal.fire("API 오류!", "API: Reconfirm QR", "error");
     }
   };
 
