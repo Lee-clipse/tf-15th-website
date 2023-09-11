@@ -31,16 +31,20 @@ const TeamQRViewer = ({ teamId }) => {
 
   const handleScoreSubmit = async () => {
     if (Number(score) !== 0) {
-      // API: Plus Team Score
-      const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.PLUS_TEAM_SCORE, {
-        teamId,
-        score: Number(score),
-      });
-      Swal.fire(`${Number(score)}점 추가!`, `현재 ${res.data.score}점`, "success");
-      setTeamData((prevTeamData) => ({
-        ...prevTeamData,
-        score: res.data.score,
-      }));
+      try {
+        // API: Plus Team Score
+        const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.PLUS_TEAM_SCORE, {
+          teamId,
+          score: Number(score),
+        });
+        Swal.fire(`${Number(score)}점 추가!`, `현재 ${res.data.score}점`, "success");
+        setTeamData((prevTeamData) => ({
+          ...prevTeamData,
+          score: res.data.score,
+        }));
+      } catch (error) {
+        Swal.fire("API 오류!", "API: Plus Team Score", "error");
+      }
     } else {
       Swal.fire(`점수를 입력해주세요.`, "", "error");
     }
@@ -54,7 +58,7 @@ const TeamQRViewer = ({ teamId }) => {
   return (
     <s.Wrapper>
       {teamData && (
-        <s.TeamScoreSection>
+        <s.TeamSection>
           <s.ScoreTitle>{teamData.teamName} 팀</s.ScoreTitle>
           <s.CurrScore>현재 {teamData.score} 점</s.CurrScore>
           <s.ScorePlusSection>
@@ -66,7 +70,12 @@ const TeamQRViewer = ({ teamId }) => {
             />
             <s.ScoreButton onClick={handleScoreSubmit}>점수 추가</s.ScoreButton>
           </s.ScorePlusSection>
-        </s.TeamScoreSection>
+
+          <s.TeamBreakSection>
+            <s.WarningLabel>제로게임 종료 후 팀 해체</s.WarningLabel>
+            <s.BreakButton>팀 해체</s.BreakButton>
+          </s.TeamBreakSection>
+        </s.TeamSection>
       )}
     </s.Wrapper>
   );
