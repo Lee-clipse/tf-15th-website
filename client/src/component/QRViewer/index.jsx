@@ -4,19 +4,25 @@ import * as s from "./style";
 import axios from "axios";
 import { ENV, API } from "@constants/env";
 import StepManageTeam from "../StepManageTeam";
+import Swal from "sweetalert2";
 
 const QRViewer = ({ userId }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [teamList, setTeamList] = useState(null);
 
   const handleUserInfoLoad = async () => {
-    const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.USER_INFO, {
-      params: { userId },
-    });
-    const newUserInfo = res.data.userInfo;
-    const newTeamList = res.data.teamList;
-    setUserInfo(newUserInfo);
-    setTeamList(newTeamList);
+    try {
+      // API: Get User Info
+      const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.USER_INFO, {
+        params: { userId },
+      });
+      const newUserInfo = res.data.userInfo;
+      const newTeamList = res.data.teamList;
+      setUserInfo(newUserInfo);
+      setTeamList(newTeamList);
+    } catch (error) {
+      Swal.fire("API 오류", "API: Get User Info", "error");
+    }
   };
 
   useEffect(() => {
