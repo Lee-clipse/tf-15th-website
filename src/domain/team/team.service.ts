@@ -57,6 +57,7 @@ export class TeamService {
       .where('team.count < :TEAM_MAX_COUNT', {
         TEAM_MAX_COUNT: this.TEAM_MAX_COUNT,
       })
+      .andWhere('team.id != :DASH', { DASH: '-' })
       .getMany();
   }
 

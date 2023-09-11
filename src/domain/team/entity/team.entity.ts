@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn, OneToMany } from 'typeorm';
+import { UserEntity } from '../../user/entity/user.entity';
 
 @Entity({ name: 'team' })
 export class TeamEntity {
@@ -13,4 +14,8 @@ export class TeamEntity {
 
   @Column({})
   count!: number;
+
+  // JOIN
+  @OneToMany(() => UserEntity, (user) => user.team)
+  users: UserEntity[];
 }

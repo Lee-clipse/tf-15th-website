@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { TeamEntity } from '../../team/entity/team.entity';
 
 @Entity({ name: 'user' })
 export class UserEntity {
-  @PrimaryColumn('uuid', { name: 'user_id' })
+  @PrimaryColumn({ name: 'user_id' })
   id!: string;
 
   @Column({})
@@ -32,4 +33,9 @@ export class UserEntity {
 
   @Column({})
   score!: number;
+
+  // JOIN
+  @ManyToOne(() => TeamEntity, (team) => team.users, { nullable: true })
+  @JoinColumn({ name: 'team_id' })
+  team!: TeamEntity;
 }
