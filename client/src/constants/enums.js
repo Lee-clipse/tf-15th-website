@@ -6,6 +6,8 @@ export const RoutePath = {
   RECONFIRM_QR: "/reconfirm-qr",
   INTRODUCE: "/introduce",
   EVENT: "/event",
+  EVENT_GROUP: "/event-group",
+  EVENT_STAGE: "/event-stage",
   MISSION: "/mission",
   STEP: "/step/:purpose",
   NOTFOUND: "*",

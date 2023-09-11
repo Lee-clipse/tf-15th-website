@@ -14,15 +14,20 @@ const EventPage = () => {
     <PageTemplate>
       <TopNavBar title={"이벤트"} />
       <s.Wrapper>
-        <s.poster src="/assets/event_main.png" />
-        <s.Button>
-          소그룹 소개
-          <s.ArrowIcon src="/assets/right_arrow.svg" />
-        </s.Button>
-        <s.Button>
-          스테이지 액티비티 소개
-          <s.ArrowIcon src="/assets/right_arrow.svg" />
-        </s.Button>
+        <s.poster src="/assets/event_main.svg" />
+        <Link to={RoutePath.EVENT_GROUP}>
+          <s.Button>
+            소그룹 소개
+            <s.ArrowIcon src="/assets/right_arrow.svg" />
+          </s.Button>
+        </Link>
+        <Link to={RoutePath.EVENT_STAGE}>
+          <s.Button>
+            스테이지 액티비티 소개
+            <s.ArrowIcon src="/assets/right_arrow.svg" />
+          </s.Button>
+        </Link>
+
         <Link to={RoutePath.MISSION}>
           <s.Button>
             제로게임 소개

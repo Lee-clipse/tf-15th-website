@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 `;
 
 export const poster = styled.img`
-  width: 80vw;
+  width: 100vw;
   height: 100%;
 `;
 
