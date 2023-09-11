@@ -68,7 +68,7 @@ const MissionPage = () => {
       <TopNavBar title={"제로게임 미션"} fixed={false} />
       <s.Wrapper>
         <s.Poster src="/assets/zerogame_poster1.svg" />
-        <s.Poster src="/assets/zerogame_poster2.svg" />
+        <s.Poster2nd src="/assets/zerogame_poster2.svg" />
         <s.Poster src="/assets/zerogame_poster3.svg" />
         <s.ButtonWrapper>
           <s.ZeroGameButton src="/assets/zerogame_go_button.svg" onClick={routeToZeroGame} />

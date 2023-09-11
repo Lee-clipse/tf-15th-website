@@ -8,6 +8,12 @@ export const Poster = styled.img`
   width: 100%;
 `;
 
+export const Poster2nd = styled.img`
+  width: 100%;
+  position: relative;
+  bottom: 13px;
+`;
+
 export const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
