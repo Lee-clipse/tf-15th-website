@@ -13,6 +13,7 @@ import TopNavBar from "@common/layer/TopNavBar";
 import { RoutePath } from "@constants/enums";
 import { ENV, API } from "@constants/env";
 import Swal from "sweetalert2";
+import inputChecker from "./inputChecker";
 
 const RegisterPage = () => {
   useEffect(() => {
@@ -55,11 +56,13 @@ const RegisterPage = () => {
 
   // 제출 버튼 클릭
   const handleSubmit = async () => {
-    const { name, age, phoneNumber, location, agreePI, donation } = formData;
-    if (!name || !age || !phoneNumber || !location || !agreePI || !donation) {
-      Swal.fire("입력 오류!", "모든 항목을 입력해주세요.", "error");
+    // 입력 검증 후 alert
+    const { isValid, title, comment, type } = inputChecker(formData);
+    if (!isValid) {
+      Swal.fire(title, comment, type);
       return;
     }
+
     try {
       // API: Register User
       const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.USER_REGISTER, formData);
