@@ -7,14 +7,16 @@ export const Wrapper = styled.div`
   flex-direction: column;
 
   width: 100%;
-  margin-top: 9vh;
+  margin-top: 12vh;
 
   padding-bottom: 6rem;
 `;
 
-export const poster = styled.img`
-  width: 100vw;
+export const Poster = styled.img`
+  width: 93vw;
   height: 100%;
+
+  margin-bottom: 2vh;
 `;
 
 export const Button = styled.div`
