@@ -50,6 +50,35 @@ const TeamQRViewer = ({ teamId }) => {
     }
   };
 
+  const handleBreakTeam = async () => {
+    try {
+      // API: Break Team
+      await axios.post(ENV.SERVER_PROD_DOMAIN + API.BREAK_TEAM, {
+        teamId,
+      });
+
+      Swal.fire({
+        title: `정말로 ${teamData.teamName}팀을 해체하시겠습니까?`,
+        text: "다시 되돌릴 수 없습니다.",
+        icon: "warning",
+
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "확인",
+        cancelButtonText: "취소",
+
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(`${teamData.teamName}팀이 해체되었습니다.`, "", "success");
+        }
+      });
+    } catch (error) {
+      Swal.fire("API 오류!", "API: Break Team", "error");
+    }
+  };
+
   useEffect(() => {
     // 랜더링 전 데이터 받아오기
     getTeamData();
@@ -73,7 +102,7 @@ const TeamQRViewer = ({ teamId }) => {
 
           <s.TeamBreakSection>
             <s.WarningLabel>제로게임 종료 후 팀 해체</s.WarningLabel>
-            <s.BreakButton>팀 해체</s.BreakButton>
+            <s.BreakButton onClick={handleBreakTeam}>팀 해체</s.BreakButton>
           </s.TeamBreakSection>
         </s.TeamSection>
       )}

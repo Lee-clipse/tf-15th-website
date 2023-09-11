@@ -29,7 +29,7 @@ const MissionPage = () => {
       });
 
       const teamId = localStorage.getItem("teamId");
-      if (teamId === null) {
+      if (teamId === null || teamId === "-") {
         const thisTeamId = res.data.userInfo.teamId;
         if (thisTeamId === "-") {
           Swal.fire(
