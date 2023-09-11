@@ -28,15 +28,24 @@ export const DonationContents = styled.p`
 
 export const SectionWrapper = styled.div``;
 
-export const Select = styled.select`
-  width: 100%;
-  padding: 0.5rem;
-  border: 0.1rem solid ${(props) => props.theme.color.TEXT_BLACK};
+export const InputWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const Input = styled.input`
+  width: 90%;
+  color: ${(props) => props.theme.color.TEXT_BLACK};
   font-family: ${(props) => props.theme.font.NORMAL};
-  border-radius: 0.3rem;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  font-size: ${(props) => props.theme.font.size.S};
+`;
+
+export const MoneyFormText = styled.span`
+  color: ${(props) => props.theme.color.TEXT_BLACK};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.S};
 `;
 
 export const BlueHighlightText = styled.span`

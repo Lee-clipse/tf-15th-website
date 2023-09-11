@@ -46,7 +46,7 @@ const RegisterPage = () => {
   };
 
   // 6 질문
-  const handleSelectDonation = (donation) => {
+  const handleInputDonation = (donation) => {
     setFormData((prevData) => ({
       ...prevData,
       donation: donation,
@@ -61,15 +61,15 @@ const RegisterPage = () => {
       return;
     }
     try {
+      // API: Register User
       const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.USER_REGISTER, formData);
       navigate(RoutePath.QR, {
         state: {
           userId: res.data.userId,
         },
       });
-      console.log(res.data);
     } catch (error) {
-      console.error(error);
+      Swal.fire("API 접근 오류", "API: Register User", "error");
     }
   };
 
@@ -110,7 +110,7 @@ const RegisterPage = () => {
 
         <s.PlaneSectionWrapper>
           <PlaneSection key="donation">
-            <DonationForm onSelectDonation={handleSelectDonation} />
+            <DonationForm onInputDonation={handleInputDonation} />
           </PlaneSection>
         </s.PlaneSectionWrapper>
 

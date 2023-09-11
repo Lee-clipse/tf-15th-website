@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import * as s from "./style";
 import PageTemplate from "../PageTemplate";
 import TopNavBar from "@common/layer/TopNavBar";
 import IntroSection from "../../component/IntroSection";

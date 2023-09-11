@@ -35,6 +35,7 @@ const StepTeamCreate = () => {
     const gameRes = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.INIT_TEAM_MAP_INDEX, {
       teamId: res.data.teamRow.id,
     });
+    console.log(gameRes);
 
     Swal.fire(`${res.data.teamRow.name}팀이 생성되었습니다!`, "", "success");
   };

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import * as s from "./style";
 import { useParams, useSearchParams } from "react-router-dom";
 import StepRegisterForm from "@components/StepRegisterForm";
 import QRViewer from "@components/QRViewer";
