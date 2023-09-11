@@ -1,15 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TeamEntity } from './entity/team.entity';
 import { teamNameGenerate } from 'src/utils/utils';
 import * as md5 from 'md5';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class TeamService {
   constructor(
     @InjectRepository(TeamEntity)
     private teamRepository: Repository<TeamEntity>,
+    @Inject(forwardRef(() => UserService))
+    private readonly userService: UserService,
   ) {}
 
   TEAM_MAX_COUNT = 5;
@@ -65,6 +68,27 @@ export class TeamService {
   async getTeamScore(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
     return { code: 200, teamId, teamName: teamRow.name, score: teamRow.score };
+  }
+
+  // Break Team
+  async breakTeam(teamId: string) {
+    const teamRow = await this.getTeamRow(teamId);
+
+    // 팀에 속한 모든 유저 가져오기
+    const usersList = await this.teamRepository
+      .createQueryBuilder('team')
+      .relation('users')
+      .of(teamRow)
+      .loadMany();
+
+    // 유저들의 score를 팀의 score로 업데이트
+    const userIdList = usersList.map((entity) => entity.id);
+    await this.userService.updateUserToSolo(userIdList, teamId, teamRow.score);
+
+    // 팀의 count를 0으로 업데이트
+    await this.teamRepository.update(teamId, { count: 0 });
+
+    return { code: 200 };
   }
 
   // UserService에서 호출

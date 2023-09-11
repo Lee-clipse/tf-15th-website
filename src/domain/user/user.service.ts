@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './entity/user.entity';
@@ -13,6 +13,7 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
+    @Inject(forwardRef(() => TeamService))
     private readonly teamService: TeamService,
   ) {}
 
@@ -95,6 +96,21 @@ export class UserService {
       return { code: 404, message: 'Undefined User' };
     }
     return { code: 200, teamId: userRow.teamId };
+  }
+
+  // Team Service에서 호출
+  // Break Team
+  async updateUserToSolo(userIdList: string[], teamId: string, score: number) {
+    await Promise.all(
+      userIdList.map(async (userId) => {
+        await this.userRepository
+          .createQueryBuilder('user')
+          .update()
+          .set({ score: score, teamId: '-' })
+          .where('user.user_id = :userId', { userId })
+          .execute();
+      }),
+    );
   }
 
   async getUserRow(userId: string) {

@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { TeamService } from './team.service';
 import { TeamScoreDto } from './dto/team_score.dto';
+import { TeamBreakDto } from './dto/team_break.dto';
 
 @Controller('api/team')
 @ApiTags('TEAM API')
@@ -56,5 +57,16 @@ export class TeamController {
   })
   async getUserInfo(@Query('teamId') teamId: string) {
     return this.teamService.getTeamScore(teamId);
+  }
+
+  // Break
+  @Post('/break')
+  @ApiOperation({
+    summary: '팀 해체',
+  })
+  @ApiBody({ type: () => TeamBreakDto })
+  async breakTeam(@Body() teamBreakDto: TeamBreakDto) {
+    const { teamId } = teamBreakDto;
+    return this.teamService.breakTeam(teamId);
   }
 }

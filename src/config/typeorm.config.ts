@@ -18,6 +18,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       database: this.configService.get<string>('DATABASE'),
       entities: [UserEntity, TeamEntity],
       synchronize: true,
+      logging: true,
     };
   }
 }
