@@ -49,7 +49,7 @@ const RegisterPage = () => {
   const handleInputDonation = (donation) => {
     setFormData((prevData) => ({
       ...prevData,
-      donation: donation,
+      donation: Number(donation.replace(/,/g, "")),
     }));
   };
 
