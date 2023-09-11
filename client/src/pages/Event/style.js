@@ -24,13 +24,13 @@ export const Button = styled.div`
 
   background: ${(props) => props.theme.color.BACKGROUND};
   border-radius: 1.4rem;
-  border: 0.26rem solid ${(props) => props.theme.color.MAIN_BLUE};
+  border: 0.26rem solid ${(props) => props.theme.color.TEXT_LIGHT_BLACK};
 
   width: 80vw;
   padding: 1.2rem 1rem 1rem 2rem;
   margin-top: 2rem;
 
-  color: ${(props) => props.theme.color.MAIN_BLUE};
+  color: ${(props) => props.theme.color.TEXT_LIGHT_BLACK};
   font-family: ${(props) => props.theme.font.BOLD};
   font-size: ${(props) => props.theme.font.size.M};
 `;
