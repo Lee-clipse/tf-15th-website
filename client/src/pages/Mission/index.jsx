@@ -28,12 +28,6 @@ const MissionPage = () => {
         params: { userId },
       });
 
-      const donation = Number(res.data.userInfo.donation);
-      if (donation === 0) {
-        Swal.fire("참가 대상이 아닙니다!", "기부금을 내신 분만 참가하실 수 있습니다.", "warning");
-        return;
-      }
-
       const teamId = localStorage.getItem("teamId");
       if (teamId === null) {
         const thisTeamId = res.data.userInfo.teamId;
