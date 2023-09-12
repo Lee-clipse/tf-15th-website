@@ -10,13 +10,13 @@ const YoutubeSection = () => {
     },
     {
       img: "/assets/thumbnail2.png",
-      src: "https://www.youtube.com/watch?v=HUtlB3kCTIc&ab_channel=%EC%B2%AD%EA%B1%B4%EB%B6%80%EC%82%B0",
-      label: "UCC: 환경오염 재판",
+      src: "https://www.youtube.com/watch?v=74FeFuHP3EU&ab_channel=%EC%B2%AD%EA%B1%B4%EB%B6%80%EC%82%B0",
+      label: "연예인들의 응원 메시지",
     },
     {
       img: "/assets/thumbnail3.png",
-      src: "https://www.youtube.com/embed/1Za0DneslCo?si=EBBy7FRXB1TtieRV",
-      label: "행사 스토리 더빙",
+      src: "https://www.youtube.com/watch?v=HUtlB3kCTIc&ab_channel=%EC%B2%AD%EA%B1%B4%EB%B6%80%EC%82%B0",
+      label: "UCC: 환경오염 재판",
     },
   ];
 
