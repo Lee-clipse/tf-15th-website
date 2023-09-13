@@ -18,7 +18,7 @@ export class TeamService {
   TEAM_MAX_COUNT = 5;
 
   // Create Team
-  createTeam() {
+  async createTeam() {
     // 현재 시간을 시드로 hash 생성
     const currentTime = new Date();
     const teamId = md5(currentTime.toISOString());
@@ -29,7 +29,7 @@ export class TeamService {
       score: -100,
       count: 0,
     };
-    this.teamRepository.save(teamRow);
+    await this.teamRepository.save(teamRow);
     return { code: 200, teamRow };
   }
 

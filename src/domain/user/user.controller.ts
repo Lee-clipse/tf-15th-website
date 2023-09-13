@@ -37,7 +37,7 @@ export class UserController {
     @Query('name') name: string,
     @Query('phoneNumber') phoneNumber: string,
   ) {
-    return this.userService.reconfirmQR(name, phoneNumber);
+    return await this.userService.reconfirmQR(name, phoneNumber);
   }
 
   // View User Info
@@ -50,7 +50,7 @@ export class UserController {
     type: 'string',
   })
   async getUserInfo(@Query('userId') userId: string) {
-    return this.userService.getUserInfo(userId);
+    return await this.userService.getUserInfo(userId);
   }
 
   // Join User
@@ -60,7 +60,7 @@ export class UserController {
   })
   @ApiBody({ type: () => UserJoinDto })
   async joinTeam(@Body() userJoinDto: UserJoinDto) {
-    return this.userService.joinTeam(userJoinDto);
+    return await this.userService.joinTeam(userJoinDto);
   }
 
   // Get User Team
@@ -73,7 +73,7 @@ export class UserController {
     type: 'string',
   })
   async getUserTeam(@Query('userId') userId: string) {
-    return this.userService.getUserTeam(userId);
+    return await this.userService.getUserTeam(userId);
   }
 
   // Get Team Info Of User
@@ -86,7 +86,7 @@ export class UserController {
     type: 'string',
   })
   async getTeamInfoOfTeam(@Query('userId') userId: string) {
-    return this.userService.getTeamInfoOfTeam(userId);
+    return await this.userService.getTeamInfoOfTeam(userId);
   }
 
   // Plus User Score
@@ -97,6 +97,6 @@ export class UserController {
   @ApiBody({ type: () => UserScoreDto })
   async plusUserScore(@Body() userScoreDto: UserScoreDto) {
     const { userId, score } = userScoreDto;
-    return this.userService.plusUserScore(userId, score);
+    return await this.userService.plusUserScore(userId, score);
   }
 }
