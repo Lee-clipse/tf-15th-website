@@ -26,7 +26,7 @@ export const inputChecker = (formData) => {
   }
 
   // 모든 값 입력만 허용
-  if (!name || !age || !phoneNumber || !location || !agreePI || !donation) {
+  if (!name || !age || !phoneNumber || !location || !agreePI) {
     return returnMaker(false, "입력 오류!", "모든 항목을 입력해주세요.", "error");
   }
 
