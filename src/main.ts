@@ -1,12 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { CustomLogger } from './cunstom.logger';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    logger: new CustomLogger(),
-  });
+  const app = await NestFactory.create(AppModule);
+
+  // NestJS log를 winston으로 넘김
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
 
   app.enableCors();
 
