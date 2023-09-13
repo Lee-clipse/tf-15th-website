@@ -9,10 +9,10 @@ export class CustomLoggerService {
   ) {}
 
   error(url: string, title: string, object: any) {
-    this.logger.error(`\n\t<<${url}>> ${title}`, object);
+    this.logger.error(`\n\n\t\t⬤ ⬤ ⬤ ⬤ ⬤\t\t<<${url}>> ${title}`, object);
   }
 
   warn(url: string, title: string, object: any) {
-    this.logger.warn(`\n\t<<${url}>> ${title}`, object);
+    this.logger.warn(`\n\n\t\t⬤ ⬤ ⬤\t\t<<${url}>> ${title}`, object);
   }
 }

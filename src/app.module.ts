@@ -12,7 +12,6 @@ import {
 } from 'nest-winston';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 
-const winstonLevel = 'warn';
 const winstonFormat = winston.format.combine(
   winston.format.timestamp(),
   nestWinstonModuleUtilities.format.nestLike('SERVER', {
@@ -25,13 +24,19 @@ const winstonFormat = winston.format.combine(
     WinstonModule.forRoot({
       transports: [
         new winston.transports.Console({
-          level: winstonLevel,
+          level: 'info',
           format: winstonFormat,
         }),
         new winston.transports.File({
-          dirname: `./logs/${moment(new Date()).format('YYYY-MM-DD')}`,
-          filename: 'history.log',
-          level: winstonLevel,
+          dirname: `./error-logs`,
+          filename: `${moment(new Date()).format('YYYY-MM-DD')}.log`,
+          level: 'warn',
+          format: winstonFormat,
+        }),
+        new winston.transports.File({
+          dirname: `./logs`,
+          filename: `${moment(new Date()).format('YYYY-MM-DD')}.log`,
+          level: 'info',
           format: winstonFormat,
         }),
       ],

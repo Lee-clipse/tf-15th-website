@@ -10,11 +10,11 @@ export class LoggerMiddleware implements NestMiddleware {
     response.on('finish', () => {
       const { statusCode } = response;
       this.logger.log(
-        `\n\t${method} ${originalUrl} ${statusCode} ${ip} \n\tbody: ${JSON.stringify(
+        `\n\t ✦ ${method} ${originalUrl} ${statusCode} ${ip} \n\t ✦ body: ${JSON.stringify(
           body,
-        )} \n\tparams: ${JSON.stringify(params)} \n\tquery: ${JSON.stringify(
-          query,
-        )}`,
+        )} \n\t ✦ params: ${JSON.stringify(
+          params,
+        )} \n\t ✦ query: ${JSON.stringify(query)}`,
       );
     });
     next();
