@@ -109,13 +109,13 @@ export class UserService {
     }
 
     const teamId = userInfo.teamId;
+    const teamRow = await this.teamService.getTeamRow(teamId);
+    const { id, name, score } = teamRow;
     // 소속 팀이 없는 경우
-    if (teamId === '-') {
-      return { code: 200, teamId: '-' };
+    if (id === '-') {
+      return { code: 200, teamId: '-', score };
     }
-    const teamInfo = await this.teamService.getTeamInfo(teamId);
-    const { teamName, score } = teamInfo;
-    return { code: 200, teamId, teamName, score };
+    return { code: 200, teamId: id, teamName: name, score };
   }
 
   // Join User
