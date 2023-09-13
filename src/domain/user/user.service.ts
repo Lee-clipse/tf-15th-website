@@ -7,6 +7,8 @@ import * as md5 from 'md5';
 import { TeamService } from '../team/team.service';
 import { UserJoinDto } from './dto/user_join.dto';
 import { getCurrentDateTime } from 'src/utils/utils';
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { Logger } from 'winston';
 
 @Injectable()
 export class UserService {
@@ -15,6 +17,7 @@ export class UserService {
     private userRepository: Repository<UserEntity>,
     @Inject(forwardRef(() => TeamService))
     private readonly teamService: TeamService,
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
   ) {}
 
   TEAM_MAX_COUNT = 5;
@@ -40,6 +43,7 @@ export class UserService {
     const userId = md5(identifier).toString();
     const userExist = await this.getUserRow(userId);
     if (userExist === null) {
+      this.logger.warn('미접수 사용자', { name, phoneNumber });
       return { code: 404, message: 'Undefined User' };
     }
     return { code: 200, userId };
