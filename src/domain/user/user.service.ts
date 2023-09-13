@@ -24,17 +24,37 @@ export class UserService {
   TEAM_MAX_COUNT = 5;
 
   // Register User
-  registerUser(userForm: UserFormDto) {
+  async registerUser(userForm: UserFormDto) {
     // 이름 + 번호 뒷 4자리 => HASH
-    const identifier = userForm.name + userForm.phoneNumber.slice(-4);
+    const { name, phoneNumber } = userForm;
+    const identifier = name + phoneNumber.slice(-4);
     const userId = md5(identifier).toString();
-    this.userRepository.save({
+    await this.userRepository.save({
       id: userId,
       ...userForm,
       teamId: '-',
       score: 0,
       date: getCurrentDateTime(),
     });
+    const userRow = await this.getUserRow(userId);
+    if (userRow === null) {
+      this.customLogger.writeLog(
+        'error',
+        'POST',
+        '/user/register',
+        'Register 오류 발생',
+        { name, phoneNumber },
+      );
+      // 재저장
+      await this.userRepository.save({
+        id: userId,
+        ...userForm,
+        teamId: '-',
+        score: 0,
+        date: getCurrentDateTime(),
+      });
+      return { code: 404, userId };
+    }
     return { code: 200, userId };
   }
 
@@ -51,6 +71,17 @@ export class UserService {
         '미접수 사용자',
         { name, phoneNumber },
       );
+      // 이름 && 전화번호로 검색
+      const userExist = await this.userRepository
+        .createQueryBuilder('user')
+        .where('user.name = :name', { name })
+        .andWhere('user.phone_number like :phoneNumber', {
+          phoneNumber: `%${phoneNumber}`,
+        })
+        .getOne();
+      if (userExist !== null) {
+        return { code: 200, userId };
+      }
       return { code: 404, message: 'Undefined User' };
     }
     return { code: 200, userId };
