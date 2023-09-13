@@ -66,14 +66,15 @@ export class UserService {
       return { code: 404, message: 'Undefined User' };
     }
 
-    // 현재 정원 미달 팀들의 정보
-    const teamList = await this.teamService.getWaitingTeam();
     let teamName = '-';
     if (userInfo.teamId !== '-') {
       // 사용자의 소속 팀이 존재하는 경우 함께 반환
       const teamInfo = await this.teamService.getTeamInfo(userInfo.teamId);
       teamName = teamInfo.teamName;
     }
+
+    // 현재 정원 미달 팀들의 정보
+    const teamList = await this.teamService.getWaitingTeam();
     return { code: 200, userInfo: { ...userInfo, teamName }, teamList };
   }
 
@@ -140,6 +141,9 @@ export class UserService {
   async getUserTeam(userId: string) {
     const userRow = await this.getUserRow(userId);
     if (userRow === null) {
+      this.customLogger.writeLog('warn', 'GET', '/user/team', '미접수 사용자', {
+        userId,
+      });
       return { code: 404, message: 'Undefined User' };
     }
     return { code: 200, teamId: userRow.teamId };
@@ -147,17 +151,13 @@ export class UserService {
 
   // Team Service에서 호출
   // Break Team
-  async updateUserToSolo(userIdList: string[], teamId: string, score: number) {
-    await Promise.all(
-      userIdList.map(async (userId) => {
-        await this.userRepository
-          .createQueryBuilder('user')
-          .update()
-          .set({ score: score, teamId: '-' })
-          .where('user.user_id = :userId', { userId })
-          .execute();
-      }),
-    );
+  async updateUserToSolo(teamId: string, teamScore: number) {
+    await this.userRepository
+      .createQueryBuilder('user')
+      .update()
+      .set({ score: teamScore, teamId: '-' })
+      .where('user.team_id = :teamId', { teamId })
+      .execute();
   }
 
   // Plus User Score
