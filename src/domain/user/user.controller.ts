@@ -76,6 +76,19 @@ export class UserController {
     return this.userService.getUserTeam(userId);
   }
 
+  // Get Team Info Of User
+  @Get('/team-info')
+  @ApiOperation({
+    summary: '사용자의 팀 정보를 반환',
+  })
+  @ApiQuery({
+    name: 'userId',
+    type: 'string',
+  })
+  async getTeamInfoOfTeam(@Query('userId') userId: string) {
+    return this.userService.getTeamInfoOfTeam(userId);
+  }
+
   // Plus User Score
   @Post('/plus')
   @ApiOperation({

@@ -7,8 +7,9 @@ import * as md5 from 'md5';
 import { TeamService } from '../team/team.service';
 import { UserJoinDto } from './dto/user_join.dto';
 import { getCurrentDateTime } from 'src/utils/utils';
-import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
-import { Logger } from 'winston';
+// import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+// import { Logger } from 'winston';
+import { CustomLoggerService } from 'src/module/custom.logger';
 
 @Injectable()
 export class UserService {
@@ -17,7 +18,7 @@ export class UserService {
     private userRepository: Repository<UserEntity>,
     @Inject(forwardRef(() => TeamService))
     private readonly teamService: TeamService,
-    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+    private readonly customLogger: CustomLoggerService,
   ) {}
 
   TEAM_MAX_COUNT = 5;
@@ -43,7 +44,13 @@ export class UserService {
     const userId = md5(identifier).toString();
     const userExist = await this.getUserRow(userId);
     if (userExist === null) {
-      this.logger.warn('미접수 사용자', { name, phoneNumber });
+      this.customLogger.writeLog(
+        'warn',
+        'GET',
+        '/user/reconfirm-qr',
+        '미접수 사용자',
+        { name, phoneNumber },
+      );
       return { code: 404, message: 'Undefined User' };
     }
     return { code: 200, userId };
@@ -53,6 +60,9 @@ export class UserService {
   async getUserInfo(userId: string) {
     const userInfo = await this.getUserRow(userId);
     if (userInfo === null) {
+      this.customLogger.writeLog('warn', 'GET', '/user/info', '미접수 사용자', {
+        userId,
+      });
       return { code: 404, message: 'Undefined User' };
     }
 
@@ -97,6 +107,13 @@ export class UserService {
 
     const userRow = await this.getUserRow(userId);
     if (userRow === null) {
+      this.customLogger.writeLog(
+        'warn',
+        'POST',
+        '/user/join',
+        '미접수 사용자',
+        { userId },
+      );
       return { code: 404, message: 'Undefined User' };
     }
 
