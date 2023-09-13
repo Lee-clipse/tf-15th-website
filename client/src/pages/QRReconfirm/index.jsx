@@ -54,10 +54,10 @@ const QRReconfirmPage = () => {
           },
         });
       } else {
-        Swal.fire("접근 오류!", "접수되지 않은 사용자입니다.", "error");
+        Swal.fire("접수되지 않은 사용자입니다.", "홈페이지에서 접수하실 수 있습니다.", "warning");
       }
     } catch (error) {
-      Swal.fire("API 오류!", "API: Reconfirm QR", "error");
+      Swal.fire("API ERROR: Reconfirm QR", "인포데스크로 방문 제보 부탁드립니다.", "error");
     }
   };
 
