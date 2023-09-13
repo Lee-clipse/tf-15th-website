@@ -31,57 +31,96 @@ export class TeamService {
       score: -100,
       count: 0,
     };
-    await this.teamRepository.save(teamRow);
-    return { code: 200, teamRow };
+    try {
+      await this.teamRepository.save(teamRow);
+      return { code: 200, teamRow };
+    } catch (error) {
+      this.customLogger.error('/team/create', '생성 실패', { teamId });
+    }
   }
 
   // Plus Team Score
   async plusTeamScore(teamId: string, plusScore: number) {
-    await this.teamRepository.update(teamId, {
-      score: () => `score + ${plusScore}`,
-    });
     const teamRow = await this.getTeamRow(teamId);
-    return { code: 200, score: teamRow.score };
+    if (teamRow === null) {
+      this.customLogger.warn('/team/plus', '팀 찾기', { teamId });
+      return { code: 404, message: 'Undefined Team' };
+    }
+    try {
+      await this.teamRepository.update(teamId, {
+        score: () => `score + ${plusScore}`,
+      });
+      return { code: 200, score: Number(teamRow.score) + plusScore };
+    } catch (error) {
+      this.customLogger.error('/team/plus', '점수 증가', { teamId });
+    }
   }
 
   // UserService에서 호출
   // 해당 팀의 멤버 수를 증가
   async plusTeamCount(teamId: string) {
-    await this.teamRepository.update(teamId, { count: () => 'count + 1' });
     const teamRow = await this.getTeamRow(teamId);
-    return teamRow.count;
+    if (teamRow === null) {
+      this.customLogger.warn('plusTeamCount()', '팀 찾기', { teamId });
+      return { code: 404, message: 'Undefined Team' };
+    }
+    try {
+      await this.teamRepository.update(teamId, { count: () => 'count + 1' });
+      return Number(teamRow.count) + 1;
+    } catch (error) {
+      this.customLogger.error('plusTeamCount()', '멤버 수 추가', { teamId });
+    }
   }
 
   // View Waiting Team
   // UserService에서 호출
   // 현재 정원 미달 팀들의 정보를 반환
   async getWaitingTeam() {
-    return await this.teamRepository
-      .createQueryBuilder('team')
-      .where('team.count < :TEAM_MAX_COUNT', {
-        TEAM_MAX_COUNT: this.TEAM_MAX_COUNT,
-      })
-      .andWhere('team.id != :DASH', { DASH: '-' })
-      .getMany();
+    try {
+      return await this.teamRepository
+        .createQueryBuilder('team')
+        .where('team.count < :TEAM_MAX_COUNT', {
+          TEAM_MAX_COUNT: this.TEAM_MAX_COUNT,
+        })
+        .andWhere('team.id != :DASH', { DASH: '-' })
+        .getMany();
+    } catch (error) {
+      this.customLogger.error('/team/waiting', '탐색', {});
+    }
   }
 
   // Break Team
   async breakTeam(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
-
-    // 해당 팀에 속한 유저들의 score 변경 & teamId '-'로 변경
-    await this.userService.updateUserToSolo(teamId, Number(teamRow.score));
-
-    // 팀의 count를 0으로 업데이트
-    await this.teamRepository.update(teamId, { count: 0 });
-
-    return { code: 200 };
+    if (teamRow === null) {
+      this.customLogger.warn('/team/break', '팀 찾기', { teamId });
+      return { code: 404, message: 'Undefined Team' };
+    }
+    try {
+      // 해당 팀에 속한 유저들의 score 변경 & teamId '-'로 변경
+      await this.userService.updateUserToSolo(teamId, Number(teamRow.score));
+    } catch (error) {
+      this.customLogger.error('/team/break', '사용자에게 점수 전달', {
+        teamId,
+      });
+    }
+    try {
+      // 팀의 count를 0으로 업데이트
+      await this.teamRepository.update(teamId, { count: 0 });
+      return { code: 200 };
+    } catch (error) {
+      this.customLogger.error('/team/break', '팀 멤버수 초기화', { teamId });
+    }
   }
 
   // UserService에서 호출
   // 현재 team 정보를 반환
   async getTeamInfo(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
+    if (teamRow === null) {
+      this.customLogger.warn('getTeamInfo()', '팀 찾기', { teamId });
+      return { code: 404, message: 'Undefined Team' };
+    }
     return { teamName: teamRow.name, score: teamRow.score };
   }
 
