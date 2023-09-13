@@ -85,8 +85,8 @@ export class UserController {
     name: 'userId',
     type: 'string',
   })
-  async getTeamInfoOfTeam(@Query('userId') userId: string) {
-    return await this.userService.getTeamInfoOfTeam(userId);
+  async getTeamInfoOfUser(@Query('userId') userId: string) {
+    return await this.userService.getTeamInfoOfUser(userId);
   }
 
   // Plus User Score

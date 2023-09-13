@@ -110,7 +110,7 @@ export class UserService {
   }
 
   // Get Team Info Of User
-  async getTeamInfoOfTeam(userId: string) {
+  async getTeamInfoOfUser(userId: string) {
     const userInfo = await this.getUserRow(userId);
     if (userInfo === null) {
       this.customLogger.writeLog(
