@@ -12,7 +12,7 @@ import {
 } from 'nest-winston';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 
-const winstonLevel = process.env.NODE_ENV === 'production' ? 'info' : 'silly';
+const winstonLevel = 'silly';
 const winstonFormat = winston.format.combine(
   winston.format.timestamp(),
   nestWinstonModuleUtilities.format.nestLike('SERVER', {
