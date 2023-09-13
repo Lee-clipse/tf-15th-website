@@ -25,9 +25,7 @@ export class TeamController {
     summary: '스텝이 팀 생성',
   })
   async createTeam() {
-    this.logger.debug('hey!!');
-    this.logger.warn('hey!!');
-    // return this.teamService.createTeam();
+    return this.teamService.createTeam();
   }
 
   // View Waiting Team
@@ -49,19 +47,6 @@ export class TeamController {
   async plusTeamScore(@Body() teamScoreDto: TeamScoreDto) {
     const { teamId, score } = teamScoreDto;
     return this.teamService.plusTeamScore(teamId, score);
-  }
-
-  // View Team Score
-  @Get('/score')
-  @ApiOperation({
-    summary: '팀 점수 조회',
-  })
-  @ApiQuery({
-    name: 'teamId',
-    type: 'string',
-  })
-  async getUserInfo(@Query('teamId') teamId: string) {
-    return this.teamService.getTeamScore(teamId);
   }
 
   // Break

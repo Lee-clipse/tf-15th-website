@@ -22,7 +22,6 @@ export class TeamService {
     // 현재 시간을 시드로 hash 생성
     const currentTime = new Date();
     const teamId = md5(currentTime.toISOString());
-
     const teamName = teamNameGenerate();
     const teamRow = {
       id: teamId,
@@ -64,12 +63,6 @@ export class TeamService {
       .getMany();
   }
 
-  // View Team Score
-  async getTeamScore(teamId: string) {
-    const teamRow = await this.getTeamRow(teamId);
-    return { code: 200, teamId, teamName: teamRow.name, score: teamRow.score };
-  }
-
   // Break Team
   async breakTeam(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
@@ -92,10 +85,10 @@ export class TeamService {
   }
 
   // UserService에서 호출
-  // 현재 팀 이름을 반환
-  async getTeamName(teamId: string) {
+  // 현재 team 정보를 반환
+  async getTeamInfo(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
-    return teamRow.name;
+    return { teamName: teamRow.name, score: teamRow.score };
   }
 
   async getTeamRow(teamId: string) {
