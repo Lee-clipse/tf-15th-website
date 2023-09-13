@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './entity/user.entity';
 import { TeamModule } from '../team/team.module';
+import { CustomLoggerService } from 'src/module/custom.logger';
 
 @Module({
   imports: [
@@ -11,7 +12,7 @@ import { TeamModule } from '../team/team.module';
     forwardRef(() => TeamModule),
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, CustomLoggerService],
   exports: [UserService],
 })
 export class UserModule {}

@@ -60,9 +60,35 @@ export class UserService {
     const teamList = await this.teamService.getWaitingTeam();
     let teamName = '-';
     if (userInfo.teamId !== '-') {
-      teamName = await this.teamService.getTeamName(userInfo.teamId);
+      // 사용자의 소속 팀이 존재하는 경우 함께 반환
+      const teamInfo = await this.teamService.getTeamInfo(userInfo.teamId);
+      teamName = teamInfo.teamName;
     }
     return { code: 200, userInfo: { ...userInfo, teamName }, teamList };
+  }
+
+  // Get Team Info Of User
+  async getTeamInfoOfTeam(userId: string) {
+    const userInfo = await this.getUserRow(userId);
+    if (userInfo === null) {
+      this.customLogger.writeLog(
+        'warn',
+        'GET',
+        '/user/team-info',
+        '미접수 사용자',
+        { userId },
+      );
+      return { code: 404, message: 'Undefined User' };
+    }
+
+    const teamId = userInfo.teamId;
+    // 소속 팀이 없는 경우
+    if (teamId === '-') {
+      return { code: 200, teamId: '-' };
+    }
+    const teamInfo = await this.teamService.getTeamInfo(teamId);
+    const { teamName, score } = teamInfo;
+    return { code: 200, teamId, teamName, score };
   }
 
   // Join User
