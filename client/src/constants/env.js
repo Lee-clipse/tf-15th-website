@@ -12,6 +12,7 @@ export const API = {
   RECONFIRM_QR: "/user/reconfirm-qr",
   USER_INFO: "/user/info",
   GET_USER_TEAM: "/user/team",
+  TEAM_INFO_OF_USER: "/user/team-info",
   JOIN_USER: "/user/join",
   CREATE_TEAM: "/team/create",
   VIEW_WAITING_TEAM: "/team/waiting",
