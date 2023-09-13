@@ -6,6 +6,7 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  Logger,
 } from '@nestjs/common';
 import { TeamService } from './team.service';
 import { TeamScoreDto } from './dto/team_score.dto';
@@ -16,13 +17,17 @@ import { TeamBreakDto } from './dto/team_break.dto';
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
+  private readonly logger = new Logger(TeamController.name);
+
   // Create Team
   @Post('/create')
   @ApiOperation({
     summary: '스텝이 팀 생성',
   })
   async createTeam() {
-    return this.teamService.createTeam();
+    this.logger.debug('hey!!');
+    this.logger.warn('hey!!');
+    // return this.teamService.createTeam();
   }
 
   // View Waiting Team
