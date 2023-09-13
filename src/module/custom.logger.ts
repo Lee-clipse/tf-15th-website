@@ -8,19 +8,11 @@ export class CustomLoggerService {
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
   ) {}
 
-  writeLog(
-    type: string,
-    method: string,
-    url: string,
-    title: string,
-    object: any,
-  ) {
-    if (type === 'error') {
-      this.logger.error(`\n\t[${method}] ${url} ${title}`, object);
-    } else if (type === 'warn') {
-      this.logger.warn(`\n\t[${method}] ${url} ${title}`, object);
-    } else if (type === 'info') {
-      this.logger.info(`\n\t[${method}] ${url} ${title}`, object);
-    }
+  error(url: string, title: string, object: any) {
+    this.logger.error(`\n\t<<${url}>> ${title}`, object);
+  }
+
+  warn(url: string, title: string, object: any) {
+    this.logger.warn(`\n\t<<${url}>> ${title}`, object);
   }
 }

@@ -5,6 +5,7 @@ import { TeamEntity } from './entity/team.entity';
 import { teamNameGenerate } from 'src/utils/utils';
 import * as md5 from 'md5';
 import { UserService } from '../user/user.service';
+import { CustomLoggerService } from 'src/module/custom.logger';
 
 @Injectable()
 export class TeamService {
@@ -13,6 +14,7 @@ export class TeamService {
     private teamRepository: Repository<TeamEntity>,
     @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
+    private readonly customLogger: CustomLoggerService,
   ) {}
 
   TEAM_MAX_COUNT = 5;
@@ -84,9 +86,13 @@ export class TeamService {
   }
 
   async getTeamRow(teamId: string) {
-    return await this.teamRepository
-      .createQueryBuilder('team')
-      .where('team.team_id = :teamId', { teamId })
-      .getOne();
+    try {
+      return await this.teamRepository
+        .createQueryBuilder('team')
+        .where('team.team_id = :teamId', { teamId })
+        .getOne();
+    } catch (error) {
+      this.customLogger.error('getTeamRow()', 'teamId 찾기 실패', { teamId });
+    }
   }
 }

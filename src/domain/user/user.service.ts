@@ -29,22 +29,22 @@ export class UserService {
     const { name, phoneNumber } = userForm;
     const identifier = name + phoneNumber.slice(-4);
     const userId = md5(identifier).toString();
-    await this.userRepository.save({
-      id: userId,
-      ...userForm,
-      teamId: '-',
-      score: 0,
-      date: getCurrentDateTime(),
-    });
+    try {
+      await this.userRepository.save({
+        id: userId,
+        ...userForm,
+        teamId: '-',
+        score: 0,
+        date: getCurrentDateTime(),
+      });
+    } catch (error) {
+      const logObject = { name, phoneNumber };
+      this.customLogger.error('/register', 'INSERT 도중', logObject);
+    }
     const userRow = await this.getUserRow(userId);
     if (userRow === null) {
-      this.customLogger.writeLog(
-        'error',
-        'POST',
-        '/user/register',
-        'Register 오류 발생',
-        { name, phoneNumber },
-      );
+      const logObject = { name, phoneNumber };
+      this.customLogger.error('/register', 'INSERT 후', logObject);
       // 재저장
       await this.userRepository.save({
         id: userId,
@@ -64,13 +64,8 @@ export class UserService {
     const userId = md5(identifier).toString();
     const userExist = await this.getUserRow(userId);
     if (userExist === null) {
-      this.customLogger.writeLog(
-        'warn',
-        'GET',
-        '/user/reconfirm-qr',
-        '미접수 사용자',
-        { name, phoneNumber },
-      );
+      const logObject = { name, phoneNumber };
+      this.customLogger.warn('/reconfirm-qr', '미접수 사용자', logObject);
       // 이름 && 전화번호로 검색
       const userExist = await this.userRepository
         .createQueryBuilder('user')
@@ -91,9 +86,7 @@ export class UserService {
   async getUserInfo(userId: string) {
     const userInfo = await this.getUserRow(userId);
     if (userInfo === null) {
-      this.customLogger.writeLog('warn', 'GET', '/user/info', '미접수 사용자', {
-        userId,
-      });
+      this.customLogger.warn('/info', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
 
@@ -113,13 +106,7 @@ export class UserService {
   async getTeamInfoOfUser(userId: string) {
     const userInfo = await this.getUserRow(userId);
     if (userInfo === null) {
-      this.customLogger.writeLog(
-        'warn',
-        'GET',
-        '/user/team-info',
-        '미접수 사용자',
-        { userId },
-      );
+      this.customLogger.warn('/team-info', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
 
@@ -139,42 +126,44 @@ export class UserService {
 
     const userRow = await this.getUserRow(userId);
     if (userRow === null) {
-      this.customLogger.writeLog(
-        'warn',
-        'POST',
-        '/user/join',
-        '미접수 사용자',
-        { userId },
-      );
+      this.customLogger.warn('/join', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
 
     // 이미 해당 팀에 소속된 참가자인 경우 (스텝의 미스 클릭)
     const currTeamId = userRow.teamId;
     if (currTeamId === teamId) {
+      this.customLogger.warn('/join', '소속 팀에 중복 JOIN', { userId });
       return { code: 202, message: 'Already Join Same Team' };
     }
 
     // 팀 정원이 다 찬 경우 (스텝의 미스 클릭)
     const teamRow = await this.teamService.getTeamRow(teamId);
+    if (teamRow === null) {
+      this.customLogger.error('/join', '존재하지 않는 팀', { teamId });
+      return { code: 404, message: 'Undefined Team' };
+    }
     const currTeamCount = Number(teamRow.count);
     if (currTeamCount >= this.TEAM_MAX_COUNT) {
+      this.customLogger.warn('/join', 'Full 팀에 JOIN', { userId });
       return { code: 202, message: 'Full Team Count' };
     }
 
-    // 등록
-    await this.userRepository.update(userId, { teamId: teamId });
-    const count = await this.teamService.plusTeamCount(teamId);
-    return { code: 200, teamId, teamName: teamRow.name, count };
+    try {
+      // 등록
+      await this.userRepository.update(userId, { teamId: teamId });
+      const count = await this.teamService.plusTeamCount(teamId);
+      return { code: 200, teamId, teamName: teamRow.name, count };
+    } catch (error) {
+      this.customLogger.error('/join', '팀 JOIN 도중', { userId });
+    }
   }
 
   // Get User Team
   async getUserTeam(userId: string) {
     const userRow = await this.getUserRow(userId);
     if (userRow === null) {
-      this.customLogger.writeLog('warn', 'GET', '/user/team', '미접수 사용자', {
-        userId,
-      });
+      this.customLogger.warn('/team', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
     return { code: 200, teamId: userRow.teamId };
@@ -183,27 +172,43 @@ export class UserService {
   // Team Service에서 호출
   // Break Team
   async updateUserToSolo(teamId: string, teamScore: number) {
-    await this.userRepository
-      .createQueryBuilder('user')
-      .update()
-      .set({ score: teamScore, teamId: '-' })
-      .where('user.team_id = :teamId', { teamId })
-      .execute();
+    try {
+      await this.userRepository
+        .createQueryBuilder('user')
+        .update()
+        .set({ score: teamScore, teamId: '-' })
+        .where('user.team_id = :teamId', { teamId })
+        .execute();
+    } catch (error) {
+      this.customLogger.error('/break', '참가자 해체', { teamId });
+    }
   }
 
   // Plus User Score
   async plusUserScore(userId: string, score: number) {
-    await this.userRepository.update(userId, {
-      score: () => `score + ${score}`,
-    });
     const userRow = await this.getUserRow(userId);
-    return { code: 200, score: userRow.score };
+    if (userRow === null) {
+      this.customLogger.warn('/plus', '미접수 사용자', { userId });
+      return { code: 404, message: 'Undefined User' };
+    }
+    try {
+      await this.userRepository.update(userId, {
+        score: () => `score + ${score}`,
+      });
+      return { code: 200, score: Number(userRow.score) + score };
+    } catch (error) {
+      this.customLogger.error('/plus', '점수 증가', { userId });
+    }
   }
 
   async getUserRow(userId: string) {
-    return await this.userRepository
-      .createQueryBuilder('user')
-      .where('user.user_id = :userId', { userId })
-      .getOne();
+    try {
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .where('user.user_id = :userId', { userId })
+        .getOne();
+    } catch (error) {
+      this.customLogger.error('getUserRow()', 'userId 찾기 실패', { userId });
+    }
   }
 }
