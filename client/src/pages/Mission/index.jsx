@@ -93,7 +93,6 @@ const MissionPage = () => {
   return (
     <PageTemplate>
       <TopNavBar title={"제로게임 미션"} fixed={false} />
-      {/* <s.Wrapper> */}
       <s.Wrapper as={motion.div} variants={OchestraList} initial="hidden" animate="visible">
         <s.Poster src="/assets/mission/zerogame_poster1.webp" />
         <s.Poster2nd src="/assets/mission/zerogame_poster2.webp" />
