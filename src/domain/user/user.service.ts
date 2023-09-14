@@ -199,6 +199,17 @@ export class UserService {
     }
   }
 
+  // Get User Score
+  async gertUserScore(userId: string) {
+    const userRow = await this.getUserRow(userId);
+    if (userRow === null) {
+      this.customLogger.warn('/user/score', '미접수 사용자', { userId });
+      return { code: 404, message: 'Undefined User' };
+    }
+    const score = Number(userRow.score);
+    return { code: 200, score };
+  }
+
   async getUserRow(userId: string) {
     try {
       return await this.userRepository

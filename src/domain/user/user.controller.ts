@@ -99,4 +99,17 @@ export class UserController {
     const { userId, score } = userScoreDto;
     return await this.userService.plusUserScore(userId, score);
   }
+
+  // Get User Score`
+  @Get('/score')
+  @ApiOperation({
+    summary: '사용자의 개인 점수를 반환',
+  })
+  @ApiQuery({
+    name: 'userId',
+    type: 'string',
+  })
+  async getUserScore(@Query('userId') userId: string) {
+    return await this.userService.gertUserScore(userId);
+  }
 }
