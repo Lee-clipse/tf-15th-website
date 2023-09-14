@@ -43,7 +43,13 @@ const ZerogamePage = () => {
       // 팀 해체 직후 새로고침시
       if (latestTeamId === "-") {
         localStorage.removeItem("teamId");
-        Swal.fire("제로게임 종료!", `${teamInfo.data.score} 점으로 종료했습니다.`, "success");
+
+        // Get User Score
+        const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.USER_SCORE, {
+          params: { userId },
+        });
+        const lastScore = Number(res.data.score);
+        Swal.fire("제로게임 종료!", `${lastScore} 점으로 종료했습니다.`, "success");
         naviagte(RoutePath.MAIN);
       }
 
