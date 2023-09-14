@@ -88,16 +88,20 @@ export class UserService {
       return { code: 404, message: 'Undefined User' };
     }
 
-    let teamName = '-';
     if (userInfo.teamId !== '-') {
       // 사용자의 소속 팀이 존재하는 경우 함께 반환
       const teamInfo = await this.teamService.getTeamInfo(userInfo.teamId);
-      teamName = teamInfo.teamName;
+      const { teamName, score } = teamInfo;
+      return {
+        code: 200,
+        userInfo: { ...userInfo, teamName, teamScore: score },
+      };
     }
-
-    // 현재 정원 미달 팀들의 정보
-    const teamList = await this.teamService.getWaitingTeam();
-    return { code: 200, userInfo: { ...userInfo, teamName }, teamList };
+    // 팀이 없는 경우
+    return {
+      code: 200,
+      userInfo: { ...userInfo, teamName: '-', teamScore: 0 },
+    };
   }
 
   // Get Team Info Of User
