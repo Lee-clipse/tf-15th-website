@@ -5,32 +5,48 @@ import axios from "axios";
 import { ENV, API } from "@constants/env";
 import StepManageTeam from "../StepManageTeam";
 import Swal from "sweetalert2";
+import UserScoreForm from "@components/UserScoreForm";
+import TeamScoreForm from "@components/TeamScoreForm";
 
 const QRViewer = ({ userId }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [teamList, setTeamList] = useState(null);
 
-  const handleUserInfoLoad = async () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    // 랜더링 전 데이터 받아오기
+    loadUserInfo();
+    loadTeamList();
+  }, []);
+
+  const loadUserInfo = async () => {
     try {
       // API: Get User Info
       const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.USER_INFO, {
         params: { userId },
       });
+      if (Number(res.data.code) === 404) {
+        Swal.fire("API 오류", `${userId} 사용자를 찾을 수 없습니다.`, "error");
+        return;
+      }
       const newUserInfo = res.data.userInfo;
-      const newTeamList = res.data.teamList;
       setUserInfo(newUserInfo);
-      setTeamList(newTeamList);
     } catch (error) {
       Swal.fire("API 오류", "API: Get User Info", "error");
     }
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-
-    // 랜더링 전 데이터 받아오기
-    handleUserInfoLoad();
-  }, []);
+  const loadTeamList = async () => {
+    try {
+      // API: View Waiting Team
+      const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.VIEW_WAITING_TEAM, {});
+      const newTeamList = res.data.teamList;
+      setTeamList(newTeamList);
+    } catch (error) {
+      Swal.fire("API 오류", "API: View Waiting Team", "error");
+    }
+  };
 
   return (
     <s.Wrapper>
@@ -52,8 +68,16 @@ const QRViewer = ({ userId }) => {
               </s.InfoText>
             </s.InfoSection>
           </s.InfoWrapper>
+          {/* 사용자 점수 관리 */}
           {/* 스텝 팀 관리 폼 */}
-          <StepManageTeam userInfo={userInfo} teamList={teamList} />
+          {userInfo.teamId === "-" && teamList !== null ? (
+            <s.UserViewWrapper>
+              <UserScoreForm userInfo={userInfo} />
+              <StepManageTeam userInfo={userInfo} teamList={teamList} />
+            </s.UserViewWrapper>
+          ) : (
+            <TeamScoreForm userInfo={userInfo} />
+          )}
         </s.Container>
       )}
     </s.Wrapper>

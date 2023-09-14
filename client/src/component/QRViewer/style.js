@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  overflow-y: scroll;
   margin: 0;
 `;
 
@@ -32,10 +32,14 @@ export const InfoWrapper = styled.div`
 
 export const InfoSection = styled.ul``;
 
+export const UserViewWrapper = styled.div`
+  width: 100%;
+`;
+
 export const InfoText = styled.li`
   color: ${(props) => props.theme.color.TEXT_BLACK};
   font-family: ${(props) => props.theme.font.NORMAL};
-  font-size: ${(props) => props.theme.font.size.XXL};
+  font-size: ${(props) => props.theme.font.size.XL};
 
   margin-bottom: 1rem;
 `;

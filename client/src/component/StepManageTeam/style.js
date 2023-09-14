@@ -7,6 +7,7 @@ export const StepWrapper = styled.div`
   background: ${(props) => props.theme.color.SOFT_PURPLE};
   flex-grow: 3;
   width: 100%;
+  height: 100vh;
 `;
 
 export const StepContainer = styled.div``;
