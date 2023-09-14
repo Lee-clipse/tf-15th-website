@@ -140,7 +140,7 @@ const ZerogamePage = () => {
         <s.Container>
           <s.TeamName>{teamData.teamName} 팀</s.TeamName>
           <s.TeamScore>{teamData.score} 점</s.TeamScore>
-          <s.Board src="/assets/board.svg" />
+          <s.Board src="/assets/zerogame/board.webp" />
           <s.TeamIndex>현 위치: {Booth[teamData.index]}</s.TeamIndex>
           <s.DiceButton onClick={rollDice}>주사위 굴리기</s.DiceButton>
           <s.TeamQRWrapper>

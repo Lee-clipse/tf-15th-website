@@ -4,6 +4,8 @@ import PageTemplate from "../PageTemplate";
 import TopNavBar from "@common/layer/TopNavBar";
 import { Link } from "react-router-dom";
 import { RoutePath } from "@constants/enums";
+import { motion } from "framer-motion";
+import { OchestraList } from "@styles/animation";
 
 const EventPage = () => {
   useEffect(() => {
@@ -13,8 +15,8 @@ const EventPage = () => {
   return (
     <PageTemplate>
       <TopNavBar title={"이벤트"} />
-      <s.Wrapper>
-        <s.Poster src="/assets/event_main.svg" />
+      <s.Wrapper as={motion.div} variants={OchestraList} initial="hidden" animate="visible">
+        <s.Poster src="/assets/event/event_main.webp" />
         <Link to={RoutePath.EVENT_GROUP}>
           <s.Button>
             소그룹 소개
