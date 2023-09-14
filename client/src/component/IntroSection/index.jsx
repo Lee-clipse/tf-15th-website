@@ -10,7 +10,7 @@ const IntroSection = () => {
         청건부산이란?
       </s.IntroTitle>
       <s.StampWrapper as={motion.div} variants={OchestraXItem}>
-        <s.Stamp src={`/assets/banner.png`} alt={`banner`} />
+        <s.Stamp src={`/assets/intro/banner.webp`} alt={`banner`} />
       </s.StampWrapper>
 
       <s.TextWrapper as={motion.div} variants={OchestraYItem}>

@@ -37,7 +37,7 @@ const BlogBookMarker = () => {
             <s.TextSection>
               <s.Label>TF 블로그 바로가기</s.Label>
               <s.UrlRow>
-                <s.Icon src={"/assets/blog_icon.svg"} alt={"blog_icon"} />
+                <s.Icon src={"/assets/intro/blog_icon.svg"} alt={"blog_icon"} />
                 <s.Url>https://m.blog.naver.com/PostList.naver?blogId=14th_tf</s.Url>
               </s.UrlRow>
             </s.TextSection>

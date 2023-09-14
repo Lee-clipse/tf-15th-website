@@ -16,14 +16,14 @@ const EventIntroSection = () => {
             <s.ImageWrapper>
               <s.Image
                 style={{ width: "40vw", height: "40vw" }}
-                src={"/assets/intro1.png"}
+                src={"/assets/intro/intro1.webp"}
                 alt={"intro1"}
               />
             </s.ImageWrapper>
             <s.ImageWrapper>
               <s.Image
                 style={{ width: "40vw", height: "40vw" }}
-                src={"/assets/intro2.png"}
+                src={"/assets/intro/intro2.webp"}
                 alt={"intro2"}
               />
             </s.ImageWrapper>
@@ -32,21 +32,21 @@ const EventIntroSection = () => {
             <s.ImageWrapper>
               <s.Image
                 style={{ width: "30vw", height: "30vw" }}
-                src={"/assets/intro3.png"}
+                src={"/assets/intro/intro3.webp"}
                 alt={"intro3"}
               />
             </s.ImageWrapper>
             <s.ImageWrapper>
               <s.Image
                 style={{ width: "30vw", height: "30vw" }}
-                src={"/assets/intro4.png"}
+                src={"/assets/intro/intro4.webp"}
                 alt={"intro4"}
               />
             </s.ImageWrapper>
             <s.ImageWrapper>
               <s.Image
                 style={{ width: "30vw", height: "30vw" }}
-                src={"/assets/intro5.png"}
+                src={"/assets/intro/intro5.webp"}
                 alt={"intro5"}
               />
             </s.ImageWrapper>
@@ -55,7 +55,7 @@ const EventIntroSection = () => {
             <s.ImageWrapper>
               <s.Image
                 style={{ width: "70vw", height: "40vw" }}
-                src={"/assets/intro6.jpg"}
+                src={"/assets/intro/intro6.webp"}
                 alt={"intro6"}
               />
             </s.ImageWrapper>
@@ -78,21 +78,21 @@ const EventIntroSection = () => {
           <s.ImageRowL>
             <s.Image
               style={{ width: "70vw", height: "40vw" }}
-              src={"/assets/event1.png"}
+              src={"/assets/intro/event1.webp"}
               alt={"event1"}
             />
           </s.ImageRowL>
           <s.ImageRowR>
             <s.Image
               style={{ width: "70vw", height: "40vw" }}
-              src={"/assets/event2.png"}
+              src={"/assets/intro/event2.webp"}
               alt={"event2"}
             />
           </s.ImageRowR>
           <s.ImageRowL>
             <s.Image
               style={{ width: "70vw", height: "40vw" }}
-              src={"/assets/event3.png"}
+              src={"/assets/intro/event3.webp"}
               alt={"event3"}
             />
           </s.ImageRowL>
