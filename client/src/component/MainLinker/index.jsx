@@ -20,10 +20,14 @@ const MainLinker = () => {
   };
 
   const linkerList = [
-    { imageName: "linker_1.png", link: RoutePath.INTRODUCE, label: "청건부산 행사 소개 보러 가기" },
-    { imageName: "linker_2.jpg", link: RoutePath.EVENT, label: "0923 행사 미리 보러 가기" },
-    { imageName: "linker_3.png", link: RoutePath.MISSION, label: "제로게임 미션 보러 가기" },
-    { imageName: "linker_4.svg", link: RoutePath.DONATE_USAGE, label: "기부금 사용처 보러 가기" },
+    {
+      imageName: "linker_1.webp",
+      link: RoutePath.INTRODUCE,
+      label: "청건부산 행사 소개 보러 가기",
+    },
+    { imageName: "linker_2.webp", link: RoutePath.EVENT, label: "0923 행사 미리 보러 가기" },
+    { imageName: "linker_3.webp", link: RoutePath.MISSION, label: "제로게임 미션 보러 가기" },
+    { imageName: "linker_4.webp", link: RoutePath.DONATE_USAGE, label: "기부금 사용처 보러 가기" },
   ];
 
   return (
@@ -49,7 +53,7 @@ const MainLinker = () => {
             >
               <s.LinkerImageWrapper>
                 <s.LinkerImage
-                  src={`/assets/${linker.imageName}`}
+                  src={`/assets/main/${linker.imageName}`}
                   alt={`${linker.imageName}`}
                 ></s.LinkerImage>
               </s.LinkerImageWrapper>

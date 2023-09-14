@@ -23,7 +23,7 @@ const ScrollInducer = () => {
   return (
     <s.Wrapper>
       <motion.div initial="hidden" animate="visible" variants={variants}>
-        <s.Image src="/assets/scroll_inducer.svg" alt="Scroll Down" />
+        <s.Image src="/assets/main/scroll_inducer.webp" alt="Scroll Down" />
       </motion.div>
     </s.Wrapper>
   );

@@ -16,7 +16,7 @@ const MainLogo = () => {
           ease: [0, 0.71, 0.2, 1.01],
         }}
       >
-        <s.LogoImage src="/assets/main_logo.png" alt="메인로고" />
+        <s.LogoImage src="/assets/main/main_logo.webp" alt="메인로고" />
       </motion.div>
       <motion.div variants={OchestraList} initial="hidden" animate="visible">
         <s.LogoMessage as={motion.div} variants={OchestraYItem}>
