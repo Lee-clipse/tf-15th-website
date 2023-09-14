@@ -14,6 +14,7 @@ export const API = {
   GET_USER_TEAM: "/user/team",
   TEAM_INFO_OF_USER: "/user/team-info",
   JOIN_USER: "/user/join",
+  USER_SCORE: "/user/score",
   CREATE_TEAM: "/team/create",
   VIEW_WAITING_TEAM: "/team/waiting",
   VIEW_TEAM_SCORE: "/team/score",
