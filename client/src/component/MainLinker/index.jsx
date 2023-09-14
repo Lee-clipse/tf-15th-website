@@ -23,6 +23,7 @@ const MainLinker = () => {
     { imageName: "linker_1.png", link: RoutePath.INTRODUCE, label: "청건부산 행사 소개 보러 가기" },
     { imageName: "linker_2.jpg", link: RoutePath.EVENT, label: "0923 행사 미리 보러 가기" },
     { imageName: "linker_3.png", link: RoutePath.MISSION, label: "제로게임 미션 보러 가기" },
+    { imageName: "linker_4.svg", link: RoutePath.DONATE_USAGE, label: "기부금 사용처 보러 가기" },
   ];
 
   return (

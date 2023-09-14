@@ -15,6 +15,7 @@ const MissionPage = lazy(() => import("./pages/Mission/index"));
 const QRReconfirmPage = lazy(() => import("./pages/QRReconfirm/index"));
 const StepPage = lazy(() => import("./pages/Step/index"));
 const ZerogamePage = lazy(() => import("./pages/Zerogame/index"));
+const DonateUsagePage = lazy(() => import("./pages/DonateUsage/index"));
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route path={RoutePath.EVENT} element={<EventPage />}></Route>
           <Route path={RoutePath.EVENT_GROUP} element={<EventGroupPage />}></Route>
           <Route path={RoutePath.EVENT_STAGE} element={<EventStagePage />}></Route>
+          <Route path={RoutePath.DONATE_USAGE} element={<DonateUsagePage />}></Route>
           <Route path={RoutePath.MISSION} element={<MissionPage />}></Route>
           <Route path={RoutePath.STEP} element={<StepPage />}></Route>
           <Route path={RoutePath.ZEROGAME} element={<ZerogamePage />}></Route>

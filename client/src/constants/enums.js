@@ -8,6 +8,7 @@ export const RoutePath = {
   EVENT: "/event",
   EVENT_GROUP: "/event-group",
   EVENT_STAGE: "/event-stage",
+  DONATE_USAGE: "/donate-usage",
   MISSION: "/mission",
   STEP: "/step/:purpose",
   NOTFOUND: "*",
