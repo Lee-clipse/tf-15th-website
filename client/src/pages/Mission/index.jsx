@@ -95,11 +95,14 @@ const MissionPage = () => {
       <TopNavBar title={"제로게임 미션"} fixed={false} />
       {/* <s.Wrapper> */}
       <s.Wrapper as={motion.div} variants={OchestraList} initial="hidden" animate="visible">
-        <s.Poster src="/assets/zerogame_poster1.webp" />
-        <s.Poster2nd src="/assets/zerogame_poster2.webp" />
-        <s.Poster src="/assets/zerogame_poster3.webp" />
+        <s.Poster src="/assets/mission/zerogame_poster1.webp" />
+        <s.Poster2nd src="/assets/mission/zerogame_poster2.webp" />
+        <s.Poster src="/assets/mission/zerogame_poster3.webp" />
         <s.ButtonWrapper>
-          <s.ZeroGameButton src="/assets/zerogame_go_button.svg" onClick={routeToZeroGame} />
+          <s.ZeroGameButton
+            src="/assets/mission/zerogame_go_button.svg"
+            onClick={routeToZeroGame}
+          />
         </s.ButtonWrapper>
       </s.Wrapper>
     </PageTemplate>
