@@ -101,6 +101,8 @@ const ZerogamePage = () => {
       // 종료 후 재클릭 시
       if (prevIndex === 50) {
         Swal.fire("제로게임 종료!", `${teamData.score} 점으로 종료했습니다.`, "success");
+        naviagte(RoutePath.MAIN);
+
         return;
       }
 
@@ -123,6 +125,7 @@ const ZerogamePage = () => {
         } else {
           Swal.fire("제로게임 종료!", `${teamData.score} 점으로 종료했습니다.`, "success");
         }
+        naviagte(RoutePath.MAIN);
         return;
       }
       console.log(prevIndex, nextIndex);
