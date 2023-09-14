@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { ENV, API } from "@constants/env";
 import { motion } from "framer-motion";
-import { OchestraList, OchestraXItem, OchestraYItem } from "@styles/animation";
+import { OchestraList } from "@styles/animation";
 
 const MissionPage = () => {
   const navigate = useNavigate();
