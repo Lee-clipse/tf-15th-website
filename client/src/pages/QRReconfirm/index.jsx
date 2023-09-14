@@ -13,6 +13,9 @@ import inputChecker from "./inputChecker";
 const QRReconfirmPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // LS에 userId가 있고, 유효한 경우 바로 이동
+    earlyCheck();
   }, []);
 
   const [formData, setFormData] = useState({});
@@ -58,6 +61,23 @@ const QRReconfirmPage = () => {
       }
     } catch (error) {
       Swal.fire("API ERROR: Reconfirm QR", "인포데스크로 방문 제보 부탁드립니다.", "error");
+    }
+  };
+
+  const earlyCheck = async () => {
+    const lsUserId = localStorage.getItem("userId");
+    if (lsUserId !== null) {
+      // API: Get User Team
+      const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.GET_USER_TEAM, {
+        params: { userId: lsUserId },
+      });
+      if (Number(res.data.code) === 200) {
+        navigate(RoutePath.QR, {
+          state: {
+            userId: lsUserId,
+          },
+        });
+      }
     }
   };
 
