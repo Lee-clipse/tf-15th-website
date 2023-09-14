@@ -117,8 +117,12 @@ const ZerogamePage = () => {
 
       renderDiceRollEvent(prevIndex, nextIndex);
 
-      if (nextIndex === 0 || nextIndex === 50) {
-        Swal.fire("제로게임 종료!", `${teamData.score} 점으로 종료했습니다.`, "success");
+      if (nextIndex === 50) {
+        if (Number(teamData.score) === 0) {
+          Swal.fire("제로게임 클리어!", `축하합니다! 굿즈를 수령하실 수 있습니다!`, "success");
+        } else {
+          Swal.fire("제로게임 종료!", `${teamData.score} 점으로 종료했습니다.`, "success");
+        }
         return;
       }
       console.log(prevIndex, nextIndex);
