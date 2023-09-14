@@ -1,15 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import * as s from "./style";
 import QRCode from "qrcode";
+import axios from "axios";
 
-import { Link, useLocation } from "react-router-dom";
-import { ENV } from "@constants/env";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { RoutePath } from "@constants/enums";
+import Swal from "sweetalert2";
+import { ENV, API } from "@constants/env";
 
 import PageTemplate from "../PageTemplate";
 
 const QRPage = () => {
+  const navigate = useNavigate();
+
   const location = useLocation();
   const userId = location.state.userId;
 
@@ -21,6 +26,20 @@ const QRPage = () => {
   }, []);
 
   useEffect(() => {
+    renderQR();
+  }, [userId]);
+
+  const renderQR = async () => {
+    // API: Get User Team
+    const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.GET_USER_TEAM, {
+      params: { userId },
+    });
+    if (Number(res.data.code) !== 200) {
+      Swal.fire("QR 오류!", "접수하지 않은 사용자입니다.", "error");
+      navigate(RoutePath.MAIN);
+      return;
+    }
+
     const qrUrl = `${ENV.CLIENT_PROD_DOMAIN}/step/qr?user_id=${userId}`;
     // userId를 이용하여 QR 코드 생성
     QRCode.toDataURL(qrUrl, function (err, url) {
@@ -29,7 +48,7 @@ const QRPage = () => {
     setShow(true);
     // LS에 저장
     localStorage.setItem("userId", userId);
-  }, [userId]);
+  };
 
   return (
     <PageTemplate>

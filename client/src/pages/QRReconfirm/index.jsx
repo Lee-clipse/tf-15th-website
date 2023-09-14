@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import * as s from "./style";
 import { useNavigate } from "react-router-dom";
@@ -67,17 +68,11 @@ const QRReconfirmPage = () => {
   const earlyCheck = async () => {
     const lsUserId = localStorage.getItem("userId");
     if (lsUserId !== null) {
-      // API: Get User Team
-      const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.GET_USER_TEAM, {
-        params: { userId: lsUserId },
+      navigate(RoutePath.QR, {
+        state: {
+          userId: lsUserId,
+        },
       });
-      if (Number(res.data.code) === 200) {
-        navigate(RoutePath.QR, {
-          state: {
-            userId: lsUserId,
-          },
-        });
-      }
     }
   };
 
