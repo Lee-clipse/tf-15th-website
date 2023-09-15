@@ -20,6 +20,7 @@ export class GameService {
     const beginIndex = this.MAP_INDEX[0];
     // 팀, map 둘 다 갱신
     this.redis.set(teamId, beginIndex);
+    this.redis.set(`${teamId}-block`, 'false');
     this.redis.hincrby('map', '10', 1);
     return { index: beginIndex };
   }
@@ -28,6 +29,18 @@ export class GameService {
   async getTeamIndex(teamId: string) {
     const currIndex = await this.redis.get(teamId);
     return { index: currIndex };
+  }
+
+  // Get Team Block
+  async getTeamBlock(teamId: string) {
+    const block = await this.redis.get(`${teamId}-block`);
+    const alreadyIndex = await this.redis.get(teamId);
+    return { block, alreadyIndex };
+  }
+
+  // Manage Block
+  async manageBlock(teamId: string, block: string) {
+    await this.redis.set(`${teamId}-block`, `${block}`);
   }
 
   // Roll Dice
