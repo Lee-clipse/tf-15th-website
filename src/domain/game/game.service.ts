@@ -175,4 +175,16 @@ export class GameService {
     }
     return nextIndex;
   }
+
+  //! For Test
+  async getCurrIndex(teamId: string) {
+    const currIndex = await this.redis.get(teamId);
+    return currIndex;
+  }
+
+  //! For Test
+  async getMap() {
+    const map = await this.redis.hvals('map');
+    return map;
+  }
 }

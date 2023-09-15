@@ -1,12 +1,24 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Logger,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiBody, ApiQuery } from '@nestjs/swagger';
 import { GameService } from './game.service';
 import { TeamInitDto } from './dto/team_init.dto';
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 
 @Controller('game-api')
 @ApiTags('Zero Game API')
 export class GameController {
-  constructor(private readonly gameService: GameService) {}
+  constructor(
+    private readonly gameService: GameService,
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+  ) {}
 
   // Init Team Map Index
   @Post('/init')
@@ -44,8 +56,35 @@ export class GameController {
   })
   async rollDice(@Body() teamInitDto: TeamInitDto) {
     const teamId = teamInitDto.teamId;
+    const currIndex = await this.gameService.getCurrIndex(teamId);
+    const beforeMap = await this.gameService.getMap();
+
     const res = await this.gameService.rollDice(teamId);
-    console.log(res);
+    const nextIndex = res.nextIndex;
+    const afterMap = await this.gameService.getMap();
+
+    const indexMap = [
+      '-',
+      1,
+      2,
+      3,
+      '-',
+      1,
+      2,
+      3,
+      4,
+      '-',
+      1,
+      2,
+      '-',
+      1,
+      2,
+      3,
+      '-',
+    ];
+    this.logger.debug(
+      `\n[${teamId}]\n  ${currIndex}  ->  ${nextIndex}\n\tINDEX:  ${indexMap}\n\tBEFORE: ${beforeMap}\n\tAFTER:  ${afterMap}\n\n`,
+    );
     return res;
   }
 }
