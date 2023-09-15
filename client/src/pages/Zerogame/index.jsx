@@ -97,7 +97,6 @@ const ZerogamePage = () => {
 
     try {
       const prevIndex = Number(teamData.index);
-
       // 종료 후 재클릭 시
       if (prevIndex === 50) {
         Swal.fire("제로게임 종료!", `${teamData.score} 점으로 종료했습니다.`, "success");
@@ -106,7 +105,18 @@ const ZerogamePage = () => {
         return;
       }
 
-      // API: Roll Dice
+      // API: Get Team Block
+      const blockRes = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.GET_BLOCK, {
+        params: { teamId: teamInfo.data.teamId },
+      });
+      const { block, alreadyIndex } = blockRes.data;
+      // 주사위 API 요청 말고 단순 랜더링
+      if (block === "true") {
+        renderDiceRollEvent(Number(prevIndex), Number(alreadyIndex));
+        return;
+      }
+
+      // API: Roll Dices
       const res = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.ROLL_DICE, {
         teamId: latestTeamId,
       });
@@ -168,7 +178,9 @@ const renderDiceRollEvent = (prevIndex, nextIndex) => {
   });
   Toast.fire({
     icon: "success",
-    title: `${nextIndex % 10 !== 0 ? nextIndex - prevIndex : "대기소로"} 이동!`,
+    title: `${
+      Number(nextIndex) % 10 !== 0 ? Number(nextIndex) - Number(prevIndex) : "대기소로"
+    } 이동!`,
   });
 };
 

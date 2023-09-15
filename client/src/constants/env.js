@@ -24,4 +24,6 @@ export const API = {
   INIT_TEAM_MAP_INDEX: "/init",
   VIEW_MAP_INDEX: "/where",
   ROLL_DICE: "/next",
+  GET_BLOCK: "/get-block",
+  MANAGE_BLOCK: "/manage-block",
 };

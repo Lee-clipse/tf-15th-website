@@ -37,6 +37,11 @@ const TeamQRViewer = ({ teamId }) => {
           teamId,
           score: Number(score),
         });
+        // API: Manage Block
+        await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.MANAGE_BLOCK, {
+          teamId,
+          block: "false",
+        });
         Swal.fire(`${Number(score)}점 추가!`, `현재 ${res.data.score}점`, "success");
         setTeamData((prevTeamData) => ({
           ...prevTeamData,
