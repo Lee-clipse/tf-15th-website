@@ -13,6 +13,7 @@ export const RoutePath = {
   STEP: "/step/:purpose",
   NOTFOUND: "*",
   ZEROGAME: "/zerogame",
+  TEAM_QR: "/team-qr",
 };
 
 export const Booth = {

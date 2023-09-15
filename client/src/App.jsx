@@ -16,6 +16,7 @@ const QRReconfirmPage = lazy(() => import("./pages/QRReconfirm/index"));
 const StepPage = lazy(() => import("./pages/Step/index"));
 const ZerogamePage = lazy(() => import("./pages/Zerogame/index"));
 const DonateUsagePage = lazy(() => import("./pages/DonateUsage/index"));
+const TeamQRPage = lazy(() => import("./pages/TeamQR/index"));
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
           <Route path={RoutePath.MISSION} element={<MissionPage />}></Route>
           <Route path={RoutePath.STEP} element={<StepPage />}></Route>
           <Route path={RoutePath.ZEROGAME} element={<ZerogamePage />}></Route>
+          <Route path={RoutePath.TEAM_QR} element={<TeamQRPage />}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>
