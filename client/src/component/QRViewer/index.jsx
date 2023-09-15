@@ -76,7 +76,7 @@ const QRViewer = ({ userId }) => {
               <StepManageTeam userInfo={userInfo} teamList={teamList} />
             </s.UserViewWrapper>
           ) : (
-            <TeamScoreForm userInfo={userInfo} />
+            <div />
           )}
         </s.Container>
       )}
