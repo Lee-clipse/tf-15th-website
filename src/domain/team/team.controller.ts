@@ -1,5 +1,5 @@
-import { ApiOperation, ApiTags, ApiBody } from '@nestjs/swagger';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ApiOperation, ApiTags, ApiBody, ApiQuery } from '@nestjs/swagger';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { TeamService } from './team.service';
 import { TeamScoreDto } from './dto/team_score.dto';
 import { TeamBreakDto } from './dto/team_break.dto';
@@ -26,6 +26,21 @@ export class TeamController {
   async getWaitingTeam() {
     const teamList = await this.teamService.getWaitingTeam();
     return { code: 200, teamList };
+  }
+
+  // View Team Score
+  @Get('/score')
+  @ApiOperation({
+    summary: '팀 점수 반환',
+  })
+  @ApiQuery({
+    name: 'teamId',
+    type: 'string',
+  })
+  async getTeamScore(@Query('teamId') teamId: string) {
+    const res = await this.teamService.getTeamInfo(teamId);
+    const { teamName, score } = res;
+    return { code: 200, teamName, score };
   }
 
   // Plus Team Score
