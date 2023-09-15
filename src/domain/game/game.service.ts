@@ -2,10 +2,14 @@ import { MAP_INDEX, NEXT_INDEX, BATTLE_BOOTH } from '../../constants/consts';
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
 import { InjectRedis } from '@liaoliaots/nestjs-redis';
+import { CustomLoggerService } from 'src/module/custom.logger';
 
 @Injectable()
 export class GameService {
-  constructor(@InjectRedis() private readonly redis: Redis) {}
+  constructor(
+    @InjectRedis() private readonly redis: Redis,
+    private readonly customLogger: CustomLoggerService,
+  ) {}
 
   MAP_INDEX = MAP_INDEX;
   NEXT_INDEX = NEXT_INDEX;
@@ -30,6 +34,7 @@ export class GameService {
   async rollDice(teamId: string) {
     const currIndex = await this.redis.get(teamId);
     if (currIndex === null) {
+      this.customLogger.error('/roll-dice', '존재하지 않는 팀', { teamId });
       return { nextIndex: null };
     }
     // 클리어
@@ -87,8 +92,11 @@ export class GameService {
         }
         // 에러
         else {
-          console.log(waitingTeamCount);
-          return { message: '1 Booth Error' };
+          this.customLogger.error('/roll-dice', '대결부스 1개 있는 경우', {
+            teamId,
+            waitingTeamCount: `대결 부스에 ${waitingTeamCount}팀 대기`,
+          });
+          return { nextIndex: null, message: '1 Booth Error' };
         }
       }
       // 다음 라인에 대결 부스 2개
@@ -123,14 +131,20 @@ export class GameService {
         }
         // 에러
         else {
-          console.log(nextBattleBoothIndex);
-          return { message: '2 Booth Error' };
+          this.customLogger.error('/roll-dice', '대결부스 2개 있는 경우', {
+            teamId,
+            waitingTeamCount: `대결 부스에 ${countL}, ${countR}팀 대기`,
+          });
+          return { nextIndex: null, message: '2 Booth Error' };
         }
       }
       // 에러
       else {
-        console.log(nextBattleBoothIndex);
-        return { message: 'Booth Error' };
+        this.customLogger.error('/roll-dice', '대결부스 ???개 있는 경우', {
+          teamId,
+          nextBattleBoothIndex,
+        });
+        return { nextIndex: null, message: 'Booth Error' };
       }
 
       return { nextIndex };
