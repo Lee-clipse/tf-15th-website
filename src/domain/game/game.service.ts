@@ -133,21 +133,11 @@ export class GameService {
         return { message: 'Booth Error' };
       }
 
-      // 이동
-      this.redis.hincrby('map', currIndex, -1);
-      this.redis.hincrby('map', nextIndex, 1);
-      this.redis.set(teamId, nextIndex);
-
       return { nextIndex };
     }
     // 현재 라인에서 주사위를 굴린 경우
     else {
       const nextIndex = this.NEXT_INDEX[currIndex];
-
-      // 이동
-      this.redis.hincrby('map', currIndex, -1);
-      this.redis.hincrby('map', nextIndex, 1);
-      this.redis.set(teamId, nextIndex);
 
       return { nextIndex };
     }
@@ -174,6 +164,14 @@ export class GameService {
       nextIndex = allKeys[randomIndex];
     }
     return nextIndex;
+  }
+
+  // 앞으로 이동 - DB에 실제 반영
+  async moveForward(teamId: string, currIndex: string, nextIndex: string) {
+    await this.redis.hincrby('map', currIndex, -1);
+    await this.redis.hincrby('map', nextIndex, 1);
+    await this.redis.set(teamId, nextIndex);
+    await this.redis.set(`${teamId}-block`, 'false');
   }
 
   //! For Test

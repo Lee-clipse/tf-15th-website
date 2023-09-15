@@ -56,34 +56,19 @@ export class GameController {
   })
   async rollDice(@Body() teamInitDto: TeamInitDto) {
     const teamId = teamInitDto.teamId;
+
     const currIndex = await this.gameService.getCurrIndex(teamId);
     const beforeMap = await this.gameService.getMap();
 
     const res = await this.gameService.rollDice(teamId);
     const nextIndex = res.nextIndex;
+
+    // 이동
+    await this.gameService.moveForward(teamId, currIndex, nextIndex);
     const afterMap = await this.gameService.getMap();
 
-    const indexMap = [
-      '-',
-      1,
-      2,
-      3,
-      '-',
-      1,
-      2,
-      3,
-      4,
-      '-',
-      1,
-      2,
-      '-',
-      1,
-      2,
-      3,
-      '-',
-    ];
     this.logger.debug(
-      `\n[${teamId}]\n  ${currIndex}  ->  ${nextIndex}\n\tINDEX:  ${indexMap}\n\tBEFORE: ${beforeMap}\n\tAFTER:  ${afterMap}\n\n`,
+      `\n[${teamId}]\n  ${currIndex}  ->  ${nextIndex}\n\tINDEX:  ${LOG_MAP_INDEX}\n\tBEFORE: ${beforeMap}\n\tAFTER:  ${afterMap}\n\n`,
     );
     return res;
   }
