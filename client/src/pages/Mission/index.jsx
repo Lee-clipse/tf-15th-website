@@ -16,76 +16,23 @@ const MissionPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // 접수된 사용자가 스텝에 의해 팀 등록 후 새로고침시 LS에 teamId 저장
-    pageInitExecuter();
   }, []);
-
-  const pageInitExecuter = async () => {
-    const userId = localStorage.getItem("userId");
-    const teamId = localStorage.getItem("teamId");
-
-    // 미접수 사용자: 단순 조회
-    if (userId === null) {
-      return;
-    }
-    // 접수 but 팀 소속 대기 사용자: 단순 조회
-    if (teamId === null) {
-      try {
-        // API: Get User Team
-        const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.GET_USER_TEAM, {
-          params: { userId },
-        });
-
-        const joinedTeamId = res.data.teamId;
-        // 스텝에 의해 팀 소속 직후
-        if (joinedTeamId !== "-") {
-          localStorage.setItem("teamId", joinedTeamId);
-          return;
-        }
-      } catch (error) {
-        Swal.fire("API ERROR: Get User Team", "인포데스크로 방문 제보 부탁드립니다.", "error");
-      }
-    }
-  };
 
   const routeToZeroGame = async () => {
     const userId = localStorage.getItem("userId");
-    const teamId = localStorage.getItem("teamId");
+    const teamId = await getTeamId(userId);
 
     // 미접수 사용자
     if (userId === null) {
       Swal.fire("접수되지 않은 사용자입니다.", "홈페이지에서 접수하실 수 있습니다.", "warning");
       return;
     }
-    // 팀 참가 대기 사용자
+    // 팀 참가 대기 사용자 (제로게임 처음)
     if (teamId === null) {
-      try {
-        // API: Get User Team
-        const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.GET_USER_TEAM, {
-          params: { userId },
-        });
-
-        const joinedTeamId = res.data.teamId;
-        // 스텝에 의해 팀 소속 직후
-        if (joinedTeamId !== "-") {
-          localStorage.setItem("teamId", joinedTeamId);
-          navigate(RoutePath.ZEROGAME);
-          return;
-        } else {
-          Swal.fire(
-            "제로게임 참가 대상입니다!",
-            "스텝이 팀을 만들 때까지 기다려주세요.",
-            "success"
-          );
-          return;
-        }
-      } catch (error) {
-        Swal.fire("API ERROR: Get User Team", "인포데스크로 방문 제보 부탁드립니다.", "error");
-      }
-      return;
+      Swal.fire("제로게임 참가 대상입니다!", "스텝이 팀을 만들 때까지 기다려주세요.", "success");
     }
     // 스텝에 의해 팀 참가 직후 버튼 클릭
-    else {
+    else if (teamId !== "-") {
       navigate(RoutePath.ZEROGAME);
     }
   };
@@ -106,6 +53,25 @@ const MissionPage = () => {
       </s.Wrapper>
     </PageTemplate>
   );
+};
+
+const getTeamId = async (userId) => {
+  // API: Get User Team
+  const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.GET_USER_TEAM, {
+    params: { userId },
+  });
+  if (Number(res.data.code) === 404) {
+    return;
+  }
+
+  const joinedTeamId = res.data.teamId;
+  // 팀 소속 없는 사용자
+  if (joinedTeamId === "-") {
+    return null;
+  }
+  // 스텝에 의해 팀 소속 직후
+  localStorage.setItem("teamId", joinedTeamId);
+  return joinedTeamId;
 };
 
 export default MissionPage;
