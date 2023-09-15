@@ -41,6 +41,7 @@ export class GameService {
   // Manage Block
   async manageBlock(teamId: string, block: string) {
     await this.redis.set(`${teamId}-block`, `${block}`);
+    return { code: 200 };
   }
 
   // Roll Dice
@@ -198,7 +199,7 @@ export class GameService {
     await this.redis.hincrby('map', currIndex, -1);
     await this.redis.hincrby('map', nextIndex, 1);
     await this.redis.set(teamId, nextIndex);
-    await this.redis.set(`${teamId}-block`, 'false');
+    await this.redis.set(`${teamId}-block`, 'true');
   }
 
   //! For Test
