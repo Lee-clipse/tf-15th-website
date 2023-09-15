@@ -6,7 +6,7 @@ export const LogoWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 16rem;
+  padding-bottom: 17rem;
 `;
 
 export const LogoImage = styled.img`

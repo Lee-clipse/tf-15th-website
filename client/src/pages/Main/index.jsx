@@ -5,6 +5,7 @@ import MainLinker from "@components/MainLinker";
 import YoutubeSection from "@components/YoutubeSection";
 import RegisterButton from "@components/RegisterButton";
 import ScrollInducer from "@components/ScrollInducer";
+import CountDown from "../../component/CountDown";
 
 const MainPage = () => {
   useEffect(() => {
@@ -14,6 +15,7 @@ const MainPage = () => {
   return (
     <PageTemplate>
       <MainLogo />
+      <CountDown />
       <MainLinker />
       <YoutubeSection />
       <RegisterButton />

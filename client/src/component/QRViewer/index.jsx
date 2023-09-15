@@ -6,7 +6,6 @@ import { ENV, API } from "@constants/env";
 import StepManageTeam from "../StepManageTeam";
 import Swal from "sweetalert2";
 import UserScoreForm from "@components/UserScoreForm";
-import TeamScoreForm from "@components/TeamScoreForm";
 
 const QRViewer = ({ userId }) => {
   const [userInfo, setUserInfo] = useState(null);
