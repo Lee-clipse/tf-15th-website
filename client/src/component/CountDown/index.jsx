@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import * as s from "./style";
 
-const CountDown = () => {
-  const [timerText, setTimerText] = useState("");
-  const [timerDayText, setTimerDayText] = useState("");
+const CountDown = ({ timeInfo }) => {
+  const [timerText, setTimerText] = useState(timeInfo.countdownText);
+  const [timerDayText, setTimerDayText] = useState(timeInfo.countdownDayText);
 
   useEffect(() => {
     // D-Day 설정

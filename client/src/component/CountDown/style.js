@@ -22,6 +22,7 @@ export const TimerWrapper = styled.div`
   padding: 2rem;
 
   width: 80%;
+  height: 20vh;
   background: ${(props) => props.theme.color.MAIN_BLUE};
 `;
 
