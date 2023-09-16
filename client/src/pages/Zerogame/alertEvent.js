@@ -25,11 +25,6 @@ export const renderDiceRollEvent = (prevIndex, nextIndex) => {
     Toast.fire({ icon: "info", title: alertTitle });
     return;
   }
-  const alertTitle =
-    nextIndexNumber % 10 === 0
-      ? "전방의 대기소로 이동!"
-      : `${nextIndexNumber - prevIndexNumber}칸 앞으로 이동!`;
-  Toast.fire({ icon: "success", title: alertTitle });
 };
 
 export const rollConfirmEvent = async () => {

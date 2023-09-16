@@ -9,10 +9,12 @@ import QRCode from "qrcode";
 import Swal from "sweetalert2";
 import { RoutePath } from "@constants/enums";
 import { renderDiceRollEvent, rollConfirmEvent } from "./alertEvent";
+import { indexConverter } from "./indexConverter";
 import RefreshButton from "@components/RefreshButton";
 import { motion } from "framer-motion";
 import { OchestraList } from "@styles/animation";
 import { variants } from "./motion";
+import DiceModal from "@components/DiceModal";
 
 const ZerogamePage = () => {
   const navigate = useNavigate();
@@ -21,6 +23,18 @@ const ZerogamePage = () => {
   const [teamId] = useState(localStorage.getItem("teamId"));
   const [teamData, setTeamData] = useState(null);
   const [qrImageUrl, setQrImageUrl] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [diceValue, setDiceValue] = useState(0);
+
+  const openModal = (nextIndex) => {
+    setIsModalOpen(true);
+    setDiceValue(nextIndex);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setDiceValue(0);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -51,7 +65,7 @@ const ZerogamePage = () => {
     }
     // 제로게임 종료 후
     if (Number(index) === 50) {
-      await exitGameByEnding(score);
+      exitGameByEnding(score);
       navigate(RoutePath.TEAM_QR, {
         state: {
           userId: userId,
@@ -132,9 +146,14 @@ const ZerogamePage = () => {
       score: newScore,
     }));
 
+    // nextIndex 이미 정해진 값으로 모달 띄우기
+    // 실제로는 API에서 값 받아서 넘겨주기
+    const moveIndex = indexConverter(prevIndex, Number(nextIndex));
+    openModal(moveIndex);
+
     // 엔딩
     if (nextIndex === 50) {
-      await exitGameByEnding(score);
+      exitGameByEnding(score);
       navigate(RoutePath.TEAM_QR, {
         state: {
           userId: userId,
@@ -147,6 +166,7 @@ const ZerogamePage = () => {
 
   return (
     <s.Wrapper>
+      {isModalOpen && <DiceModal closeModal={closeModal} nextIndex={diceValue} />}
       {teamData && (
         <s.Container as={motion.div} variants={OchestraList} initial="hidden" animate="visible">
           <s.TeamName>{teamData.teamName} 팀</s.TeamName>

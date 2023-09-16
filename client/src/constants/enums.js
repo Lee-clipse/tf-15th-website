@@ -34,3 +34,10 @@ export const Booth = {
   42: "쓰봉이의 문단속",
   43: "대결! 쉘위 탭댄스",
 };
+
+export const DiceTransform = {
+  1: "rotateX(720deg) rotateZ(-720deg)",
+  2: "rotateX(-900deg) rotateZ(1080deg)",
+  3: "rotateY(810deg) rotateZ(720deg)",
+  4: "rotateX(-810deg) rotateZ(-1080deg)",
+};
