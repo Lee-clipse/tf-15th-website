@@ -266,7 +266,7 @@ const getTeamScore = async (teamId) => {
 // 팀 점수를 사용자들에게 전파
 const spreadTeamScore = async (teamId) => {
   // API: Spread Team Score
-  const res = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.SPREAD_TEAM_SCORE, {
+  const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.SPREAD_TEAM_SCORE, {
     teamId,
   });
   if (res === null) {
