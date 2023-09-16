@@ -8,6 +8,7 @@ import { TeamService } from '../team/team.service';
 import { UserJoinDto } from './dto/user_join.dto';
 import { getCurrentDateTime } from 'src/utils/utils';
 import { CustomLoggerService } from 'src/module/custom.logger';
+import { ClearedService } from '../cleared/cleared.service';
 
 @Injectable()
 export class UserService {
@@ -16,10 +17,12 @@ export class UserService {
     private userRepository: Repository<UserEntity>,
     @Inject(forwardRef(() => TeamService))
     private readonly teamService: TeamService,
+    private readonly clearedService: ClearedService,
     private readonly customLogger: CustomLoggerService,
   ) {}
 
   TEAM_MAX_COUNT = 5;
+  CLEARED_SCORE = 0;
 
   // Register User
   async registerUser(userForm: UserFormDto) {
@@ -196,6 +199,16 @@ export class UserService {
         .set({ score: teamScore })
         .where('user.team_id = :teamId', { teamId })
         .execute();
+      // 제로게임 클리어 한 경우 명단에 등재
+      if (teamScore === this.CLEARED_SCORE) {
+        const userIdList = await this.userRepository
+          .createQueryBuilder('user')
+          .select('user.user_id')
+          .where('user.team_id = :teamId', { teamId })
+          .getRawMany()
+          .then((results) => results.map((result) => result.user_id));
+        await this.clearedService.registerClearedUsers(teamId, userIdList);
+      }
     } catch (error) {
       this.customLogger.error('/team/spread', '팀 점수 전파', { teamId });
     }

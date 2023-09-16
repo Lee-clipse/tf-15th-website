@@ -11,6 +11,7 @@ import {
   WinstonModule,
 } from 'nest-winston';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { ClearedModule } from './domain/cleared/cleared.module';
 
 const winstonFormat = winston.format.combine(
   winston.format.timestamp(),
@@ -50,6 +51,7 @@ const winstonFormat = winston.format.combine(
     }),
     UserModule,
     TeamModule,
+    ClearedModule,
   ],
   controllers: [],
   providers: [],
