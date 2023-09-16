@@ -12,6 +12,7 @@ import { renderDiceRollEvent, rollConfirmEvent } from "./alertEvent";
 import RefreshButton from "@components/RefreshButton";
 import { motion } from "framer-motion";
 import { OchestraList } from "@styles/animation";
+import { variants } from "./motion";
 
 const ZerogamePage = () => {
   const navigate = useNavigate();
@@ -149,8 +150,15 @@ const ZerogamePage = () => {
       {teamData && (
         <s.Container as={motion.div} variants={OchestraList} initial="hidden" animate="visible">
           <s.TeamName>{teamData.teamName} 팀</s.TeamName>
+          <s.TeamScore>현재 탄소 스코어</s.TeamScore>
           <s.TeamScore>{teamData.score} 점</s.TeamScore>
-          <s.Board src="/assets/zerogame/board.webp" />
+          <s.BoardWapper>
+            <s.Board src="/assets/zerogame/board.webp" />
+            <s.IndexMarker src="/assets/zerogame/10.svg" />
+            <s.FlagWrapper as={motion.div} initial="hidden" animate="visible" variants={variants}>
+              <s.Flag src="/assets/zerogame/10-flag.svg" />
+            </s.FlagWrapper>
+          </s.BoardWapper>
           <s.TeamIndex>현 위치: {Booth[teamData.index]}</s.TeamIndex>
           <s.ButtonWrapper>
             <s.DiceButton onClick={rollDice}>주사위 굴리기</s.DiceButton>

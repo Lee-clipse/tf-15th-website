@@ -26,15 +26,17 @@ export const Container = styled.div`
 export const TeamName = styled.p`
   color: ${(props) => props.theme.color.TEXT_WHITE};
   font-family: ${(props) => props.theme.font.BOLD};
-  font-size: ${(props) => props.theme.font.size.XXL};
+  font-size: ${(props) => props.theme.font.size.ML};
 `;
 
+export const TeamScoreLabel = styled.p``;
 export const TeamScore = styled.p`
   color: ${(props) => props.theme.color.TEXT_WHITE};
   font-family: ${(props) => props.theme.font.BOLD};
   font-size: ${(props) => props.theme.font.size.XXL};
 
   margin-top: 2rem;
+  text-align: center;
 `;
 
 export const TeamIndex = styled.p`
@@ -45,10 +47,31 @@ export const TeamIndex = styled.p`
   margin: 3rem 0rem;
 `;
 
-export const Board = styled.img`
+export const BoardWapper = styled.div`
   width: 80vw;
-
   margin-top: 3rem;
+  position: relative;
+  z-index: 1;
+`;
+export const Board = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+export const IndexMarker = styled.img`
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  left: 0%;
+`;
+export const FlagWrapper = styled.div`
+  width: 100%;
+  position: absolute;
+  z-index: 3;
+  left: 0%;
+  top: 0%;
+`;
+export const Flag = styled.img`
+  width: 100%;
 `;
 
 export const ButtonWrapper = styled.div`
