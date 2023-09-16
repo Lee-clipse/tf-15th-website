@@ -54,7 +54,7 @@ export class TeamController {
     return await this.teamService.plusTeamScore(teamId, score);
   }
 
-  // Break
+  // Break Team
   @Post('/break')
   @ApiOperation({
     summary: '팀 해체',
@@ -63,5 +63,16 @@ export class TeamController {
   async breakTeam(@Body() teamBreakDto: TeamBreakDto) {
     const { teamId } = teamBreakDto;
     return await this.teamService.breakTeam(teamId);
+  }
+
+  // Spread Team Score
+  @Post('/spread')
+  @ApiOperation({
+    summary: '팀 점수 전파',
+  })
+  @ApiBody({ type: () => TeamBreakDto })
+  async spreadTeamScore(@Body() teamBreakDto: TeamBreakDto) {
+    const { teamId } = teamBreakDto;
+    return await this.teamService.spreadTeamScore(teamId);
   }
 }

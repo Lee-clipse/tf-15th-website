@@ -182,7 +182,22 @@ export class UserService {
         .where('user.team_id = :teamId', { teamId })
         .execute();
     } catch (error) {
-      this.customLogger.error('/user/break', '참가자 해체', { teamId });
+      this.customLogger.error('/team/break', '참가자 해체', { teamId });
+    }
+  }
+
+  // Team Service에서 호출
+  // Spread Team Score
+  async spreadTeamScore(teamId: string, teamScore: number) {
+    try {
+      await this.userRepository
+        .createQueryBuilder('user')
+        .update()
+        .set({ score: teamScore })
+        .where('user.team_id = :teamId', { teamId })
+        .execute();
+    } catch (error) {
+      this.customLogger.error('/team/spread', '팀 점수 전파', { teamId });
     }
   }
 

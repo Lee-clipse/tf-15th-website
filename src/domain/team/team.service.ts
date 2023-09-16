@@ -113,6 +113,24 @@ export class TeamService {
     }
   }
 
+  // Spread Team Score
+  async spreadTeamScore(teamId: string) {
+    const teamRow = await this.getTeamRow(teamId);
+    if (teamRow === null) {
+      this.customLogger.warn('/team/spread', '팀 찾기', { teamId });
+      return { code: 404, message: 'Undefined Team' };
+    }
+    try {
+      // 해당 팀에 속한 유저들의 score 변경 & teamId '-'로 변경
+      await this.userService.spreadTeamScore(teamId, Number(teamRow.score));
+      return { code: 200 };
+    } catch (error) {
+      this.customLogger.error('/team/spread', '사용자에게 점수 전달', {
+        teamId,
+      });
+    }
+  }
+
   // UserService에서 호출
   // 현재 team 정보를 반환
   async getTeamInfo(teamId: string) {
