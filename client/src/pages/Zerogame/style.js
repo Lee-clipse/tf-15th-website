@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
   align-items: center;
 
   width: 100vw;
+  height: 100%;
+
   padding: 4rem 0rem;
 
   background: ${(props) => props.theme.color.MAIN_BLUE};
@@ -40,13 +42,21 @@ export const TeamIndex = styled.p`
   font-family: ${(props) => props.theme.font.BOLD};
   font-size: ${(props) => props.theme.font.size.XXL};
 
-  margin-top: 3rem;
+  margin: 3rem 0rem;
 `;
 
 export const Board = styled.img`
   width: 80vw;
 
   margin-top: 3rem;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 90vw;
 `;
 
 export const DiceButton = styled.button`
@@ -57,10 +67,9 @@ export const DiceButton = styled.button`
 
   border-radius: 1.2rem;
   padding: 1rem;
-  width: 80vw;
+  width: 80%;
+  height: 100%;
   border: 0.36rem solid rgba(0, 0, 0, 1);
-
-  margin-top: 3rem;
 `;
 
 export const TeamQRWrapper = styled.div`

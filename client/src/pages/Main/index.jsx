@@ -5,7 +5,7 @@ import MainLinker from "@components/MainLinker";
 import YoutubeSection from "@components/YoutubeSection";
 import RegisterButton from "@components/RegisterButton";
 import ScrollInducer from "@components/ScrollInducer";
-import CountDown from "../../component/CountDown";
+import CountDown from "@components/CountDown";
 import moment from "moment";
 
 const MainPage = () => {

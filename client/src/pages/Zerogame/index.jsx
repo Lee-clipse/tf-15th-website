@@ -8,8 +8,10 @@ import { Booth } from "../../constants/enums";
 import QRCode from "qrcode";
 import Swal from "sweetalert2";
 import { RoutePath } from "@constants/enums";
-
 import { renderDiceRollEvent, rollConfirmEvent } from "./alertEvent";
+import RefreshButton from "@components/RefreshButton";
+import { motion } from "framer-motion";
+import { OchestraList } from "@styles/animation";
 
 const ZerogamePage = () => {
   const navigate = useNavigate();
@@ -144,12 +146,15 @@ const ZerogamePage = () => {
   return (
     <s.Wrapper>
       {teamData && (
-        <s.Container>
+        <s.Container as={motion.div} variants={OchestraList} initial="hidden" animate="visible">
           <s.TeamName>{teamData.teamName} 팀</s.TeamName>
           <s.TeamScore>{teamData.score} 점</s.TeamScore>
           <s.Board src="/assets/zerogame/board.webp" />
           <s.TeamIndex>현 위치: {Booth[teamData.index]}</s.TeamIndex>
-          <s.DiceButton onClick={rollDice}>주사위 굴리기</s.DiceButton>
+          <s.ButtonWrapper>
+            <s.DiceButton onClick={rollDice}>주사위 굴리기</s.DiceButton>
+            <RefreshButton />
+          </s.ButtonWrapper>
           <s.TeamQRWrapper>
             <s.QRLabel>우리 팀 QR 코드</s.QRLabel>
             <s.ArrowIcon src="/assets/down_arrow_double_white.svg" />
