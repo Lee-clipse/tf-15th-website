@@ -100,7 +100,8 @@ const ZerogamePage = () => {
     }
     // 제로게임 종료 후
     if (Number(index) === 50) {
-      await exitGameByEnding(score);
+      exitGameByEnding(score);
+      await spreadTeamScore(latestTeamId);
       navigate(RoutePath.TEAM_QR, {
         state: {
           userId: userId,
@@ -205,7 +206,7 @@ const exitGameAfterTeamBreak = async (userId) => {
 };
 
 // 주사위를 굴려서 제로게임 마지막에 도달
-const exitGameByEnding = async (score) => {
+const exitGameByEnding = (score) => {
   localStorage.removeItem("teamId");
 
   if (Number(score) === 0) {
@@ -260,6 +261,19 @@ const getTeamScore = async (teamId) => {
     params: { teamId },
   });
   return Number(res.data.score);
+};
+
+// 팀 점수를 사용자들에게 전파
+const spreadTeamScore = async (teamId) => {
+  // API: Spread Team Score
+  const res = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.SPREAD_TEAM_SCORE, {
+    teamId,
+  });
+  if (res === null) {
+    Swal.fire("API ERROR: Spread Team Score", "인포데스크로 방문 제보 부탁드립니다.", "error");
+    return;
+  }
+  return Number(res.data.code);
 };
 
 export default ZerogamePage;
