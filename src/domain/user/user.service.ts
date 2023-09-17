@@ -51,7 +51,7 @@ export class UserService {
         id: userId,
         ...userForm,
         teamId: '-',
-        score: 0,
+        score: -100,
         date: getCurrentDateTime(),
       });
       return { code: 404, userId };
