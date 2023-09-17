@@ -126,9 +126,9 @@ const ZerogamePage = () => {
           <s.TeamScore>{teamData.score} 점</s.TeamScore>
           <s.BoardWapper>
             <s.Board src="/assets/zerogame/board.webp" />
-            <s.IndexMarker src="/assets/zerogame/10.svg" />
+            <s.IndexMarker src={`/assets/zerogame/index/${teamData.index}.svg`} />
             <s.FlagWrapper as={motion.div} initial="hidden" animate="visible" variants={variants}>
-              <s.Flag src="/assets/zerogame/10-flag.svg" />
+              <s.Flag src={`/assets/zerogame/index/${teamData.index}-flag.svg`} />
             </s.FlagWrapper>
           </s.BoardWapper>
           <s.TeamIndex>현 위치: {Booth[teamData.index]}</s.TeamIndex>
