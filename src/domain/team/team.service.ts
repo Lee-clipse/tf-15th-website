@@ -89,30 +89,6 @@ export class TeamService {
     }
   }
 
-  // Break Team
-  async breakTeam(teamId: string) {
-    const teamRow = await this.getTeamRow(teamId);
-    if (teamRow === null) {
-      this.customLogger.warn('/team/break', '팀 찾기', { teamId });
-      return { code: 404, message: 'Undefined Team' };
-    }
-    try {
-      // 해당 팀에 속한 유저들의 score 변경 & teamId '-'로 변경
-      await this.userService.updateUserToSolo(teamId, Number(teamRow.score));
-    } catch (error) {
-      this.customLogger.error('/team/break', '사용자에게 점수 전달', {
-        teamId,
-      });
-    }
-    try {
-      // 팀의 count를 0으로 업데이트
-      await this.teamRepository.update(teamId, { count: 0 });
-      return { code: 200 };
-    } catch (error) {
-      this.customLogger.error('/team/break', '팀 멤버수 초기화', { teamId });
-    }
-  }
-
   // Spread Team Score
   async spreadTeamScore(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
