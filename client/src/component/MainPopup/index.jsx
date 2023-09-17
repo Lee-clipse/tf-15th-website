@@ -25,7 +25,7 @@ export const MainPopup = ({ setShowMainPop }) => {
         <s.CloseButtonWrapper>
           <s.CloseButton onClick={closePop} src="/assets/zerogame/close.svg" alt="close" />
         </s.CloseButtonWrapper>
-        <s.Title>청건부산 신규 기부처 안내</s.Title>
+        <s.Title>청건부산 기부처 안내</s.Title>
         <s.Poster src="/assets/donate_usage/poster5.webp" alt="donate_usage" />
         <s.Close24ButtonWrpper>
           <s.CheckBox type="checkbox" onChange={handleChange} />
