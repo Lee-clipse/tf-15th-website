@@ -97,7 +97,7 @@ export class TeamService {
       return { code: 404, message: 'Undefined Team' };
     }
     try {
-      // 해당 팀에 속한 유저들의 score 변경 & teamId '-'로 변경
+      // 해당 팀에 속한 유저들의 score 변경
       await this.userService.spreadTeamScore(teamId, Number(teamRow.score));
       return { code: 200 };
     } catch (error) {

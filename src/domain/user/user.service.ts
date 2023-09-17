@@ -207,6 +207,7 @@ export class UserService {
           .where('user.team_id = :teamId', { teamId })
           .getRawMany()
           .then((results) => results.map((result) => result.user_id));
+        console.log(userIdList);
         await this.clearedService.registerClearedUsers(teamId, userIdList);
       }
     } catch (error) {
