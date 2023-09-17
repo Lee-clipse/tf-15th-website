@@ -200,6 +200,7 @@ export class UserService {
         .where('user.team_id = :teamId', { teamId })
         .execute();
       // 제로게임 클리어 한 경우 명단에 등재
+      this.customLogger.warn('spreadTeamScore()', '엔딩 점수', { teamScore });
       if (teamScore === this.CLEARED_SCORE) {
         const userIdList = await this.userRepository
           .createQueryBuilder('user')
@@ -208,6 +209,9 @@ export class UserService {
           .getRawMany()
           .then((results) => results.map((result) => result.user_id));
         console.log(userIdList);
+        this.customLogger.warn('spreadTeamScore()', '클리어 사용자 명단', {
+          list: JSON.stringify(userIdList),
+        });
         await this.clearedService.registerClearedUsers(teamId, userIdList);
       }
     } catch (error) {
