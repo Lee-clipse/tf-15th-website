@@ -98,6 +98,6 @@ export class GameController {
     this.logger.debug(
       `\n[${teamId}]\n  ${currIndex}  ->  ${nextIndex}\n\tINDEX:  ${LOG_MAP_INDEX}\n\tBEFORE: ${beforeMap}\n\tAFTER:  ${afterMap}\n\n`,
     );
-    return res;
+    return { code: 200, prevIndex: currIndex, nextIndex };
   }
 }
