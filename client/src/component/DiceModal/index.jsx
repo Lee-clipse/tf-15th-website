@@ -29,7 +29,7 @@ const DiceModal = ({ closeModal }) => {
     }
 
     const thisPrevIndex = Number(res.data.prevIndex);
-    const thisNextIndex = Number(res.data.prevIndex);
+    const thisNextIndex = Number(res.data.nextIndex);
     const indexGap = indexConverter(thisPrevIndex, thisNextIndex);
 
     setNextIndex(thisNextIndex);

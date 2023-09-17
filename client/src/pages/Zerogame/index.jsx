@@ -7,7 +7,6 @@ import { ENV, API } from "@constants/env";
 import QRCode from "qrcode";
 import Swal from "sweetalert2";
 import { RoutePath, Booth } from "@constants/enums";
-import { renderDiceRollEvent, rollConfirmEvent } from "./alertEvent";
 import RefreshButton from "@components/RefreshButton";
 import { motion } from "framer-motion";
 import { OchestraList } from "@styles/animation";
@@ -49,6 +48,9 @@ const ZerogamePage = () => {
 
   // index가 50이면 종료 감지 목적
   useEffect(() => {
+    if (!teamData) {
+      return;
+    }
     const thisIndex = teamData.index;
     // 엔딩
     if (thisIndex === 50) {
