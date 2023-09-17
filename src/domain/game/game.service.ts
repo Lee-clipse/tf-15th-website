@@ -201,6 +201,18 @@ export class GameService {
     await this.redis.set(`${teamId}-block`, 'true');
   }
 
+  // API: Move To Zone
+  async moveToZone(teamId: string) {
+    const currIndex = await this.getCurrIndex(teamId);
+    const nextIndex = NEXT_INDEX[String(currIndex)];
+
+    await this.redis.hincrby('map', currIndex, -1);
+    await this.redis.hincrby('map', nextIndex, 1);
+    await this.redis.set(teamId, nextIndex);
+
+    return { currIndex, nextIndex };
+  }
+
   //! For Test
   async getCurrIndex(teamId: string) {
     const currIndex = await this.redis.get(teamId);

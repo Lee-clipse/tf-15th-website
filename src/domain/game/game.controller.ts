@@ -74,6 +74,21 @@ export class GameController {
     return await this.gameService.manageBlock(teamId, block);
   }
 
+  // Move To Zone
+  @Post('/to-zone')
+  @ApiOperation({
+    summary: '대기소로 자동 이동',
+  })
+  @ApiBody({
+    type: () => TeamInitDto,
+  })
+  async moveToZone(@Body() teamInitDto: TeamInitDto) {
+    const { teamId } = teamInitDto;
+    const { currIndex, nextIndex } = await this.gameService.moveToZone(teamId);
+    this.logger.debug(`moveToZone: ${currIndex} -> ${nextIndex}`);
+    return { code: 200 };
+  }
+
   // Roll Dice
   @Post('/next')
   @ApiOperation({
