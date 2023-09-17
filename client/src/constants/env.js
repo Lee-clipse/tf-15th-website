@@ -26,4 +26,5 @@ export const API = {
   ROLL_DICE: "/next",
   GET_BLOCK: "/get-block",
   MANAGE_BLOCK: "/manage-block",
+  MOVE_TO_ZONE: "/to-zone",
 };
