@@ -5,19 +5,19 @@ export const renderDiceRollEvent = (prevIndex, nextIndex) => {
   const nextIndexNumber = Number(nextIndex);
   console.log(prevIndexNumber, nextIndexNumber);
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "center-center",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
   // 이미 팀원이 주사위를 굴린 경우
   if (nextIndexNumber === prevIndexNumber) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "center-center",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
     const alertTitle =
       nextIndexNumber % 10 === 0
         ? "영상 시청 후 스텝의 안내를 기다려주세요!"

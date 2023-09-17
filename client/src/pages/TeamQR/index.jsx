@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import * as s from "./style";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import QRCode from "qrcode";
 import { ENV, API } from "@constants/env";
 import Swal from "sweetalert2";
@@ -9,10 +9,8 @@ import axios from "axios";
 import { RoutePath } from "@constants/enums";
 
 const TeamQRPage = () => {
-  const location = useLocation();
-
-  const teamId = location.state.teamId;
-  const userId = location.state.userId;
+  const teamId = localStorage.getItem("teamId");
+  const userId = localStorage.getItem("userId");
 
   const [teamData, setTeamData] = useState(null);
   const [qrImageUrl, setQrImageUrl] = useState("");

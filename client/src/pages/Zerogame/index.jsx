@@ -4,12 +4,10 @@ import * as s from "./style";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ENV, API } from "@constants/env";
-import { Booth } from "../../constants/enums";
 import QRCode from "qrcode";
 import Swal from "sweetalert2";
-import { RoutePath } from "@constants/enums";
+import { RoutePath, Booth } from "@constants/enums";
 import { renderDiceRollEvent, rollConfirmEvent } from "./alertEvent";
-import { indexConverter } from "./indexConverter";
 import RefreshButton from "@components/RefreshButton";
 import { motion } from "framer-motion";
 import { OchestraList } from "@styles/animation";
@@ -24,16 +22,21 @@ const ZerogamePage = () => {
   const [teamData, setTeamData] = useState(null);
   const [qrImageUrl, setQrImageUrl] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [diceValue, setDiceValue] = useState(0);
 
-  const openModal = (nextIndex) => {
+  const openModal = () => {
     setIsModalOpen(true);
-    setDiceValue(nextIndex);
   };
 
-  const closeModal = () => {
+  const closeModal = (nextIndex) => {
     setIsModalOpen(false);
-    setDiceValue(0);
+
+    // 주사위 모달 종료 후
+    if (nextIndex) {
+      setTeamData((prevTeamData) => ({
+        ...prevTeamData,
+        index: Number(nextIndex),
+      }));
+    }
   };
 
   useEffect(() => {
@@ -44,34 +47,46 @@ const ZerogamePage = () => {
     renderTeamQR();
   }, []);
 
+  // index가 50이면 종료 감지 목적
+  useEffect(() => {
+    const thisIndex = teamData.index;
+    // 엔딩
+    if (thisIndex === 50) {
+      async function spreadTeamScore(teamId) {
+        // API: Spread Team Score
+        const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.SPREAD_TEAM_SCORE, {
+          teamId,
+        });
+        if (res === null) {
+          Swal.fire(
+            "API ERROR: Spread Team Score",
+            "인포데스크로 방문 제보 부탁드립니다.",
+            "error"
+          );
+          return;
+        }
+      }
+      // 팀 점수를 사용자들에게 전파
+      exitGameByEnding(teamData.score);
+      spreadTeamScore(teamId);
+      navigate(RoutePath.TEAM_QR);
+      return;
+    }
+  }, [teamData]);
+
+  // 초기 로딩 && 새로 고침
   const loadTeamData = async () => {
     const teamInfo = await getTeamInfo(userId, teamId);
     if (teamInfo === null) {
       Swal.fire("API ERROR: loadTeamData()", "인포데스크로 방문 제보 부탁드립니다.", "error");
       return;
     }
-    const { latestTeamId, teamName, score, index } = teamInfo;
+    const { teamName, score, index } = teamInfo;
 
-    // 팀 해체 직후 새로고침시
-    if (latestTeamId === "-") {
-      await exitGameAfterTeamBreak(userId);
-      navigate(RoutePath.TEAM_QR, {
-        state: {
-          userId: userId,
-          teamId: latestTeamId,
-        },
-      });
-      return;
-    }
     // 제로게임 종료 후
-    if (Number(index) === 50) {
+    if (index === 50) {
       exitGameByEnding(score);
-      navigate(RoutePath.TEAM_QR, {
-        state: {
-          userId: userId,
-          teamId: latestTeamId,
-        },
-      });
+      navigate(RoutePath.TEAM_QR);
       return;
     }
     setTeamData({ teamId, teamName, score, index });
@@ -85,88 +100,23 @@ const ZerogamePage = () => {
     });
   };
 
-  const rollDice = async () => {
-    const teamInfo = await getTeamInfo(userId, teamId);
-    if (teamInfo === null) {
-      Swal.fire("API ERROR: loadTeamData()", "인포데스크로 방문 제보 부탁드립니다.", "error");
+  const popDiceModal = async () => {
+    // API: Get Team Block
+    const block = await getTeamBlock(teamId);
+    // block이 true면 alert 하고 return
+    if (block === "true") {
+      Swal.fire("안내를 기다려주세요!", "스텝의 안내에 따라 이동 부탁드립니다!", "info");
       return;
     }
-    const { latestTeamId, score, index } = teamInfo;
-    if (Number(teamData.index) !== Number(index)) {
-      setTeamData((prevTeamData) => ({
-        ...prevTeamData,
-        index,
-        score,
-      }));
-      //! 여기 주사위 모달
-      return;
-    }
-
-    // 팀 해체 직후 버튼 클릭 시
-    if (latestTeamId === "-") {
-      await exitGameAfterTeamBreak(userId);
-      navigate(RoutePath.TEAM_QR, {
-        state: {
-          userId: userId,
-          teamId: latestTeamId,
-        },
-      });
-      return;
-    }
-    // 제로게임 종료 후
-    if (Number(index) === 50) {
-      exitGameByEnding(score);
-      await spreadTeamScore(latestTeamId);
-      navigate(RoutePath.TEAM_QR, {
-        state: {
-          userId: userId,
-          teamId: latestTeamId,
-        },
-      });
-      return;
-    }
-
-    const prevIndex = Number(index);
-
-    // 주사위 굴리기 block
-    const isBlockPassed = await emitDiceRollBlock(latestTeamId, prevIndex);
-    if (!isBlockPassed) {
-      if (isBlockPassed === null) {
-        Swal.fire("API ERROR: Get Team Block", "인포데스크로 방문 제보 부탁드립니다.", "error");
-      }
-      return;
-    }
-
-    // 주사위 굴리기
-    const nextIndex = await rollDiceEvent(latestTeamId, prevIndex);
-    const newScore = await getTeamScore(latestTeamId);
-    setTeamData((prevTeamData) => ({
-      ...prevTeamData,
-      index: nextIndex,
-      score: newScore,
-    }));
-
-    // nextIndex 이미 정해진 값으로 모달 띄우기
-    // 실제로는 API에서 값 받아서 넘겨주기
-    const moveIndex = indexConverter(prevIndex, Number(nextIndex));
-    openModal(moveIndex);
-
-    // 엔딩
-    if (nextIndex === 50) {
-      exitGameByEnding(score);
-      navigate(RoutePath.TEAM_QR, {
-        state: {
-          userId: userId,
-          teamId: latestTeamId,
-        },
-      });
-      return;
+    // block이 false면 주사위 모달 띄우기
+    if (block === "false") {
+      openModal();
     }
   };
 
   return (
     <s.Wrapper>
-      {isModalOpen && <DiceModal closeModal={closeModal} nextIndex={diceValue} />}
+      {isModalOpen && <DiceModal closeModal={closeModal} />}
       {teamData && (
         <s.Container as={motion.div} variants={OchestraList} initial="hidden" animate="visible">
           <s.TeamName>{teamData.teamName} 팀</s.TeamName>
@@ -181,7 +131,7 @@ const ZerogamePage = () => {
           </s.BoardWapper>
           <s.TeamIndex>현 위치: {Booth[teamData.index]}</s.TeamIndex>
           <s.ButtonWrapper>
-            <s.DiceButton onClick={rollDice}>주사위 굴리기</s.DiceButton>
+            <s.DiceButton onClick={popDiceModal}>주사위 굴리기</s.DiceButton>
             <RefreshButton />
           </s.ButtonWrapper>
           <s.TeamQRWrapper>
@@ -209,99 +159,27 @@ const getTeamInfo = async (userId, teamId) => {
     return null;
   }
   return {
-    latestTeamId: teamInfo.data.teamId,
     teamName: teamInfo.data.teamName,
-    score: teamInfo.data.score,
-    index: mapIndex.data.index,
+    score: Number(teamInfo.data.score),
+    index: Number(mapIndex.data.index),
   };
-};
-
-// 팀 해체 후, 점수에 따라 게임 종료 안내
-const exitGameAfterTeamBreak = async (userId) => {
-  localStorage.removeItem("teamId");
-
-  // API: Get User Score
-  const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.USER_SCORE, {
-    params: { userId },
-  });
-  const lastScore = Number(res.data.score);
-
-  if (lastScore === 0) {
-    Swal.fire("제로게임 클리어!", `축하합니다! 굿즈를 수령하실 수 있습니다!`, "success");
-  } else {
-    Swal.fire("제로게임 종료!", `${lastScore} 점으로 종료했습니다.`, "success");
-  }
 };
 
 // 주사위를 굴려서 제로게임 마지막에 도달
 const exitGameByEnding = (score) => {
-  localStorage.removeItem("teamId");
-
-  if (Number(score) === 0) {
+  if (score === 0) {
     Swal.fire("제로게임 클리어!", `축하합니다! 굿즈를 수령하실 수 있습니다!`, "success");
   } else {
     Swal.fire("제로게임 종료!", `${score} 점으로 종료했습니다.`, "success");
   }
 };
 
-// 주사위 block 검사 후 이벤트 발동
-const emitDiceRollBlock = async (teamId, prevIndex) => {
+const getTeamBlock = async (teamId) => {
   // API: Get Team Block
-  const blockRes = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.GET_BLOCK, {
+  const res = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.GET_BLOCK, {
     params: { teamId },
   });
-  const { block, alreadyIndex } = blockRes.data;
-
-  // 주사위 API 요청 말고 단순 랜더링
-  if (block === "true") {
-    renderDiceRollEvent(Number(prevIndex), Number(alreadyIndex));
-    return false;
-  }
-  // 갈 수 있는 경우
-  else if (block === "false") {
-    return await rollConfirmEvent();
-  }
-  // 에러
-  else {
-    return null;
-  }
-};
-
-// 주사위 굴리기
-const rollDiceEvent = async (teamId, prevIndex) => {
-  // API: Roll Dice
-  const res = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.ROLL_DICE, {
-    teamId,
-  });
-  if (res === null) {
-    Swal.fire("API ERROR: Roll Dice", "인포데스크로 방문 제보 부탁드립니다.", "error");
-    return;
-  }
-  const nextIndex = Number(res.data.nextIndex);
-  renderDiceRollEvent(prevIndex, nextIndex);
-  return nextIndex;
-};
-
-// 팀 점수 가져오기
-const getTeamScore = async (teamId) => {
-  // API: Get Team Score
-  const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.VIEW_TEAM_SCORE, {
-    params: { teamId },
-  });
-  return Number(res.data.score);
-};
-
-// 팀 점수를 사용자들에게 전파
-const spreadTeamScore = async (teamId) => {
-  // API: Spread Team Score
-  const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.SPREAD_TEAM_SCORE, {
-    teamId,
-  });
-  if (res === null) {
-    Swal.fire("API ERROR: Spread Team Score", "인포데스크로 방문 제보 부탁드립니다.", "error");
-    return;
-  }
-  return Number(res.data.code);
+  return res.data.block;
 };
 
 export default ZerogamePage;
