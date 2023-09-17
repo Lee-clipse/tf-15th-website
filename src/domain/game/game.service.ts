@@ -34,8 +34,7 @@ export class GameService {
   // Get Team Block
   async getTeamBlock(teamId: string) {
     const block = await this.redis.get(`${teamId}-block`);
-    const alreadyIndex = await this.redis.get(teamId);
-    return { block, alreadyIndex };
+    return { block };
   }
 
   // Manage Block
