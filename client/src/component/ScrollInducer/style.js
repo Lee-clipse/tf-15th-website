@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   position: absolute;
   bottom: 60%;
   right: 11%;
-  z-index: 1000;
+  z-index: 3;
 `;
 
 export const Container = styled.div``;
