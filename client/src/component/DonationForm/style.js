@@ -9,7 +9,7 @@ export const Title = styled.p`
   font-family: ${(props) => props.theme.font.BOLD};
   font-size: ${(props) => props.theme.font.size.S};
 
-  margin-bottom: 2.4vh;
+  margin-bottom: 1.4vh;
 `;
 
 export const DonationWrapper = styled.div`
@@ -33,6 +33,7 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  margin-top: 1.4rem;
 `;
 
 export const Input = styled.input`
@@ -40,6 +41,7 @@ export const Input = styled.input`
   color: ${(props) => props.theme.color.TEXT_BLACK};
   font-family: ${(props) => props.theme.font.NORMAL};
   font-size: ${(props) => props.theme.font.size.S};
+  background: ${(props) => props.theme.color.TEXT_WHITE};
 `;
 
 export const MoneyFormText = styled.span`

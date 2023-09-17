@@ -11,11 +11,14 @@ const DonationForm = ({ onInputDonation }) => {
           십대의벗청소년교육센터
         </s.DonationContents>
         <s.DonationContents>
-          *입급자명은 제출한 이름과 동일하게 입금 부탁드립니다. (ex) 이름: 홍길동 / 입금자명: 홍길동
+          * 입급자명은 제출한 이름과 동일하게 입금 부탁드립니다. (ex) 이름: 홍길동 / 입금자명:
+          홍길동
         </s.DonationContents>
       </s.DonationWrapper>
 
       <s.Title>기부금 입력</s.Title>
+      <s.DonationContents>* 기부 의사가 없으신 분은 0을 입력해 주세요.</s.DonationContents>
+
       <s.InputWrapper>
         <s.Input
           type="text"
