@@ -19,6 +19,7 @@ const DonateUsagePage = () => {
           <s.Poster src="/assets/donate_usage/poster2.webp" alt="donate_usage2" />
           <s.Poster src="/assets/donate_usage/poster3.webp" alt="donate_usage3" />
           <s.Poster src="/assets/donate_usage/poster4.webp" alt="donate_usage4" />
+          <s.Poster src="/assets/donate_usage/poster5.webp" alt="donate_usage5" />
         </motion.div>
       </s.Wrapper>
     </PageTemplate>
