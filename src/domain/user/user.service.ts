@@ -91,19 +91,21 @@ export class UserService {
       return { code: 404, message: 'Undefined User' };
     }
 
+    const isClearedUser = await this.clearedService.isClearedUser(userId);
+
     if (userInfo.teamId !== '-') {
       // 사용자의 소속 팀이 존재하는 경우 함께 반환
       const teamInfo = await this.teamService.getTeamInfo(userInfo.teamId);
       const { teamName, score } = teamInfo;
       return {
         code: 200,
-        userInfo: { ...userInfo, teamName, teamScore: score },
+        userInfo: { ...userInfo, teamName, teamScore: score, ...isClearedUser },
       };
     }
     // 팀이 없는 경우
     return {
       code: 200,
-      userInfo: { ...userInfo, teamName: '-', teamScore: 0 },
+      userInfo: { ...userInfo, teamName: '-', teamScore: 0, ...isClearedUser },
     };
   }
 
@@ -223,7 +225,6 @@ export class UserService {
         .where('user.team_id = :teamId', { teamId })
         .execute();
       // 제로게임 클리어 한 경우 명단에 등재
-      this.customLogger.warn('spreadTeamScore()', '엔딩 점수', { teamScore });
       if (teamScore === this.CLEARED_SCORE) {
         const userIdList = await this.userRepository
           .createQueryBuilder('user')
@@ -231,10 +232,6 @@ export class UserService {
           .where('user.team_id = :teamId', { teamId })
           .getRawMany()
           .then((results) => results.map((result) => result.user_id));
-        console.log(userIdList);
-        this.customLogger.warn('spreadTeamScore()', '클리어 사용자 명단', {
-          list: JSON.stringify(userIdList),
-        });
         await this.clearedService.registerClearedUsers(teamId, userIdList);
       }
     } catch (error) {

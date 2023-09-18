@@ -17,9 +17,20 @@ export class ClearedService {
       cleared.userId = userId;
       cleared.teamId = teamId;
       cleared.date = getCurrentDateTime();
+      cleared.isReceived = 0;
       return cleared;
     });
 
     return this.clearedRepository.save(clearedEntities);
+  }
+
+  async isClearedUser(userId: string) {
+    const row = await this.clearedRepository
+      .createQueryBuilder('cleared')
+      .where('cleared.user_id = :userId', { userId })
+      .getOne();
+    const isCleared = row ? 'true' : 'false';
+    const isReceived = row ? Number(row.isReceived) : 0;
+    return { isCleared, isReceived };
   }
 }

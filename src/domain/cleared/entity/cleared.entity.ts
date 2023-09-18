@@ -13,4 +13,7 @@ export class ClearedEntity {
 
   @Column({})
   date!: string;
+
+  @Column({ name: 'is_received' })
+  isReceived!: number;
 }
