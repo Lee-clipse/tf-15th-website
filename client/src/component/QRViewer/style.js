@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   width: 100vw;
   overflow-y: scroll;
-  height: 100vh;
+  height: 100%;
   margin: 0;
 `;
 
@@ -38,6 +38,7 @@ export const UserViewWrapper = styled.div`
   height: 100%;
   flex-grow: 1;
   background: ${(props) => props.theme.color.SOFT_PURPLE};
+  padding-bottom: 10rem;
 `;
 
 export const InfoText = styled.li`
@@ -69,6 +70,29 @@ export const SimpleTeamInfoSection = styled.div`
 export const TeamName = styled.p``;
 
 export const TeamScore = styled.p``;
+
+export const TeamExitButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+export const TeamExitButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: ${(props) => props.theme.color.RED};
+  border-radius: 1.4rem;
+
+  width: 90vw;
+  padding: 1rem;
+  margin-top: 2rem;
+
+  color: ${(props) => props.theme.color.TEXT_WHITE};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.L};
+`;
 
 export const NotAgreeText = styled.span`
   color: ${(props) => props.theme.color.RED};

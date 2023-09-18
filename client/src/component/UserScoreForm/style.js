@@ -57,7 +57,6 @@ export const Button = styled.button`
 
   background: ${(props) => props.theme.color.PURPLE};
   border-radius: 1.4rem;
-  border: 0.26rem solid ${(props) => props.theme.color.PURPLE};
 
   width: 90vw;
   padding: 1rem;

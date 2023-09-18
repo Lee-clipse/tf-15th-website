@@ -31,7 +31,6 @@ const QRViewer = ({ userId }) => {
       }
       const newUserInfo = res.data.userInfo;
       setUserInfo(newUserInfo);
-      console.log(userInfo);
     } catch (error) {
       Swal.fire("API 오류", "API: Get User Info", "error");
     }
@@ -46,6 +45,39 @@ const QRViewer = ({ userId }) => {
     } catch (error) {
       Swal.fire("API 오류", "API: View Waiting Team", "error");
     }
+  };
+
+  const handleTeamExit = async () => {
+    Swal.fire({
+      title: `정말로 ${userInfo.teamName}팀에서 탈퇴하시겠습니까?`,
+      text: "다시 되돌릴 수 없습니다.",
+      icon: "warning",
+
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // API: Join User
+        const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.EXIT_TEAM, {
+          userId: userInfo.id,
+          teamId: userInfo.teamId,
+        });
+        if (Number(res.data.code) === 200) {
+          setUserInfo((prevUserInfo) => ({
+            ...prevUserInfo,
+            teamId: "-",
+            teamName: "-",
+          }));
+          loadTeamList();
+          Swal.fire(`${userInfo.teamName}팀에서 탈퇴되었습니다.`, "", "success");
+        }
+      }
+    });
   };
 
   return (
@@ -82,6 +114,9 @@ const QRViewer = ({ userId }) => {
                 <s.TeamName>소속 팀: {userInfo.teamName}</s.TeamName>
                 <s.TeamScore>팀 점수: {userInfo.teamScore} 점</s.TeamScore>
               </s.SimpleTeamInfoSection>
+              <s.TeamExitButtonWrapper onClick={handleTeamExit}>
+                <s.TeamExitButton>팀 탈퇴</s.TeamExitButton>
+              </s.TeamExitButtonWrapper>
             </s.UserViewWrapper>
           )}
         </s.Container>
