@@ -55,7 +55,12 @@ export const CloseButton = styled.img`
 `;
 
 export const Poster = styled.img`
-  width: 100%;
+  width: 80vw;
+
+  @media screen and (min-width: 768px) {
+    width: 40vw;
+    height: 68vh;
+  }
 `;
 
 export const Close24ButtonWrpper = styled.div`
