@@ -94,8 +94,8 @@ const QRReconfirmPage = () => {
             </s.FormWrapper>
           ))}
 
-          <s.SubmitButtonWrapper>
-            <s.SubmitButton onClick={handleSubmit}>제출</s.SubmitButton>
+          <s.SubmitButtonWrapper onClick={handleSubmit}>
+            <s.SubmitButton>제출</s.SubmitButton>
           </s.SubmitButtonWrapper>
         </s.Container>
       </s.Wrapper>
