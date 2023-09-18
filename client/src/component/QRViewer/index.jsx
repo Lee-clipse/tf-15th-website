@@ -31,6 +31,7 @@ const QRViewer = ({ userId }) => {
       }
       const newUserInfo = res.data.userInfo;
       setUserInfo(newUserInfo);
+      console.log(userInfo);
     } catch (error) {
       Swal.fire("API 오류", "API: Get User Info", "error");
     }
@@ -69,13 +70,19 @@ const QRViewer = ({ userId }) => {
           </s.InfoWrapper>
           {/* 사용자 점수 관리 */}
           {/* 스텝 팀 관리 폼 */}
-          {userInfo.teamId === "-" && teamList !== null ? (
+          {userInfo.teamId === "-" ? (
             <s.UserViewWrapper>
               <UserScoreForm userInfo={userInfo} />
-              <StepManageTeam userInfo={userInfo} teamList={teamList} />
+              {teamList && <StepManageTeam userInfo={userInfo} teamList={teamList} />}
             </s.UserViewWrapper>
           ) : (
-            <div />
+            <s.UserViewWrapper>
+              <UserScoreForm userInfo={userInfo} />
+              <s.SimpleTeamInfoSection>
+                <s.TeamName>소속 팀: {userInfo.teamName}</s.TeamName>
+                <s.TeamScore>팀 점수: {userInfo.teamScore} 점</s.TeamScore>
+              </s.SimpleTeamInfoSection>
+            </s.UserViewWrapper>
           )}
         </s.Container>
       )}
