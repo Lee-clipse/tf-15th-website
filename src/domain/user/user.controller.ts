@@ -4,6 +4,7 @@ import { ApiOperation, ApiTags, ApiBody, ApiQuery } from '@nestjs/swagger';
 import { UserFormDto } from './dto/user_form.dto';
 import { UserJoinDto } from './dto/user_join.dto';
 import { UserScoreDto } from './dto/user_score.dto';
+import { UserGoodsDto } from './dto/user_goods.dto';
 
 @Controller('api/user')
 @ApiTags('USER API')
@@ -16,8 +17,8 @@ export class UserController {
     summary: '사용자 접수 제출',
   })
   @ApiBody({ type: () => UserFormDto })
-  registerUserForm(@Body() userForm: UserFormDto) {
-    return this.userService.registerUser(userForm);
+  async registerUserForm(@Body() userForm: UserFormDto) {
+    return await this.userService.registerUser(userForm);
   }
 
   // Reconfirm QR
@@ -71,6 +72,17 @@ export class UserController {
   @ApiBody({ type: () => UserJoinDto })
   async exitTeam(@Body() userJoinDto: UserJoinDto) {
     return await this.userService.exitTeam(userJoinDto);
+  }
+
+  // Give Goods
+  @Post('/give-goods')
+  @ApiOperation({
+    summary: '사용자에게 굿즈 증',
+  })
+  @ApiBody({ type: () => UserGoodsDto })
+  async giveGoods(@Body() userGoodsDto: UserGoodsDto) {
+    const { userId } = userGoodsDto;
+    return await this.userService.giveGoods(userId);
   }
 
   // Get User Team

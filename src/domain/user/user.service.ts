@@ -189,6 +189,16 @@ export class UserService {
     }
   }
 
+  // Give Goods
+  async giveGoods(userId: string) {
+    const userRow = await this.getUserRow(userId);
+    if (userRow === null) {
+      this.customLogger.warn('/user/give-goods', '미접수 사용자', { userId });
+      return { code: 404, message: 'Undefined User' };
+    }
+    return await this.clearedService.giveGoods(userId);
+  }
+
   // Get User Team
   async getUserTeam(userId: string) {
     const userRow = await this.getUserRow(userId);
