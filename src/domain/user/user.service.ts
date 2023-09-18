@@ -35,7 +35,7 @@ export class UserService {
         id: userId,
         ...userForm,
         teamId: '-',
-        score: 0,
+        score: -100,
         date: getCurrentDateTime(),
       });
     } catch (error) {
@@ -56,6 +56,8 @@ export class UserService {
       });
       return { code: 404, userId };
     }
+    // 로깅
+    this.customLogger.log(`${name}-${phoneNumber.slice(-4)}님 접수!`);
     return { code: 200, userId };
   }
 
@@ -66,7 +68,11 @@ export class UserService {
     const userExist = await this.getUserRow(userId);
     if (userExist === null) {
       const logObject = { name, phoneNumber };
-      this.customLogger.warn('/user/reconfirm-qr', '미접수 사용자', logObject);
+      this.customLogger.invalid(
+        '/user/reconfirm-qr',
+        '미접수 사용자',
+        logObject,
+      );
       // 이름 && 전화번호로 검색
       const userExist = await this.userRepository
         .createQueryBuilder('user')
@@ -87,7 +93,7 @@ export class UserService {
   async getUserInfo(userId: string) {
     const userInfo = await this.getUserRow(userId);
     if (userInfo === null) {
-      this.customLogger.warn('/user/info', '미접수 사용자', { userId });
+      this.customLogger.invalid('/user/info', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
 
@@ -113,7 +119,7 @@ export class UserService {
   async getTeamInfoOfUser(userId: string) {
     const userInfo = await this.getUserRow(userId);
     if (userInfo === null) {
-      this.customLogger.warn('/user/team-info', '미접수 사용자', { userId });
+      this.customLogger.invalid('/user/team-info', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
 
@@ -133,14 +139,16 @@ export class UserService {
 
     const userRow = await this.getUserRow(userId);
     if (userRow === null) {
-      this.customLogger.warn('/user/join', '미접수 사용자', { userId });
+      this.customLogger.invalid('/user/join', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
 
     // 이미 해당 팀에 소속된 참가자인 경우 (스텝의 미스 클릭)
     const currTeamId = userRow.teamId;
     if (currTeamId === teamId) {
-      this.customLogger.warn('/user/join', '소속 팀에 중복 JOIN', { userId });
+      this.customLogger.invalid('/user/join', '소속 팀에 중복 JOIN', {
+        userId,
+      });
       return { code: 202, message: 'Already Join Same Team' };
     }
 
@@ -152,7 +160,7 @@ export class UserService {
     }
     const currTeamCount = Number(teamRow.count);
     if (currTeamCount >= this.TEAM_MAX_COUNT) {
-      this.customLogger.warn('/user/join', 'Full 팀에 JOIN', { userId });
+      this.customLogger.invalid('/user/join', 'Full 팀에 JOIN', { userId });
       return { code: 202, message: 'Full Team Count' };
     }
 
@@ -160,6 +168,10 @@ export class UserService {
       // 등록
       await this.userRepository.update(userId, { teamId: teamId });
       const count = await this.teamService.plusTeamCount(teamId);
+
+      // 로깅
+      const nickname = await this.getUserNickName(userId);
+      this.customLogger.log(`${nickname}님 ${teamRow.name}팀 참가!`);
       return { code: 200, teamId, teamName: teamRow.name, count };
     } catch (error) {
       this.customLogger.error('/user/join', '팀 JOIN 도중', { userId });
@@ -172,7 +184,7 @@ export class UserService {
     const userRow = await this.getUserRow(userId);
     const teamRow = await this.teamService.getTeamRow(teamId);
     if (userRow === null) {
-      this.customLogger.warn('/user/exit', '미접수 사용자', { userId });
+      this.customLogger.invalid('/user/exit', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
 
@@ -183,6 +195,10 @@ export class UserService {
         score: Number(teamRow.score),
       });
       await this.teamService.minusTeamCount(teamId);
+
+      // 로깅
+      const nickname = `${userRow.name}-${userRow.phoneNumber.slice(-4)}`;
+      this.customLogger.log(`${nickname}님 ${teamRow.name}팀 탈퇴!`);
       return { code: 200 };
     } catch (error) {
       this.customLogger.error('/user/exit', '팀 탈퇴 도중', { userId });
@@ -193,9 +209,15 @@ export class UserService {
   async giveGoods(userId: string) {
     const userRow = await this.getUserRow(userId);
     if (userRow === null) {
-      this.customLogger.warn('/user/give-goods', '미접수 사용자', { userId });
+      this.customLogger.invalid('/user/give-goods', '미접수 사용자', {
+        userId,
+      });
       return { code: 404, message: 'Undefined User' };
     }
+
+    // 로깅
+    const nickname = `${userRow.name}-${userRow.phoneNumber.slice(-4)}`;
+    this.customLogger.log(`${nickname}님에게 굿즈 증정!`);
     return await this.clearedService.giveGoods(userId);
   }
 
@@ -203,7 +225,7 @@ export class UserService {
   async getUserTeam(userId: string) {
     const userRow = await this.getUserRow(userId);
     if (userRow === null) {
-      this.customLogger.warn('/user/team', '미접수 사용자', { userId });
+      this.customLogger.invalid('/user/team', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
     return { code: 200, teamId: userRow.teamId };
@@ -253,13 +275,20 @@ export class UserService {
   async plusUserScore(userId: string, score: number) {
     const userRow = await this.getUserRow(userId);
     if (userRow === null) {
-      this.customLogger.warn('/user/plus', '미접수 사용자', { userId });
+      this.customLogger.invalid('/user/plus', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
     try {
       await this.userRepository.update(userId, {
         score: () => `score + ${score}`,
       });
+
+      // 로깅
+      const nickname = `${userRow.name}-${userRow.phoneNumber.slice(-4)}`;
+      const afterScore = Number(userRow.score) + score;
+      this.customLogger.log(
+        `${nickname}님 ${score}점 개인 점수 추가! (결과: ${afterScore}점)`,
+      );
       return { code: 200, score: Number(userRow.score) + score };
     } catch (error) {
       this.customLogger.error('/user/plus', '점수 증가', { userId });
@@ -270,7 +299,7 @@ export class UserService {
   async gertUserScore(userId: string) {
     const userRow = await this.getUserRow(userId);
     if (userRow === null) {
-      this.customLogger.warn('/user/score', '미접수 사용자', { userId });
+      this.customLogger.invalid('/user/score', '미접수 사용자', { userId });
       return { code: 404, message: 'Undefined User' };
     }
     const score = Number(userRow.score);
@@ -286,5 +315,10 @@ export class UserService {
     } catch (error) {
       this.customLogger.error('getUserRow()', 'userId 찾기 실패', { userId });
     }
+  }
+
+  async getUserNickName(userId: string) {
+    const row = await this.getUserRow(userId);
+    return `${row.name}-${row.phoneNumber.slice(-4)}`;
   }
 }

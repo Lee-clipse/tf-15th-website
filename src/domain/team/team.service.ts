@@ -33,6 +33,9 @@ export class TeamService {
     };
     try {
       await this.teamRepository.save(teamRow);
+
+      // 로깅
+      this.customLogger.log(`${teamName}팀 생성!`);
       return { code: 200, teamRow };
     } catch (error) {
       this.customLogger.error('/team/create', '생성 실패', { teamId });
@@ -43,13 +46,19 @@ export class TeamService {
   async plusTeamScore(teamId: string, plusScore: number) {
     const teamRow = await this.getTeamRow(teamId);
     if (teamRow === null) {
-      this.customLogger.warn('/team/plus', '팀 찾기', { teamId });
+      this.customLogger.invalid('/team/plus', '팀 찾기', { teamId });
       return { code: 404, message: 'Undefined Team' };
     }
     try {
       await this.teamRepository.update(teamId, {
         score: () => `score + ${plusScore}`,
       });
+
+      // 로깅
+      const afterScore = Number(teamRow.score) + plusScore;
+      this.customLogger.log(
+        `${teamRow.name}팀 ${plusScore}점 팀 점수 추가! (결과: ${afterScore}점)`,
+      );
       return { code: 200, score: Number(teamRow.score) + plusScore };
     } catch (error) {
       this.customLogger.error('/team/plus', '점수 증가', { teamId });
@@ -61,7 +70,7 @@ export class TeamService {
   async plusTeamCount(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
     if (teamRow === null) {
-      this.customLogger.warn('plusTeamCount()', '팀 찾기', { teamId });
+      this.customLogger.invalid('plusTeamCount()', '팀 찾기', { teamId });
       return { code: 404, message: 'Undefined Team' };
     }
     try {
@@ -77,7 +86,7 @@ export class TeamService {
   async minusTeamCount(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
     if (teamRow === null) {
-      this.customLogger.warn('plusTeamCount()', '팀 찾기', { teamId });
+      this.customLogger.invalid('plusTeamCount()', '팀 찾기', { teamId });
       return { code: 404, message: 'Undefined Team' };
     }
     try {
@@ -109,12 +118,17 @@ export class TeamService {
   async spreadTeamScore(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
     if (teamRow === null) {
-      this.customLogger.warn('/team/spread', '팀 찾기', { teamId });
+      this.customLogger.invalid('/team/spread', '팀 찾기', { teamId });
       return { code: 404, message: 'Undefined Team' };
     }
     try {
       // 해당 팀에 속한 유저들의 score 변경
       await this.userService.spreadTeamScore(teamId, Number(teamRow.score));
+
+      // 로깅
+      this.customLogger.log(
+        `${teamRow.name}팀 제로게임 ${teamRow.score}점으로 종료!!!!!!!!`,
+      );
       return { code: 200 };
     } catch (error) {
       this.customLogger.error('/team/spread', '사용자에게 점수 전달', {
@@ -128,7 +142,7 @@ export class TeamService {
   async getTeamInfo(teamId: string) {
     const teamRow = await this.getTeamRow(teamId);
     if (teamRow === null) {
-      this.customLogger.warn('getTeamInfo()', '팀 찾기', { teamId });
+      this.customLogger.invalid('getTeamInfo()', '팀 찾기', { teamId });
       return { code: 404, message: 'Undefined Team' };
     }
     return { teamName: teamRow.name, score: teamRow.score };
@@ -144,4 +158,10 @@ export class TeamService {
       this.customLogger.error('getTeamRow()', 'teamId 찾기 실패', { teamId });
     }
   }
+
+  async getTeamName(teamId: string) {
+    const row = await this.getTeamRow(teamId);
+    return row.name;
+  }
+
 }

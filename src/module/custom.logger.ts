@@ -12,7 +12,12 @@ export class CustomLoggerService {
     this.logger.error(`\n\n\t\t⬤ ⬤ ⬤ ⬤ ⬤\t\t<<${url}>> ${title}`, object);
   }
 
-  warn(url: string, title: string, object: any) {
+  invalid(url: string, title: string, object: any) {
     this.logger.warn(`\n\n\t\t⬤ ⬤ ⬤\t\t<<${url}>> ${title}`, object);
+  }
+
+  log(title: string) {
+    // 사실은 warn임 (로깅 구분 위함)
+    this.logger.warn(`\n\n\t⬤ ${title}\n`, {});
   }
 }
