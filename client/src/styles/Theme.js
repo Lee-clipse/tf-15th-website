@@ -13,6 +13,7 @@ const color = {
   GREEN: "#16BA13",
   DEEP_BLUE: "#1641B8",
   ORANGE: "#ED4600",
+  YELLOW: "#FFF647",
 };
 
 const font = {

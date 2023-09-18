@@ -31,6 +31,7 @@ const QRViewer = ({ userId }) => {
       }
       const newUserInfo = res.data.userInfo;
       setUserInfo(newUserInfo);
+      console.log(newUserInfo);
     } catch (error) {
       Swal.fire("API 오류", "API: Get User Info", "error");
     }
@@ -80,6 +81,22 @@ const QRViewer = ({ userId }) => {
     });
   };
 
+  const handleGiveGoods = async () => {
+    // API: Join User
+    const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.GIVE_GOODS, {
+      userId: userInfo.id,
+    });
+    if (Number(res.data.code) !== 200) {
+      Swal.fire("API 오류", "API: Join User", "error");
+      return;
+    }
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      isReceived: 1,
+    }));
+    Swal.fire("굿즈 수령 완료!", "축하의 말을 전해주세요!", "success");
+  };
+
   return (
     <s.Wrapper>
       {userInfo && (
@@ -99,6 +116,19 @@ const QRViewer = ({ userId }) => {
                 기부 금액: <s.DonationText>{userInfo.donation}원</s.DonationText>
               </s.InfoText>
             </s.InfoSection>
+            {userInfo.isCleared === "true" && (
+              <s.ClearedSection>
+                <s.ClearedText>제로게임 클리어 성공!!</s.ClearedText>
+                {Number(userInfo.isReceived) === 0 ? (
+                  <s.GiveGoodsButtonWrapper>
+                    <s.ReceivedText>굿즈 수령이 필요합니다!</s.ReceivedText>
+                    <s.GiveGoodsButton onClick={handleGiveGoods}>굿즈 주기</s.GiveGoodsButton>
+                  </s.GiveGoodsButtonWrapper>
+                ) : (
+                  <s.ReceivedText>이미 굿즈를 지급 받았습니다.</s.ReceivedText>
+                )}
+              </s.ClearedSection>
+            )}
           </s.InfoWrapper>
           {/* 사용자 점수 관리 */}
           {/* 스텝 팀 관리 폼 */}

@@ -94,6 +94,49 @@ export const TeamExitButton = styled.button`
   font-size: ${(props) => props.theme.font.size.L};
 `;
 
+export const ClearedSection = styled.div`
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  background: ${(props) => props.theme.color.YELLOW};
+`;
+export const ClearedText = styled.p`
+  text-align: center;
+  color: ${(props) => props.theme.color.TEXT_BLACK};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.L};
+`;
+export const ReceivedText = styled.p`
+  margin-top: 1rem;
+  text-align: center;
+  color: ${(props) => props.theme.color.ORANGE};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.L};
+`;
+
+export const GiveGoodsButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+export const GiveGoodsButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: ${(props) => props.theme.color.ORANGE};
+  border-radius: 1.4rem;
+
+  width: 90vw;
+  padding: 1rem;
+  margin-top: 2rem;
+
+  color: ${(props) => props.theme.color.TEXT_WHITE};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.L};
+`;
+
 export const NotAgreeText = styled.span`
   color: ${(props) => props.theme.color.RED};
   font-family: ${(props) => props.theme.font.BOLD};
