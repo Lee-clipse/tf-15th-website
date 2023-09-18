@@ -63,6 +63,16 @@ export class UserController {
     return await this.userService.joinTeam(userJoinDto);
   }
 
+  // Exit User
+  @Post('/exit')
+  @ApiOperation({
+    summary: '사용자가 팀에서 탈퇴 by 스텝',
+  })
+  @ApiBody({ type: () => UserJoinDto })
+  async exitTeam(@Body() userJoinDto: UserJoinDto) {
+    return await this.userService.exitTeam(userJoinDto);
+  }
+
   // Get User Team
   @Get('/team')
   @ApiOperation({

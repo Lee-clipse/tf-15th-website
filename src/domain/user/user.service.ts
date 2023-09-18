@@ -164,6 +164,29 @@ export class UserService {
     }
   }
 
+  async exitTeam(userJoinDto: UserJoinDto) {
+    const { userId, teamId } = userJoinDto;
+
+    const userRow = await this.getUserRow(userId);
+    const teamRow = await this.teamService.getTeamRow(teamId);
+    if (userRow === null) {
+      this.customLogger.warn('/user/exit', '미접수 사용자', { userId });
+      return { code: 404, message: 'Undefined User' };
+    }
+
+    try {
+      // 팀 탈퇴 & 점수 전파
+      await this.userRepository.update(userId, {
+        teamId: '-',
+        score: Number(teamRow.score),
+      });
+      await this.teamService.minusTeamCount(teamId);
+      return { code: 200 };
+    } catch (error) {
+      this.customLogger.error('/user/exit', '팀 탈퇴 도중', { userId });
+    }
+  }
+
   // Get User Team
   async getUserTeam(userId: string) {
     const userRow = await this.getUserRow(userId);

@@ -72,6 +72,22 @@ export class TeamService {
     }
   }
 
+  // UserService에서 호출
+  // 해당 팀의 멤버 수를 감소
+  async minusTeamCount(teamId: string) {
+    const teamRow = await this.getTeamRow(teamId);
+    if (teamRow === null) {
+      this.customLogger.warn('plusTeamCount()', '팀 찾기', { teamId });
+      return { code: 404, message: 'Undefined Team' };
+    }
+    try {
+      await this.teamRepository.update(teamId, { count: () => 'count - 1' });
+      return Number(teamRow.count) - 1;
+    } catch (error) {
+      this.customLogger.error('plusTeamCount()', '멤버 수 감소', { teamId });
+    }
+  }
+
   // View Waiting Team
   // UserService에서 호출
   // 현재 정원 미달 팀들의 정보를 반환
