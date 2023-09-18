@@ -289,6 +289,15 @@ export class UserService {
       this.customLogger.log(
         `${nickname}님 ${score}점 개인 점수 추가! (결과: ${afterScore}점)`,
       );
+
+      // 소그룹 부스 체험해서 0점 성공
+      if (afterScore === this.CLEARED_SCORE) {
+        const userIdList = [userRow.id];
+        await this.clearedService.registerClearedUsers(
+          userRow.teamId,
+          userIdList,
+        );
+      }
       return { code: 200, score: Number(userRow.score) + score };
     } catch (error) {
       this.customLogger.error('/user/plus', '점수 증가', { userId });
