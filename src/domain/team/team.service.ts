@@ -1,11 +1,11 @@
 import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { TeamEntity } from './entity/team.entity';
-import { teamNameGenerate } from 'src/utils/utils';
-import * as md5 from 'md5';
 import { UserService } from '../user/user.service';
 import { CustomLoggerService } from 'src/module/custom.logger';
+import { getCurrentDateTime } from 'src/utils/utils';
+import { NEXT_TEAM } from 'src/constants/consts';
 
 @Injectable()
 export class TeamService {
@@ -23,13 +23,14 @@ export class TeamService {
   async createTeam() {
     // 현재 시간을 시드로 hash 생성
     const currentTime = new Date();
-    const teamId = md5(currentTime.toISOString());
-    const teamName = teamNameGenerate();
+    const teamId = String(currentTime.getTime());
+    const teamName = await this.getNewTeamName();
     const teamRow = {
       id: teamId,
       name: teamName,
       score: -100,
       count: 0,
+      date: getCurrentDateTime(),
     };
     try {
       await this.teamRepository.save(teamRow);
@@ -164,4 +165,24 @@ export class TeamService {
     return row.name;
   }
 
+  async getNewTeamName() {
+    const lastTeam = await this.teamRepository.findOne({
+      where: {
+        id: Not('-'),
+      },
+      order: { id: 'DESC' },
+    });
+
+    // 서버에서 첫 팀 생성
+    if (!lastTeam) {
+      return '분리수거 잘하는 레드 1';
+    }
+    const lastTeamName = lastTeam.name.split(' ').slice(0, 3).join(' ');
+    let lastIndex = Number(lastTeam.name.match(/\d+/)[0]);
+    if (lastTeamName === '잔반남기지 않는 퍼플') {
+      lastIndex += 1;
+    }
+    const nextTeamName = `${NEXT_TEAM[lastTeamName]} ${lastIndex}`;
+    return nextTeamName;
+  }
 }

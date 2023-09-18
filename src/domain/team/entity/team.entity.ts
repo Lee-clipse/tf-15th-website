@@ -15,6 +15,9 @@ export class TeamEntity {
   @Column({})
   count!: number;
 
+  @Column({})
+  date!: string;
+
   // JOIN
   @OneToMany(() => UserEntity, (user) => user.team)
   users: UserEntity[];
