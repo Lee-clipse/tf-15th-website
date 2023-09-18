@@ -12,6 +12,8 @@ export const Dice = styled.div`
   left: 31%;
   z-index: 100;
 
+  transform: rotateX(450deg) rotateZ(-720deg);
+
   > .side {
     position: absolute;
     background-color: ${(props) => props.theme.color.TEXT_WHITE};
