@@ -96,7 +96,7 @@ export const TeamRow = styled.li`
   font-size: ${(props) => props.theme.font.size.L};
   background: ${(props) => props.theme.color.TEXT_WHITE};
 
-  width: 90vw;
+  width: 98vw;
   border-radius: 1.4rem;
   padding: 1rem 1.2rem;
   margin-top: 1rem;
@@ -109,19 +109,19 @@ export const TeamName = styled.span`
 export const MemberCount = styled.span`
   color: ${(props) => props.theme.color.TEXT_BLACK};
   font-family: ${(props) => props.theme.font.NORMAL};
-  font-size: ${(props) => props.theme.font.size.L};
+  font-size: ${(props) => props.theme.font.size.ML};
 `;
 export const CountText = styled.span`
   color: ${(props) => props.theme.color.GREEN};
-  font-family: ${(props) => props.theme.font.NORMAL};
+  font-family: ${(props) => props.theme.font.BOLD};
   font-size: ${(props) => props.theme.font.size.L};
 `;
 export const JoinButton = styled.button`
   color: ${(props) => props.theme.color.TEXT_WHITE};
   font-family: ${(props) => props.theme.font.NORMAL};
-  font-size: ${(props) => props.theme.font.size.L};
+  font-size: ${(props) => props.theme.font.size.ML};
   background: ${(props) => props.theme.color.PURPLE};
 
   border-radius: 1.2rem;
-  padding: 1rem;
+  padding: 1rem 0.4rem;
 `;

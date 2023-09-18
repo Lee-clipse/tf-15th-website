@@ -54,23 +54,8 @@ const ZerogamePage = () => {
     const thisIndex = teamData.index;
     // 엔딩
     if (thisIndex === 50) {
-      async function spreadTeamScore(teamId) {
-        // API: Spread Team Score
-        const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.SPREAD_TEAM_SCORE, {
-          teamId,
-        });
-        if (res === null) {
-          Swal.fire(
-            "API ERROR: Spread Team Score",
-            "인포데스크로 방문 제보 부탁드립니다.",
-            "error"
-          );
-          return;
-        }
-      }
       // 팀 점수를 사용자들에게 전파
       exitGameByEnding(teamData.score);
-      spreadTeamScore(teamId);
       navigate(RoutePath.TEAM_QR);
       return;
     }
@@ -83,6 +68,7 @@ const ZerogamePage = () => {
       Swal.fire("API ERROR: loadTeamData()", "인포데스크로 방문 제보 부탁드립니다.", "error");
       return;
     }
+    console.log(teamInfo);
     const { teamName, score, index } = teamInfo;
 
     // 제로게임 종료 후

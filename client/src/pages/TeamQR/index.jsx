@@ -31,6 +31,7 @@ const TeamQRPage = () => {
     }
     const { teamName, score, index } = teamInfo;
     setTeamData({ teamId, teamName, score, index });
+    await spreadTeamScore(teamId);
   };
 
   const renderTeamQR = () => {
@@ -39,6 +40,18 @@ const TeamQRPage = () => {
     QRCode.toDataURL(qrUrl, function (err, url) {
       setQrImageUrl(url);
     });
+  };
+
+  const spreadTeamScore = async (teamId) => {
+    // API: Spread Team Score
+    const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.SPREAD_TEAM_SCORE, {
+      teamId,
+    });
+    if (res === null) {
+      Swal.fire("API ERROR: Spread Team Score", "인포데스크로 방문 제보 부탁드립니다.", "error");
+      return;
+    }
+    console.log("Spread Team Score Success!");
   };
 
   return (
