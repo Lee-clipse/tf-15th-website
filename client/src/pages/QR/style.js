@@ -32,6 +32,8 @@ export const LightAnnouncment = styled.p`
   color: ${(props) => props.theme.color.TEXT_BLACK};
   font-family: ${(props) => props.theme.font.NORMAL};
   font-size: ${(props) => props.theme.font.size.M};
+
+  text-align: center;
 `;
 
 export const Logo = styled.img`

@@ -20,6 +20,7 @@ const QRPage = () => {
 
   const [show, setShow] = useState(false);
   const [qrImageUrl, setQrImageUrl] = useState("");
+  const [donation, setDonation] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -30,8 +31,8 @@ const QRPage = () => {
   }, [userId]);
 
   const renderQR = async () => {
-    // API: Get User Team
-    const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.GET_USER_TEAM, {
+    // API: Get User Info
+    const res = await axios.get(ENV.SERVER_PROD_DOMAIN + API.USER_INFO, {
       params: { userId },
     });
     if (Number(res.data.code) !== 200) {
@@ -39,6 +40,7 @@ const QRPage = () => {
       navigate(RoutePath.MAIN);
       return;
     }
+    setDonation(Number(res.data.userInfo.donation));
 
     const qrUrl = `${ENV.CLIENT_PROD_DOMAIN}/step/qr?user_id=${userId}`;
     // userId를 이용하여 QR 코드 생성
@@ -58,6 +60,11 @@ const QRPage = () => {
             <s.Logo src="/assets/main_logo_row.png" alt="main_logo_row"></s.Logo>
             <s.Announcment>접수 QR</s.Announcment>
           </s.AnnouncmentWrapper>
+          {donation !== 0 ? (
+            <s.Announcment>지킴이님의 {donation}원 기부에 감사드립니다!</s.Announcment>
+          ) : (
+            <s.Announcment>청건부산에 축제에 오신 것을 환영합니다!</s.Announcment>
+          )}
           <s.CaptureInduceWrapper>
             <s.CaptureInduceText
               as={motion.div}
