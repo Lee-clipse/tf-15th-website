@@ -17,9 +17,7 @@ const DonationForm = ({ onInputDonation }) => {
       </s.DonationWrapper>
 
       <s.Title>기부금 입력</s.Title>
-      <s.DonationContents>
-        * 기부의사 없으신 분은 0을 입력해주셔야 화면이 넘어갑니다.
-      </s.DonationContents>
+      <s.DonationAlert>* 기부를 원하시지 않으시면 0을 입력해주시기 바랍니다.</s.DonationAlert>
 
       <s.InputWrapper>
         <s.Input

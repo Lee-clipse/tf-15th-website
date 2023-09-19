@@ -11,6 +11,12 @@ const RegisterLabel = () => {
         읽어보시고 제출 부탁드립니다. 바쁜 시간 내주셔서 감사합니다. <br />
         당일 행사 때 뵙겠습니다.
       </s.LabelText>
+
+      <s.LabelText>
+        <br />
+        가족, 지인분들끼리 단체로 참여하시는 분들은 <span>개별적으로</span> 접수를 진행해주시기
+        바랍니다.
+      </s.LabelText>
     </s.LabelWrapper>
   );
 };

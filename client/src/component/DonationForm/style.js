@@ -26,6 +26,16 @@ export const DonationContents = styled.p`
   line-height: 150%;
 `;
 
+export const DonationAlert = styled.p`
+  color: ${(props) => props.theme.color.TEXT_BLACK};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.S};
+
+  margin-bottom: 1vh;
+  letter-spacing: 120%;
+  line-height: 150%;
+`;
+
 export const SectionWrapper = styled.div``;
 
 export const InputWrapper = styled.div`

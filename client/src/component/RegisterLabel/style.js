@@ -20,4 +20,8 @@ export const LabelText = styled.p`
 
   line-height: 140%;
   margin-top: 1vh;
+
+  > span {
+    font-family: ${(props) => props.theme.font.BOLD};
+  }
 `;
