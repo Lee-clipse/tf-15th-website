@@ -52,6 +52,14 @@ export class GameService {
 
   // Manage Block
   manageBlock(teamId: string, block: string) {
+    const currIndex = this.db.getIndex(teamId);
+    if (currIndex === '50') {
+      return { code: 400, currIndex: '50', nextIndex: '50' };
+    }
+    // 대기소에서의 요청이 아닌 경우
+    if (Number(currIndex) % 10 !== 0) {
+      return { code: 400, currIndex: '', nextIndex: '' };
+    }
     this.db.setBlock(teamId, block);
     return { code: 200 };
   }
@@ -62,6 +70,7 @@ export class GameService {
     if (currIndex === '50') {
       return { code: 400, currIndex: '50', nextIndex: '50' };
     }
+    // 대기소에 있는데 또 대기소로 가라는 요청인 경우
     if (Number(currIndex) % 10 === 0) {
       return { code: 400, currIndex: '', nextIndex: '' };
     }
