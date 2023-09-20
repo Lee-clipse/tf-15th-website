@@ -75,6 +75,11 @@ const TeamQRViewer = ({ teamId }) => {
     });
     if (Number(blockRes.data.code) === 200) {
       Swal.fire("출동 허가!", "대원들의 안녕을 빌어주세요.", "success");
+      return;
+    }
+    if (Number(blockRes.data.code) === 400) {
+      Swal.fire("유효하지 않은 요청입니다.", "이미 부스에 있는 팀입니다.", "error");
+      return;
     } else {
       Swal.fire("API 오류!", "API: Manage Block", "error");
     }
