@@ -99,6 +99,8 @@ const ZerogamePage = () => {
     // block이 false면 주사위 모달 띄우기
     if (block === "false") {
       openModal();
+    } else {
+      Swal.fire("API 오류!", "API: Get Team Block", "error");
     }
   };
 
@@ -136,20 +138,23 @@ const ZerogamePage = () => {
 // 초기 랜더링에 필요한 데이터를 API로 호출
 const getTeamInfo = async (userId, teamId) => {
   // API: View Map Index (Redis)
-  const mapIndex = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.VIEW_MAP_INDEX, {
+  const mapRes = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.VIEW_MAP_INDEX, {
     params: { teamId },
   });
+  if (Number(mapRes.data.code) !== 200) {
+    return null;
+  }
   // API: Get Team Info Of User
   const teamInfo = await axios.get(ENV.SERVER_PROD_DOMAIN + API.TEAM_INFO_OF_USER, {
     params: { userId },
   });
-  if (mapIndex === null || Number(teamInfo.data.code) !== 200) {
+  if (Number(teamInfo.data.code) !== 200) {
     return null;
   }
   return {
     teamName: teamInfo.data.teamName,
     score: Number(teamInfo.data.score),
-    index: Number(mapIndex.data.index),
+    index: Number(mapRes.data.index),
   };
 };
 
@@ -167,6 +172,9 @@ const getTeamBlock = async (teamId) => {
   const res = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.GET_BLOCK, {
     params: { teamId },
   });
+  if (Number(res.data.code) !== 200) {
+    return null;
+  }
   return res.data.block;
 };
 

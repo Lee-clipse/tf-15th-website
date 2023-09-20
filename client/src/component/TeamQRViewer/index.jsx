@@ -43,9 +43,13 @@ const TeamQRViewer = ({ teamId }) => {
           score: Number(score),
         });
         // API: Move To Zone
-        await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.MOVE_TO_ZONE, {
+        const moveRes = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.MOVE_TO_ZONE, {
           teamId,
         });
+        if (Number(moveRes.data.code) !== 200) {
+          Swal.fire("API 오류!", "API: Move To Zone", "error");
+          return;
+        }
         Swal.fire(`${Number(score)}점 추가!`, `현재 ${res.data.score}점`, "success");
         setTeamData((prevTeamData) => ({
           ...prevTeamData,

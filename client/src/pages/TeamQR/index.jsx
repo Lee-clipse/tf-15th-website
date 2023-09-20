@@ -76,21 +76,24 @@ const TeamQRPage = () => {
 // 초기 랜더링에 필요한 데이터를 API로 호출
 const getTeamInfo = async (userId, teamId) => {
   // API: View Map Index (Redis)
-  const mapIndex = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.VIEW_MAP_INDEX, {
+  const mapRes = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.VIEW_MAP_INDEX, {
     params: { teamId },
   });
+  if (Number(mapRes.data.code) !== 200) {
+    return null;
+  }
   // API: Get Team Info Of User
   const teamInfo = await axios.get(ENV.SERVER_PROD_DOMAIN + API.TEAM_INFO_OF_USER, {
     params: { userId },
   });
-  if (mapIndex === null || Number(teamInfo.data.code) !== 200) {
+  if (Number(teamInfo.data.code) !== 200) {
     return null;
   }
   return {
     latestTeamId: teamInfo.data.teamId,
     teamName: teamInfo.data.teamName,
-    score: teamInfo.data.score,
-    index: mapIndex.data.index,
+    score: Number(teamInfo.data.score),
+    index: mapRes.data.index,
   };
 };
 

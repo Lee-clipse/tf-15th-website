@@ -23,7 +23,7 @@ const DiceModal = ({ closeModal }) => {
     const res = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.ROLL_DICE, {
       teamId: localStorage.getItem("teamId"),
     });
-    if (res === null) {
+    if (Number(res.data.code) !== 200) {
       Swal.fire("API ERROR: Roll Dice", "인포데스크로 방문 제보 부탁드립니다.", "error");
       return;
     }
