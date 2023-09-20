@@ -19,9 +19,22 @@ const DiceModal = ({ closeModal }) => {
 
   // 주사위 굴리기 함수
   const rollDice = async () => {
+    const teamId = localStorage.getItem("teamId");
+    // API: Get Team Block
+    const blockRes = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.GET_BLOCK, {
+      params: { teamId },
+    });
+    if (Number(blockRes.data.code) !== 200) {
+      Swal.fire("API ERROR: Get Team Block", "인포데스크로 방문 제보 부탁드립니다.", "error");
+      return;
+    }
+    if (blockRes.data.block === "true") {
+      Swal.fire("주사위는 이미 던져졌습니다!", "다른 팀원이 이미 던졌습니다.", "info");
+      return;
+    }
     // API: Roll Dice
     const res = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.ROLL_DICE, {
-      teamId: localStorage.getItem("teamId"),
+      teamId,
     });
     if (Number(res.data.code) !== 200) {
       Swal.fire("API ERROR: Roll Dice", "인포데스크로 방문 제보 부탁드립니다.", "error");
