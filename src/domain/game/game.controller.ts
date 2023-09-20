@@ -13,14 +13,26 @@ import { TeamInitDto } from './dto/team_init.dto';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { LOG_MAP_INDEX } from 'src/constants/consts';
 import { TeamBlockDto } from './dto/team_block.dto';
+import { DbService } from 'src/db/db.service';
+import { CustomLoggerService } from 'src/module/custom.logger';
 
 @Controller('game-api')
 @ApiTags('Zero Game API')
 export class GameController {
   constructor(
     private readonly gameService: GameService,
-    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+    private readonly db: DbService,
+    private readonly customLogger: CustomLoggerService,
   ) {}
+
+  //! TEST
+  @Get('/')
+  @ApiOperation({
+    summary: 'TEST',
+  })
+  test() {
+    return this.db.printMap();
+  }
 
   // Init Team Map Index
   @Post('/init')
@@ -30,9 +42,9 @@ export class GameController {
   @ApiBody({
     type: () => TeamInitDto,
   })
-  async initTeam(@Body() teamInitDto: TeamInitDto) {
-    const teamId = teamInitDto.teamId;
-    return await this.gameService.createTeam(teamId);
+  initTeam(@Body() teamInitDto: TeamInitDto) {
+    const { teamId } = teamInitDto;
+    return this.gameService.createTeam(teamId);
   }
 
   // View Map Index
@@ -44,8 +56,8 @@ export class GameController {
     name: 'teamId',
     type: 'string',
   })
-  async getUserTeam(@Query('teamId') teamId: string) {
-    return await this.gameService.getTeamIndex(teamId);
+  getUserTeam(@Query('teamId') teamId: string) {
+    return this.gameService.getTeamIndex(teamId);
   }
 
   // Get Team Block
@@ -57,8 +69,8 @@ export class GameController {
     name: 'teamId',
     type: 'string',
   })
-  async getTeamBlock(@Query('teamId') teamId: string) {
-    return await this.gameService.getTeamBlock(teamId);
+  getTeamBlock(@Query('teamId') teamId: string) {
+    return this.gameService.getTeamBlock(teamId);
   }
 
   // Manage Block
@@ -69,9 +81,9 @@ export class GameController {
   @ApiBody({
     type: () => TeamBlockDto,
   })
-  async doTeamBlock(@Body() teamBlockDto: TeamBlockDto) {
+  doTeamBlock(@Body() teamBlockDto: TeamBlockDto) {
     const { teamId, block } = teamBlockDto;
-    return await this.gameService.manageBlock(teamId, block);
+    return this.gameService.manageBlock(teamId, block);
   }
 
   // Move To Zone
@@ -82,10 +94,16 @@ export class GameController {
   @ApiBody({
     type: () => TeamInitDto,
   })
-  async moveToZone(@Body() teamInitDto: TeamInitDto) {
+  moveToZone(@Body() teamInitDto: TeamInitDto) {
     const { teamId } = teamInitDto;
-    const { currIndex, nextIndex } = await this.gameService.moveToZone(teamId);
-    this.logger.debug(`moveToZone: ${currIndex} -> ${nextIndex}`);
+    const res = this.gameService.moveToZone(teamId);
+    if (res.code !== 200) {
+      return { code: res.code };
+    }
+    const { currIndex, nextIndex } = res;
+    this.customLogger.log(
+      `[${teamId}]팀 대기소로 이동!  ${currIndex} -> ${nextIndex}`,
+    );
     return { code: 200 };
   }
 
@@ -97,21 +115,19 @@ export class GameController {
   @ApiBody({
     type: () => TeamInitDto,
   })
-  async rollDice(@Body() teamInitDto: TeamInitDto) {
-    const teamId = teamInitDto.teamId;
+  rollDice(@Body() teamInitDto: TeamInitDto) {
+    const { teamId } = teamInitDto;
 
-    const currIndex = await this.gameService.getCurrIndex(teamId);
-    const beforeMap = await this.gameService.getMap();
+    const currIndex = this.db.getIndex(teamId);
+    const currMap = this.db.printMap();
 
-    const res = await this.gameService.rollDice(teamId);
-    const nextIndex = res.nextIndex;
+    const { nextIndex } = this.gameService.rollDice(teamId);
+    this.gameService.moveForward(teamId, currIndex, nextIndex);
 
-    // 이동
-    await this.gameService.moveForward(teamId, currIndex, nextIndex);
-    const afterMap = await this.gameService.getMap();
+    const nextMap = this.db.printMap();
 
-    this.logger.debug(
-      `\n[${teamId}]\n  ${currIndex}  ->  ${nextIndex}\n\tINDEX:  ${LOG_MAP_INDEX}\n\tBEFORE: ${beforeMap}\n\tAFTER:  ${afterMap}\n\n`,
+    this.customLogger.log(
+      `[${teamId}]팀 부스로 이동!  ${currIndex}  ->  ${nextIndex}\n\tINDEX:  ${LOG_MAP_INDEX}\n\tBEFORE: ${currMap}\n\tAFTER:  ${nextMap}\n\n`,
     );
     return { code: 200, prevIndex: currIndex, nextIndex };
   }
