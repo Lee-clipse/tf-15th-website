@@ -62,6 +62,9 @@ export class GameService {
     if (currIndex === '50') {
       return { code: 400, currIndex: '50', nextIndex: '50' };
     }
+    if (Number(currIndex) % 10 === 0) {
+      return { code: 400, currIndex: '', nextIndex: '' };
+    }
     const res = this.db.moveToZone(teamId);
     if (res === '') {
       this.customLogger.error('Move To Zone', '에러', { teamId });
