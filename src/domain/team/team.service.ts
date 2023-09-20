@@ -23,14 +23,14 @@ export class TeamService {
   async createTeam() {
     // 현재 시간을 시드로 hash 생성
     const currentTime = new Date();
-    const teamId = String(currentTime.getTime());
     const teamName = await this.getNewTeamName();
+    const teamId = teamName.split(' ').slice(2, 4).join(' ');
     const teamRow = {
       id: teamId,
       name: teamName,
       score: -100,
       count: 0,
-      date: getCurrentDateTime(),
+      date: String(currentTime.getTime()),
     };
     try {
       await this.teamRepository.save(teamRow);
@@ -170,9 +170,8 @@ export class TeamService {
       where: {
         id: Not('-'),
       },
-      order: { id: 'DESC' },
+      order: { date: 'DESC' },
     });
-
     // 서버에서 첫 팀 생성
     if (!lastTeam) {
       return '분리수거 잘하는 레드 1';
