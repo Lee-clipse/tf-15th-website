@@ -1,36 +1,84 @@
 import React, { useState, useEffect } from "react";
 import * as s from "./style";
 import { ENV, API } from "@constants/env";
-import { Booth } from "@constants/enums";
+import { Booth, BoothViewer, IndexList } from "@constants/enums";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { BoothViewer } from "../../constants/enums";
 
 const ZerogameViewerPage = () => {
+  const [statusData, setStatusData] = useState(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
 
     // 마운트
-    loadMapData();
+    loadData();
   }, []);
 
-  const loadMapData = async () => {};
+  const loadData = async () => {
+    // API: Get Every Map Data
+    const mapRes = await axios.get(ENV.GAME_SERVER_PROD_DOMAIN + API.EVERY_MAP_DATA, {});
+    // API: Get Every Team Score
+    const teamRes = await axios.get(ENV.SERVER_PROD_DOMAIN + API.EVERY_TEAM_SCORE, {});
+    const { indexMap } = mapRes.data;
+    const scoreMap = teamRes.data;
+    const object = {};
+    Object.entries(indexMap).map((value, _) => {
+      const [id, thisIndex] = value;
+      if (object[thisIndex] === undefined) {
+        object[thisIndex] = [{ id, score: scoreMap[id] }];
+      } else {
+        object[thisIndex].push({ id, score: scoreMap[id] });
+      }
+    });
+    setStatusData(object);
+    // object["10"].map((value, _) => {
+    //   console.log(value);
+    // });
+  };
 
   return (
     <s.Wrapper>
-      <s.Container>
-        <s.MapWrapper>
-          <s.MapLabel>제로게임 현황</s.MapLabel>
-          <s.BoothStautsWrapper>
-            <BoothList />
-            <StatusList />
-          </s.BoothStautsWrapper>
-        </s.MapWrapper>
+      {statusData && (
+        <s.Container>
+          <s.MapWrapper>
+            <s.MapLabel>제로게임 현황</s.MapLabel>
+            <s.BoothStautsWrapper>
+              <BoothList />
+              <s.StatusWrapper>
+                {IndexList.map((numIndex, index) => {
+                  const strIndex = String(numIndex);
+                  const statusList = statusData[strIndex];
+                  if (statusList === undefined) {
+                    return (
+                      <s.StatusRow>
+                        <s.TeamName>-</s.TeamName>
+                        <s.TeamScore></s.TeamScore>
+                      </s.StatusRow>
+                    );
+                  }
+                  return (
+                    <s.StatusRow>
+                      {statusList.map((status, index) => {
+                        return (
+                          <s.StatusMiniRow>
+                            <s.TeamName>{status.id}</s.TeamName>
+                            <s.TeamScore>({status.score})</s.TeamScore>
+                          </s.StatusMiniRow>
+                        );
+                      })}
+                    </s.StatusRow>
+                  );
+                })}
+              </s.StatusWrapper>
+            </s.BoothStautsWrapper>
+          </s.MapWrapper>
 
-        <s.ClearedWrapper>
-          <s.ClearedLabel>클리어 팀 명단</s.ClearedLabel>
-        </s.ClearedWrapper>
-      </s.Container>
+          <s.ClearedWrapper>
+            <s.ClearedLabel>클리어 팀 명단</s.ClearedLabel>
+          </s.ClearedWrapper>
+        </s.Container>
+      )}
     </s.Wrapper>
   );
 };
@@ -58,10 +106,6 @@ const BoothList = () => {
       })}
     </s.BoothWrapper>
   );
-};
-
-const StatusList = () => {
-  return <s.StatusWrapper></s.StatusWrapper>;
 };
 
 export default ZerogameViewerPage;

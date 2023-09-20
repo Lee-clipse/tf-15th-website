@@ -24,10 +24,12 @@ export const API = {
   VIEW_TEAM_SCORE: "/team/score",
   PLUS_TEAM_SCORE: "/team/plus",
   SPREAD_TEAM_SCORE: "/team/spread",
+  EVERY_TEAM_SCORE: "/team/every-score",
   INIT_TEAM_MAP_INDEX: "/init",
   VIEW_MAP_INDEX: "/where",
   ROLL_DICE: "/next",
   GET_BLOCK: "/get-block",
   MANAGE_BLOCK: "/manage-block",
   MOVE_TO_ZONE: "/to-zone",
+  EVERY_MAP_DATA: "/every",
 };
