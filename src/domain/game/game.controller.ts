@@ -10,7 +10,6 @@ import {
 import { ApiOperation, ApiTags, ApiBody, ApiQuery } from '@nestjs/swagger';
 import { GameService } from './game.service';
 import { TeamInitDto } from './dto/team_init.dto';
-import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { LOG_MAP_INDEX } from 'src/constants/consts';
 import { TeamBlockDto } from './dto/team_block.dto';
 import { DbService } from 'src/db/db.service';
@@ -116,19 +115,23 @@ export class GameController {
     type: () => TeamInitDto,
   })
   rollDice(@Body() teamInitDto: TeamInitDto) {
-    const { teamId } = teamInitDto;
+    try {
+      const { teamId } = teamInitDto;
 
-    const currIndex = this.db.getIndex(teamId);
-    const currMap = this.db.printMap();
+      const currIndex = this.db.getIndex(teamId);
+      const currMap = this.db.printMap();
 
-    const { nextIndex } = this.gameService.rollDice(teamId);
-    this.gameService.moveForward(teamId, currIndex, nextIndex);
+      const { nextIndex } = this.gameService.rollDice(teamId);
+      this.gameService.moveForward(teamId, currIndex, nextIndex);
 
-    const nextMap = this.db.printMap();
+      const nextMap = this.db.printMap();
 
-    this.customLogger.log(
-      `[${teamId}]팀 부스로 이동!  ${currIndex}  ->  ${nextIndex}\n\tINDEX:  ${LOG_MAP_INDEX}\n\tBEFORE: ${currMap}\n\tAFTER:  ${nextMap}\n\n`,
-    );
-    return { code: 200, prevIndex: currIndex, nextIndex };
+      this.customLogger.log(
+        `[${teamId}]팀 부스로 이동!  ${currIndex}  ->  ${nextIndex}\n\tINDEX:  ${LOG_MAP_INDEX}\n\tBEFORE: ${currMap}\n\tAFTER:  ${nextMap}\n\n`,
+      );
+      return { code: 200, prevIndex: currIndex, nextIndex };
+    } catch (error) {
+      return { code: 500, prevIndex: '', nextIndex: '' };
+    }
   }
 }
