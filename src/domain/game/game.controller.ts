@@ -33,6 +33,15 @@ export class GameController {
     return this.db.printMap();
   }
 
+  // 제로게임 뷰어용
+  @Get('/every')
+  @ApiOperation({
+    summary: '제로게임 뷰어용',
+  })
+  getEvery() {
+    return this.db.getEvery();
+  }
+
   // Init Team Map Index
   @Post('/init')
   @ApiOperation({

@@ -136,16 +136,8 @@ export class GameService {
       }
       // 대결 부스에 2팀
       // '2' 0 0 / '2' 0 1 / '2' 1 1 모두 1 이상 제외 랜덤
-      else if (waitingTeamCount === 2) {
-        nextIndex = this.getRandomRoll(nextLine);
-      }
-      // 에러
       else {
-        this.customLogger.error('/roll-dice', '대결부스 1개 있는 경우', {
-          teamId,
-          waitingTeamCount: `대결 부스에 ${waitingTeamCount}팀 대기`,
-        });
-        return { nextIndex: null };
+        nextIndex = this.getRandomRoll(nextLine);
       }
     }
     // 다음 라인에 대결 부스 2개

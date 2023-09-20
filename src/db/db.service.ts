@@ -32,6 +32,14 @@ export class DbService {
   private indexMap: Record<string, string> = {};
   private blockMap: Record<string, string> = {};
 
+  getEvery() {
+    return {
+      mapList: this.mapList,
+      indexMap: this.indexMap,
+      blockMap: this.blockMap,
+    };
+  }
+
   initTeam(id: string): string {
     try {
       this.mapList[0] += 1;
