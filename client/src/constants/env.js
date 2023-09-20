@@ -18,6 +18,7 @@ export const API = {
   PLUS_USER_SCORE: "/user/plus",
   EXIT_TEAM: "/user/exit",
   GIVE_GOODS: "/user/give-goods",
+  VOICE_AGREE: "/user/voice-agree",
   CREATE_TEAM: "/team/create",
   VIEW_WAITING_TEAM: "/team/waiting",
   VIEW_TEAM_SCORE: "/team/score",

@@ -110,7 +110,11 @@ const QRViewer = ({ userId }) => {
               <s.InfoText>{userInfo.location}</s.InfoText>
               <s.InfoText>
                 개인정보 제공:{" "}
-                {userInfo.agreePI === 1 ? "동의" : <s.NotAgreeText>비동의</s.NotAgreeText>}
+                {Number(userInfo.agreePI) % 2 === 0 ? (
+                  <s.NotAgreeText>비동의</s.NotAgreeText>
+                ) : (
+                  "동의"
+                )}
               </s.InfoText>
               <s.InfoText>
                 기부 금액: <s.DonationText>{userInfo.donation}원</s.DonationText>

@@ -32,11 +32,34 @@ export const Text = styled.p`
 
   letter-spacing: 120%;
   line-height: 150%;
+  margin-top: 3rem;
 `;
 
-export const CheckWrapper = styled.div``;
-export const AgreeCheck = styled.input``;
-export const AgreeText = styled.span``;
+export const CheckWrapper = styled.div`
+  align-items: center;
+  margin-top: 1.5rem;
 
-export const ButtonWrapper = styled.div``;
-export const LinkButton = styled.button``;
+  > span {
+    color: ${(props) => props.theme.color.TEXT_BLACK};
+    font-family: ${(props) => props.theme.font.NORMAL};
+    font-size: ${(props) => props.theme.font.size.SM};
+  }
+`;
+export const AgreeCheck = styled.input`
+  margin-left: 1rem;
+`;
+export const AgreeText = styled.span`
+  margin-left: 0.4rem;
+`;
+
+export const LinkButton = styled.button`
+  color: ${(props) => props.theme.color.TEXT_WHITE};
+  font-family: ${(props) => props.theme.font.NORMAL};
+  font-size: ${(props) => props.theme.font.size.ML};
+  background: ${(props) => props.theme.color.MAIN_BLUE};
+
+  width: 100%;
+  border-radius: 1.2rem;
+  padding: 1rem;
+  margin-top: 3rem;
+`;
