@@ -14,6 +14,7 @@ export const RoutePath = {
   NOTFOUND: "*",
   ZEROGAME: "/zerogame",
   TEAM_QR: "/team-qr",
+  VOICE_AGREE: "/voice-agree",
 };
 
 export const Booth = {

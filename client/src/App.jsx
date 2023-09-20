@@ -17,6 +17,7 @@ const StepPage = lazy(() => import("./pages/Step/index"));
 const ZerogamePage = lazy(() => import("./pages/Zerogame/index"));
 const DonateUsagePage = lazy(() => import("./pages/DonateUsage/index"));
 const TeamQRPage = lazy(() => import("./pages/TeamQR/index"));
+const VoiceAgreePage = lazy(() => import("./pages/VoiceAgree/index"));
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
           <Route path={RoutePath.STEP} element={<StepPage />}></Route>
           <Route path={RoutePath.ZEROGAME} element={<ZerogamePage />}></Route>
           <Route path={RoutePath.TEAM_QR} element={<TeamQRPage />}></Route>
+          <Route path={RoutePath.VOICE_AGREE} element={<VoiceAgreePage />}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>
