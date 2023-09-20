@@ -184,4 +184,13 @@ export class TeamService {
     const nextTeamName = `${NEXT_TEAM[lastTeamName]} ${lastIndex}`;
     return nextTeamName;
   }
+
+  async getEveryTeamScore() {
+    return await this.teamRepository.find({
+      select: ['id', 'score'],
+      where: {
+        id: Not('-'),
+      },
+    });
+  }
 }

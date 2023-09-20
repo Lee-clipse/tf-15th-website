@@ -64,4 +64,21 @@ export class TeamController {
     const { teamId } = teamBreakDto;
     return await this.teamService.spreadTeamScore(teamId);
   }
+
+  // Get Every Team Score
+  @Get('/every-score')
+  @ApiOperation({
+    summary: '제로게임 뷰어용',
+  })
+  async getEveryTeamScore() {
+    const data = await this.teamService.getEveryTeamScore();
+    const res = {};
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const item = data[key];
+        res[item.id] = item.score;
+      }
+    }
+    return { code: 200, ...res };
+  }
 }
