@@ -315,6 +315,19 @@ export class UserService {
     return { code: 200, score };
   }
 
+  // Voice Agree
+  async agreeVoice(userId: string) {
+    const userRow = await this.getUserRow(userId);
+    if (userRow === null) {
+      this.customLogger.invalid('/user/voice-agree', '미접수 사용자', {
+        userId,
+      });
+      return { code: 404, message: 'Undefined User' };
+    }
+    await this.userRepository.update(userId, { agreePI: () => 'agree_pi + 2' });
+    return { code: 200 };
+  }
+
   async getUserRow(userId: string) {
     try {
       return await this.userRepository

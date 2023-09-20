@@ -134,4 +134,15 @@ export class UserController {
   async getUserScore(@Query('userId') userId: string) {
     return await this.userService.gertUserScore(userId);
   }
+
+  // Voice Agree
+  @Post('/voice-agree')
+  @ApiOperation({
+    summary: '목소리 정보 제공 동의',
+  })
+  @ApiBody({ type: () => UserGoodsDto })
+  async agreeVoice(@Body() userGoodsDto: UserGoodsDto) {
+    const { userId } = userGoodsDto;
+    return await this.userService.agreeVoice(userId);
+  }
 }
