@@ -24,7 +24,7 @@ const VoiceAgreePage = () => {
         userId,
       });
       if (Number(res.data.code) !== 200) {
-        Swal.fire("API ERROR: Voice Agree", "인포데스크로 방문 제보 부탁드립니다.", "error");
+        Swal.fire("접수되지 않은 사용자입니다!", "", "error");
         return;
       }
       window.open("https://open.kakao.com/o/slIJ6THf");
