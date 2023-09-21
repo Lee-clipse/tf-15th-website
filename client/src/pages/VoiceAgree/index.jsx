@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as s from "./style";
 import { ENV, API } from "@constants/env";
 import Swal from "sweetalert2";
 import axios from "axios";
+import QRReconfirmModal from "@components/QRReconfirmModal";
 
 const VoiceAgreePage = () => {
   const [agreePI, setAgreePI] = useState("-1");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId === null) {
+      openModal();
+      return;
+    }
+  }, []);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const onAgreementChange = (e) => {
     setAgreePI(e.target.value);
@@ -14,12 +32,7 @@ const VoiceAgreePage = () => {
   const handleButtonClick = async () => {
     if (agreePI === "2") {
       const userId = localStorage.getItem("userId");
-      if (userId === null) {
-        Swal.fire("접수되지 않은 사용자입니다!", "", "error");
-        return;
-      }
-      console.log(userId);
-      // API: Spread Team Score
+      // API: Voice Agree
       const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.VOICE_AGREE, {
         userId,
       });
@@ -39,6 +52,7 @@ const VoiceAgreePage = () => {
 
   return (
     <s.Wrapper>
+      {isModalOpen && <QRReconfirmModal closeModal={closeModal} />}
       <s.Container>
         <s.Label>목소리 활용 정보 동의서</s.Label>
         <s.Text>

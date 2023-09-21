@@ -1,8 +1,8 @@
+/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from "react";
 import * as s from "./style";
 import { ENV, API } from "@constants/env";
-import { Booth, BoothViewer, IndexList } from "@constants/enums";
-import Swal from "sweetalert2";
+import { BoothViewer, IndexList } from "@constants/enums";
 import axios from "axios";
 
 const ZerogameViewerPage = () => {
@@ -32,9 +32,6 @@ const ZerogameViewerPage = () => {
       }
     });
     setStatusData(object);
-    // object["10"].map((value, _) => {
-    //   console.log(value);
-    // });
   };
 
   return (
