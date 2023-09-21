@@ -253,7 +253,7 @@ export class UserService {
       await this.userRepository
         .createQueryBuilder('user')
         .update()
-        .set({ score: teamScore })
+        .set({ score: () => `100 + score + ${teamScore}` })
         .where('user.team_id = :teamId', { teamId })
         .execute();
       // 제로게임 클리어 한 경우 명단에 등재
