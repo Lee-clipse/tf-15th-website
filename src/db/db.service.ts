@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { NEXT_INDEX } from 'src/constants/consts';
+import { DataInitDto } from 'src/domain/game/dto/data_init.dto';
 import { CustomLoggerService } from 'src/module/custom.logger';
 
 @Injectable()
@@ -38,6 +39,14 @@ export class DbService {
       indexMap: this.indexMap,
       blockMap: this.blockMap,
     };
+  }
+
+  setEvery(dataInitDto: DataInitDto) {
+    const { mapList, indexMap, blockMap } = dataInitDto;
+    this.mapList = mapList;
+    this.indexMap = indexMap;
+    this.blockMap = blockMap;
+    return this.getEvery();
   }
 
   initTeam(id: string): string {

@@ -14,6 +14,7 @@ import { LOG_MAP_INDEX } from 'src/constants/consts';
 import { TeamBlockDto } from './dto/team_block.dto';
 import { DbService } from 'src/db/db.service';
 import { CustomLoggerService } from 'src/module/custom.logger';
+import { DataInitDto } from './dto/data_init.dto';
 
 @Controller('game-api')
 @ApiTags('Zero Game API')
@@ -24,13 +25,23 @@ export class GameController {
     private readonly customLogger: CustomLoggerService,
   ) {}
 
-  //! TEST
-  @Get('/')
+  @Get('/export')
   @ApiOperation({
-    summary: 'TEST',
+    summary: '데이터 export',
   })
-  test() {
-    return this.db.printMap();
+  exportData() {
+    return this.db.getEvery();
+  }
+
+  @Post('/import')
+  @ApiOperation({
+    summary: '데이터 import (제발 쓸 일 없기를...)',
+  })
+  @ApiBody({
+    type: () => DataInitDto,
+  })
+  importData(@Body() dataInitDto: DataInitDto) {
+    return this.db.setEvery(dataInitDto);
   }
 
   // 제로게임 뷰어용

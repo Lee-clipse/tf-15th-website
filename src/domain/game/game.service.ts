@@ -14,12 +14,6 @@ export class GameService {
   NEXT_INDEX = NEXT_INDEX;
   BATTLE_BOOTH = BATTLE_BOOTH;
 
-  //! TEST
-  test() {
-    const res = this.db.getNextLineStatus('20');
-    console.log(res);
-  }
-
   // Init Team Map Index
   createTeam(teamId: string) {
     const res = this.db.initTeam(teamId);
@@ -91,7 +85,7 @@ export class GameService {
     }
     // 클리어
     if (Number(currIndex) === 50) {
-      return { nextIndex: '0' };
+      return { nextIndex: '50' };
     }
 
     // 현재 라인에서 주사위를 굴린 경우
