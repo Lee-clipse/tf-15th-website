@@ -22,4 +22,16 @@ export class DataInitDto {
   })
   @IsObject()
   blockMap: Record<string, string>;
+
+  @ApiProperty({
+    description: 'endTeamList',
+    type: [],
+  })
+  endTeamList: string[];
+
+  @ApiProperty({
+    description: 'clearedTeamList',
+    type: [],
+  })
+  clearedTeamList: string[];
 }

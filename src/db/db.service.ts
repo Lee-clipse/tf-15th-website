@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { NEXT_INDEX } from 'src/constants/consts';
+import { EndTeamDto } from 'src/domain/game/dto/end_team.dto';
 import { DataInitDto } from 'src/domain/game/dto/data_init.dto';
 import { CustomLoggerService } from 'src/module/custom.logger';
 
@@ -32,20 +33,27 @@ export class DbService {
 
   private indexMap: Record<string, string> = {};
   private blockMap: Record<string, string> = {};
+  private endTeamList: string[] = [];
+  private clearedTeamList: string[] = [];
 
   getEvery() {
     return {
       mapList: this.mapList,
       indexMap: this.indexMap,
       blockMap: this.blockMap,
+      clearedTeamList: this.clearedTeamList,
+      endTeamList: this.endTeamList,
     };
   }
 
   setEvery(dataInitDto: DataInitDto) {
-    const { mapList, indexMap, blockMap } = dataInitDto;
+    const { mapList, indexMap, blockMap, endTeamList, clearedTeamList } =
+      dataInitDto;
     this.mapList = mapList;
     this.indexMap = indexMap;
     this.blockMap = blockMap;
+    this.endTeamList = endTeamList;
+    this.clearedTeamList = clearedTeamList;
     return this.getEvery();
   }
 
@@ -134,6 +142,21 @@ export class DbService {
       });
       return '';
     }
+  }
+
+  registerTeam(endTeamDto: EndTeamDto) {
+    const { teamId, index, score } = endTeamDto;
+    // 미등록이라 이번 기회에 등록 했으면 true
+    // 등록을 이미 했는데 재요청이 오면 false
+    if (!this.endTeamList.includes(teamId)) {
+      this.endTeamList.push(teamId);
+      if (index === '50' && score === 0) {
+        this.clearedTeamList.push(teamId);
+      }
+      this.customLogger.log(`[${teamId}]팀 ${score} 점으로 클리어!!!!!!!!`);
+      return true;
+    }
+    return false;
   }
 
   // Utils

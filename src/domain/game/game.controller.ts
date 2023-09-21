@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Inject,
-  Logger,
-  Post,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiBody, ApiQuery } from '@nestjs/swagger';
 import { GameService } from './game.service';
 import { TeamInitDto } from './dto/team_init.dto';
@@ -15,6 +7,7 @@ import { TeamBlockDto } from './dto/team_block.dto';
 import { DbService } from 'src/db/db.service';
 import { CustomLoggerService } from 'src/module/custom.logger';
 import { DataInitDto } from './dto/data_init.dto';
+import { EndTeamDto } from './dto/end_team.dto';
 
 @Controller('game-api')
 @ApiTags('Zero Game API')
@@ -153,5 +146,20 @@ export class GameController {
     } catch (error) {
       return { code: 500, prevIndex: '', nextIndex: '' };
     }
+  }
+
+  // Is Registered Team
+  @Post('/is-registered')
+  @ApiOperation({
+    summary: '팀 점수 전파가 이미 되었는 지 확인 후 ended 에 등록',
+  })
+  @ApiBody({
+    type: () => EndTeamDto,
+  })
+  isRegisteredTeam(@Body() endTeamDto: EndTeamDto) {
+    // 미등록이라 이번 기회에 등록 했으면 true
+    // 등록을 이미 했는데 재요청이 오면 false
+    const registered = this.db.registerTeam(endTeamDto);
+    return { code: 200, registered: String(registered) };
   }
 }
