@@ -30,8 +30,22 @@ const TeamQRPage = () => {
       return;
     }
     const { teamName, score, index } = teamInfo;
+
+    // API: Is Registered Team
+    const res = await axios.post(ENV.GAME_SERVER_PROD_DOMAIN + API.IS_REGISTERED, {
+      teamId,
+      index: String(index),
+      score: Number(score),
+    });
+    if (res === null) {
+      Swal.fire("API ERROR: Spread Team Score", "인포데스크로 방문 제보 부탁드립니다.", "error");
+      return;
+    }
     setTeamData({ teamId, teamName, score, index });
-    await spreadTeamScore(teamId);
+    console.log(res.data.registered);
+    if (res.data.registered === "true") {
+      await spreadTeamScore(teamId);
+    }
   };
 
   const renderTeamQR = () => {

@@ -16,7 +16,7 @@ const EventPage = () => {
     <PageTemplate>
       <TopNavBar title={"이벤트"} />
       <s.Wrapper as={motion.div} variants={OchestraList} initial="hidden" animate="visible">
-        <s.Poster src="/assets/event/event_main.webp" />
+        <s.Poster src="/assets/event/event_main1.webp" />
         <Link to={RoutePath.EVENT_GROUP}>
           <s.Button>
             소그룹 소개

@@ -32,4 +32,5 @@ export const API = {
   MANAGE_BLOCK: "/manage-block",
   MOVE_TO_ZONE: "/to-zone",
   EVERY_MAP_DATA: "/every",
+  IS_REGISTERED: "/is-registered",
 };
