@@ -20,6 +20,7 @@ export const MapLabel = styled.p`
   font-size: ${(props) => props.theme.font.size.XXL};
 
   margin-bottom: 2rem;
+  margin-top: 2rem;
 `;
 export const BoothStautsWrapper = styled.div`
   display: flex;
@@ -92,7 +93,39 @@ export const TeamScore = styled.p`
   margin-right: 0.4rem;
 `;
 
-export const ClearedWrapper = styled.div``;
-export const ClearedLabel = styled.p``;
-export const ClearedTeamName = styled.p``;
-export const ClearedTeamScore = styled.p``;
+export const ClearedWrapper = styled.div`
+  width: 100%;
+  margin-top: 6rem;
+  align-items: center;
+  text-align: center;
+
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 8rem;
+`;
+export const ClearedLabel = styled.p`
+  color: ${(props) => props.theme.color.TEXT_BLACK};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.XXL};
+  margin-bottom: 2rem;
+`;
+export const ClearedSection = styled.div`
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 0.4rem;
+`;
+export const ClearedTeamName = styled.p`
+  color: ${(props) => props.theme.color.TEXT_BLACK};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.L};
+  margin-right: 0.4rem;
+`;
+export const ClearedTeamScore = styled.p`
+  color: ${(props) => props.theme.color.TEXT_BLACK};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.L};
+`;

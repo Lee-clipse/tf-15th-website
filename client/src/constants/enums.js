@@ -54,7 +54,6 @@ export const BoothViewer = {
   41: "환경, 유퀴즈!",
   42: "쓰봉이의 문단속",
   43: "쉘위 탭댄스",
-  50: "엔딩",
 };
 
 export const DiceTransform = {
@@ -64,4 +63,4 @@ export const DiceTransform = {
   4: "rotateX(-810deg) rotateZ(-1080deg)",
 };
 
-export const IndexList = [10, 11, 12, 13, 20, 21, 22, 23, 24, 30, 31, 32, 40, 41, 42, 43, 50];
+export const IndexList = [10, 11, 12, 13, 20, 21, 22, 23, 24, 30, 31, 32, 40, 41, 42, 43];

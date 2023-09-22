@@ -48,7 +48,7 @@ const ZerogameViewerPage = () => {
                   const statusList = statusData[strIndex];
                   if (statusList === undefined) {
                     return (
-                      <s.StatusRow>
+                      <s.StatusRow key={index}>
                         <s.TeamName>-</s.TeamName>
                         <s.TeamScore></s.TeamScore>
                       </s.StatusRow>
@@ -58,7 +58,7 @@ const ZerogameViewerPage = () => {
                     <s.StatusRow>
                       {statusList.map((status, index) => {
                         return (
-                          <s.StatusMiniRow>
+                          <s.StatusMiniRow key={index}>
                             <s.TeamName>{status.id}</s.TeamName>
                             <s.TeamScore>({status.score})</s.TeamScore>
                           </s.StatusMiniRow>
@@ -73,6 +73,15 @@ const ZerogameViewerPage = () => {
 
           <s.ClearedWrapper>
             <s.ClearedLabel>클리어 팀 명단</s.ClearedLabel>
+            {statusData["50"] &&
+              statusData["50"].map((status, index) => {
+                return (
+                  <s.ClearedSection key={index}>
+                    <s.ClearedTeamName>{status.id}</s.ClearedTeamName>
+                    <s.ClearedTeamScore>({status.score})</s.ClearedTeamScore>
+                  </s.ClearedSection>
+                );
+              })}
           </s.ClearedWrapper>
         </s.Container>
       )}
@@ -80,7 +89,6 @@ const ZerogameViewerPage = () => {
   );
 };
 
-// Booth 객체의 값들을 랜더링하는 BoothList 컴포넌트를 정의합니다.
 const BoothList = () => {
   const battleBoothList = [11, 31, 32, 43];
   return (

@@ -5,7 +5,6 @@ import MainLinker from "@components/MainLinker";
 import YoutubeSection from "@components/YoutubeSection";
 import RegisterButton from "@components/RegisterButton";
 import ScrollInducer from "@components/ScrollInducer";
-import moment from "moment";
 import { MainPopup } from "@components/MainPopup";
 import ComingMap from "../../component/ComingMap";
 
