@@ -4,8 +4,7 @@ import { Not, Repository } from 'typeorm';
 import { TeamEntity } from './entity/team.entity';
 import { UserService } from '../user/user.service';
 import { CustomLoggerService } from 'src/module/custom.logger';
-import { getCurrentDateTime } from 'src/utils/utils';
-import { NEXT_TEAM } from 'src/constants/consts';
+import { NEXT_TEAM_ID, TEAM_NAME } from 'src/constants/consts';
 
 @Injectable()
 export class TeamService {
@@ -23,11 +22,10 @@ export class TeamService {
   async createTeam() {
     // 현재 시간을 시드로 hash 생성
     const currentTime = new Date();
-    const teamName = await this.getNewTeamName();
-    const teamId = teamName.split(' ').slice(2, 4).join(' ');
+    const { id, name } = await this.teamIndentifierGenerator();
     const teamRow = {
-      id: teamId,
-      name: teamName,
+      id,
+      name,
       score: -100,
       count: 0,
       date: String(currentTime.getTime()),
@@ -36,10 +34,10 @@ export class TeamService {
       await this.teamRepository.save(teamRow);
 
       // 로깅
-      this.customLogger.log(`${teamName}팀 생성!`);
+      this.customLogger.log(`${name}팀 생성!`);
       return { code: 200, teamRow };
     } catch (error) {
-      this.customLogger.error('/team/create', '생성 실패', { teamId });
+      this.customLogger.error('/team/create', '생성 실패', { teamId: id });
     }
   }
 
@@ -109,6 +107,7 @@ export class TeamService {
           TEAM_MAX_COUNT: this.TEAM_MAX_COUNT,
         })
         .andWhere('team.id != :DASH', { DASH: '-' })
+        .orderBy('team.date', 'ASC')
         .getMany();
     } catch (error) {
       this.customLogger.error('/team/waiting', '탐색', {});
@@ -165,24 +164,27 @@ export class TeamService {
     return row.name;
   }
 
-  async getNewTeamName() {
-    const lastTeam = await this.teamRepository.findOne({
+  async teamIndentifierGenerator() {
+    const latestTeam = await this.teamRepository.findOne({
       where: {
         id: Not('-'),
       },
       order: { date: 'DESC' },
     });
     // 서버에서 첫 팀 생성
-    if (!lastTeam) {
-      return '분리수거 잘하는 레드 1';
+    if (!latestTeam) {
+      return { id: 'red1', name: '분리수거 잘하는 레드 1' };
     }
-    const lastTeamName = lastTeam.name.split(' ').slice(0, 3).join(' ');
-    let lastIndex = Number(lastTeam.name.match(/\d+/)[0]);
-    if (lastTeamName === '잔반남기지 않는 퍼플') {
-      lastIndex += 1;
+    const latestTeamId = latestTeam.id;
+    const word = latestTeamId.match(/[a-zA-Z]+/g)[0];
+    let number = Number(latestTeamId.match(/[0-9]+/g)[0]);
+    if (word === 'purple') {
+      number += 1;
     }
-    const nextTeamName = `${NEXT_TEAM[lastTeamName]} ${lastIndex}`;
-    return nextTeamName;
+    console.log(word, number);
+    const nextTeamId = `${NEXT_TEAM_ID[word]}${number}`;
+    const nextTeamName = `${TEAM_NAME[NEXT_TEAM_ID[word]]} ${number}`;
+    return { id: nextTeamId, name: nextTeamName };
   }
 
   async getEveryTeamScore() {
