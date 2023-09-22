@@ -7,6 +7,7 @@ import { ENV, API } from "@constants/env";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { RoutePath } from "@constants/enums";
+import GoodsModal from "@components/GoodsModal";
 
 const TeamQRPage = () => {
   const teamId = localStorage.getItem("teamId");
@@ -14,6 +15,15 @@ const TeamQRPage = () => {
 
   const [teamData, setTeamData] = useState(null);
   const [qrImageUrl, setQrImageUrl] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -49,7 +59,7 @@ const TeamQRPage = () => {
   };
 
   const renderTeamQR = () => {
-    const qrUrl = `${ENV.CLIENT_PROD_DOMAIN}/step/team-qr?team_id=${teamId}`;
+    const qrUrl = `${ENV.CLIENT_PROD_DOMAIN}/step/qr?user_id=${userId}`;
     // teamId를 이용하여 QR 코드 생성
     QRCode.toDataURL(qrUrl, function (err, url) {
       setQrImageUrl(url);
@@ -70,14 +80,34 @@ const TeamQRPage = () => {
 
   return (
     <s.Wrapper>
+      {isModalOpen && <GoodsModal closeModal={closeModal} />}
       {teamData && (
         <s.Container>
           <s.TeamName>{teamData.teamName}팀</s.TeamName>
           <s.TeamScore>{teamData.score} 점으로 종료!</s.TeamScore>
-          <s.TeamQRWrapper>
-            <s.QRLabel>우리 팀 QR 코드</s.QRLabel>
-            {qrImageUrl && <s.TeamQR src={qrImageUrl} alt="Team QR Code" />}
-          </s.TeamQRWrapper>
+          {Number(teamData.score) === 0 ? (
+            <s.TeamQRWrapper>
+              <s.QRLabel>굿즈 받으러 가기!</s.QRLabel>
+              {qrImageUrl && <s.TeamQR src={qrImageUrl} alt="Team QR Code" />}
+              <s.GoodsModalButtonWrapper onClick={openModal}>
+                <s.GoodsModalText>굿즈 사진 보기</s.GoodsModalText>
+                <s.GalleryIcon src="/assets/zerogame/gallery.svg" />
+              </s.GoodsModalButtonWrapper>
+            </s.TeamQRWrapper>
+          ) : (
+            <s.TeamQRWrapper>
+              <s.Poster src="/assets/zerogame/poster.svg" />
+              <s.InduceText>
+                점수 획득 부스에서 체험 활동을 하시면 <br />
+                0점을 만들어 굿즈를 가질 수 있습니다!
+              </s.InduceText>
+              <s.GoodsModalButtonWrapper onClick={openModal}>
+                <s.GoodsModalText>굿즈 사진 보기</s.GoodsModalText>
+                <s.GalleryIcon src="/assets/zerogame/gallery.svg" />
+              </s.GoodsModalButtonWrapper>
+            </s.TeamQRWrapper>
+          )}
+
           <Link to={RoutePath.MAIN}>
             <s.MainButton>홈페이지로 돌아가기</s.MainButton>
           </Link>
