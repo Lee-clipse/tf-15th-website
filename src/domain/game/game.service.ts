@@ -116,7 +116,7 @@ export class GameService {
     }
     // 다음 라인에 대결 부스 1개
     else if (nextBattleBoothIndex.length == 1) {
-      const waitingTeamCount = Number(nextLine[nextBattleBoothIndex]);
+      const waitingTeamCount = Number(nextLine[nextBattleBoothIndex[0]]);
 
       // 대결 부스에 0팀
       // '0' 0 0 / '0' 0 1 / '0' 1 1 모두 1 이상 제외 랜덤
@@ -126,7 +126,7 @@ export class GameService {
       // 대결 부스에 1팀
       // '1' * 이면 1 최우선 배치
       else if (waitingTeamCount === 1) {
-        nextIndex = nextBattleBoothIndex;
+        nextIndex = nextBattleBoothIndex[0];
       }
       // 대결 부스에 2팀
       // '2' 0 0 / '2' 0 1 / '2' 1 1 모두 1 이상 제외 랜덤
@@ -136,38 +136,38 @@ export class GameService {
     }
     // 다음 라인에 대결 부스 2개
     else if (nextBattleBoothIndex.length == 2) {
-      const [countL, countR] = [
-        Number(nextLine[nextBattleBoothIndex[0]]),
-        Number(nextLine[nextBattleBoothIndex[1]]),
+      const [boothCountA, boothCountB] = [
+        nextLine[nextBattleBoothIndex[0]],
+        nextLine[nextBattleBoothIndex[1]],
       ];
-      // 00, 11, 22의 경우
+      // 00 || 홀홀 || 짝짝 중 같은 수의 경우
       // 아무 곳이나 상관없음
-      if (countL === countR) {
-        nextIndex = this.getRandomRoll(nextLine);
+      if (boothCountA === boothCountB) {
+        const randomIndex = Math.floor(Math.random() * 2);
+        nextIndex = nextBattleBoothIndex[randomIndex];
       }
-      // 01의 경우
-      // 대기 중인 1로 배치
-      else if (countL + countR === 1) {
+      // 0홀 || 짝홀 의 경우
+      // 대기 중인 '홀'로 배치
+      else if ((boothCountA + boothCountB) % 2 === 1) {
         nextIndex =
-          countL === 1 ? nextBattleBoothIndex[0] : nextBattleBoothIndex[1];
+          boothCountA % 2 === 1
+            ? nextBattleBoothIndex[0]
+            : nextBattleBoothIndex[1];
       }
-      // 12의 경우
-      // 대기 중인 1로 배치
-      else if (countL + countR === 3) {
+      // 0짝 || 큰짝 작은짝 의 경우
+      // 대기 중인 '작은짝' 으로 배치
+      else if ((boothCountA + boothCountB) % 2 === 0) {
+        const minCount = Math.min(boothCountA, boothCountB);
         nextIndex =
-          countL === 1 ? nextBattleBoothIndex[0] : nextBattleBoothIndex[1];
-      }
-      // 02의 경우
-      // 아무 곳이나 상관 없지만 0으로 배치
-      else if (countL + countR === 2 && countL * countR === 0) {
-        nextIndex =
-          countL === 0 ? nextBattleBoothIndex[0] : nextBattleBoothIndex[1];
+          boothCountA === minCount
+            ? nextBattleBoothIndex[0]
+            : nextBattleBoothIndex[1];
       }
       // 에러
       else {
         this.customLogger.error('/roll-dice', '대결부스 2개 있는 경우', {
           teamId,
-          waitingTeamCount: `대결 부스에 ${countL}, ${countR}팀 대기`,
+          waitingTeamCount: `대결 부스에 ${boothCountA}, ${boothCountB}팀 대기`,
         });
         return { nextIndex: null };
       }
@@ -184,11 +184,11 @@ export class GameService {
   }
 
   // 대결 부스가 없는 현재 이 라인에서 랜덤 배치
-  // Input ex) { '11': '0', '12': '1', '13': '1' }
+  // Input ex) { '11': 0, '12': 1, '13': 1 }
   getRandomRoll(nextLine: { [k: string]: any }): string {
     // 값이 0인 요소의 키들을 필터링
     const zeroValueKeys = Object.keys(nextLine).filter(
-      (key) => nextLine[key] === '0',
+      (key) => nextLine[key] === 0,
     );
 
     let nextIndex = '';
@@ -197,11 +197,14 @@ export class GameService {
       const randomIndex = Math.floor(Math.random() * zeroValueKeys.length);
       nextIndex = zeroValueKeys[randomIndex];
     }
-    // 빈 부스가 없는 경우 전체 랜덤 추출
+    // 빈 부스가 없는 경우 가장 인원이 적은 부스로 할당
     else {
-      const allKeys = Object.keys(nextLine);
-      const randomIndex = Math.floor(Math.random() * allKeys.length);
-      nextIndex = allKeys[randomIndex];
+      const sortedKeys = Object.keys(nextLine).sort(
+        (a, b) => nextLine[a] - nextLine[b],
+      );
+      if (sortedKeys.length > 0) {
+        nextIndex = sortedKeys[0];
+      }
     }
     return nextIndex;
   }
