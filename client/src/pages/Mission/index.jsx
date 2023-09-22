@@ -16,7 +16,23 @@ const MissionPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    teamIdIniter();
   }, []);
+
+  // teamId를 영어로 바꾸면서, 이전의 사용자에 대해 초기화
+  const teamIdIniter = () => {
+    const teamId = localStorage.getItem("teamId");
+    if (!teamId) {
+      return;
+    }
+
+    const isValidTeamId = /^[a-zA-Z]+[0-9]+$/.test(teamId);
+    if (!isValidTeamId) {
+      localStorage.removeItem("teamId");
+      return;
+    }
+  };
 
   const routeToZeroGame = async () => {
     const userId = localStorage.getItem("userId");
