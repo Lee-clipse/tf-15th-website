@@ -82,12 +82,12 @@ const QRViewer = ({ userId }) => {
   };
 
   const handleGiveGoods = async () => {
-    // API: Join User
+    // API: Give Goods
     const res = await axios.post(ENV.SERVER_PROD_DOMAIN + API.GIVE_GOODS, {
       userId: userInfo.id,
     });
     if (Number(res.data.code) !== 200) {
-      Swal.fire("API 오류", "API: Join User", "error");
+      Swal.fire("API 오류", "API: Give Goods", "error");
       return;
     }
     setUserInfo((prevUserInfo) => ({
@@ -120,7 +120,7 @@ const QRViewer = ({ userId }) => {
                 기부 금액: <s.DonationText>{userInfo.donation}원</s.DonationText>
               </s.InfoText>
             </s.InfoSection>
-            {userInfo.isCleared === "true" && (
+            {(userInfo.isCleared === "true" || Number(userInfo.score) === 0) && (
               <s.ClearedSection>
                 <s.ClearedText>제로게임 클리어 성공!!</s.ClearedText>
                 {Number(userInfo.isReceived) === 0 ? (

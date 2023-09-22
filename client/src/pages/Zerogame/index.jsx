@@ -119,7 +119,8 @@ const ZerogamePage = () => {
               <s.Flag src={`/assets/zerogame/index/${teamData.index}-flag.svg`} />
             </s.FlagWrapper>
           </s.BoardWapper>
-          <s.TeamIndex>현 위치: {Booth[teamData.index]}</s.TeamIndex>
+          <s.TeamIndexLabel>현 위치</s.TeamIndexLabel>
+          <s.TeamIndex>{Booth[teamData.index]}</s.TeamIndex>
           <s.ButtonWrapper>
             <s.DiceButton onClick={popDiceModal}>주사위 굴리기</s.DiceButton>
             <RefreshButton />

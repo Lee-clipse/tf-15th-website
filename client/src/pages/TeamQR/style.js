@@ -69,6 +69,7 @@ export const InduceText = styled.p`
   width: 86%;
   line-height: 135%;
   margin-bottom: 2rem;
+  text-align: center;
 `;
 
 export const GoodsModalButtonWrapper = styled.div`

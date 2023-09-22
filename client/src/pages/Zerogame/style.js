@@ -39,12 +39,22 @@ export const TeamScore = styled.p`
   text-align: center;
 `;
 
+export const TeamIndexLabel = styled.p`
+  color: ${(props) => props.theme.color.TEXT_WHITE};
+  font-family: ${(props) => props.theme.font.BOLD};
+  font-size: ${(props) => props.theme.font.size.XL};
+
+  margin-top: 3rem;
+  text-align: center;
+  margin-bottom: 0.8rem;
+`;
 export const TeamIndex = styled.p`
   color: ${(props) => props.theme.color.TEXT_WHITE};
   font-family: ${(props) => props.theme.font.BOLD};
-  font-size: ${(props) => props.theme.font.size.XXL};
+  font-size: ${(props) => props.theme.font.size.XL};
 
-  margin: 3rem 0rem;
+  margin-bottom: 3rem;
+  text-align: center;
 `;
 
 export const BoardWapper = styled.div`
