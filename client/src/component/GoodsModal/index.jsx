@@ -23,7 +23,7 @@ const index = ({ closeModal }) => {
             <s.Poster src="/assets/zerogame/goods3.webp" alt="goods3" />
             <s.PosterR src="/assets/zerogame/goods2.webp" alt="goods4" />
           </s.PosterRow>
-          <s.GoodsText>완소 굿즈</s.GoodsText>
+          <s.GoodsText>청건부산 굿즈</s.GoodsText>
         </s.PosterWrapper>
       </s.Container>
     </s.Wrapper>

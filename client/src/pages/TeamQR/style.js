@@ -84,7 +84,7 @@ export const GoodsModalButtonWrapper = styled.div`
   margin-bottom: 2rem;
 `;
 export const GoodsModalText = styled.p`
-  color: ${(props) => props.theme.color.ORANGE};
+  color: ${(props) => props.theme.color.MAIN_BLUE};
   font-family: ${(props) => props.theme.font.BOLD};
   font-size: ${(props) => props.theme.font.size.L};
 `;
