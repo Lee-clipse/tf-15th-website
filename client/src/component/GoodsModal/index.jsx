@@ -16,12 +16,7 @@ const index = ({ closeModal }) => {
         </s.TopRow>
         <s.PosterWrapper>
           <s.PosterRow>
-            <s.Poster src="/assets/zerogame/goods1.webp" alt="goods1" />
-            <s.PosterR src="/assets/zerogame/goods4.webp" alt="goods2" />
-          </s.PosterRow>
-          <s.PosterRow>
-            <s.Poster src="/assets/zerogame/goods3.webp" alt="goods3" />
-            <s.PosterR src="/assets/zerogame/goods2.webp" alt="goods4" />
+            <s.Poster src="/assets/zerogame/goods.webp" alt="goods1" />
           </s.PosterRow>
           <s.GoodsText>청건부산 굿즈</s.GoodsText>
         </s.PosterWrapper>

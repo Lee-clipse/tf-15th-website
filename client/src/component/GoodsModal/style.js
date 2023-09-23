@@ -24,7 +24,7 @@ export const Container = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   background: ${(props) => props.theme.color.TEXT_WHITE};
 
-  width: 91vw;
+  width: 86vw;
 `;
 
 export const TopRow = styled.div`
@@ -42,15 +42,20 @@ export const CloseButton = styled.img`
 
 export const PosterWrapper = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 export const PosterRow = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
 
   > img {
-    height: 25vh;
+    width: 90%;
     position: relative;
-    margin-bottom: 1rem;
+    margin-bottom: 1.8rem;
+    margin-top: 1.4rem;
 
     border-radius: 0.4rem;
   }
