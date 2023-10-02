@@ -1,40 +1,41 @@
-const COLORS = {
-  DEEP_GRAY: "#4E5261",
-  LIGHT_GRAY: "#C0C0C0",
-  PLACEHOLDER_GRAY: "#e2e2e2",
-
-  DEEP_BLUE: "#102361",
-  LIGHT_BLUE: "#698AFA",
-  HOVER_BLUE: "#577af2",
-
-  WHITE: "#FFFFFF",
-  ASH_WHITE: "#F5F5F5",
-
-  DEEP_PURPLE: "#B4BEE0",
-  LIGHT_PURPLE: "#B4BEE0",
-
-  RED: "#FF5858",
-  HOVER_RED: "#ff5858b8",
-
-  FILTER_GRAY: "invert(79%) sepia(1%) saturate(0%) hue-rotate(95deg) brightness(97%) contrast(95%)",
-  FILTER_BLUE:
-    "invert(52%) sepia(17%) saturate(1814%) hue-rotate(190deg) brightness(103%) contrast(96%)",
-  FILTER_DEEP_BLUE:
-    "invert(9%) sepia(40%) saturate(5984%) hue-rotate(222deg) brightness(89%) contrast(93%)",
+const color = {
+  MAIN_BLUE: "#2347C6",
+  TEXT_BLACK: "#2C343F",
+  TEXT_LIGHT_BLACK: "#656C77",
+  TEXT_WHITE: "#FBFBFB",
+  SOFT_BLUE: "#DCECFF",
+  BACKGROUND_BLUE: "#E4EFFF",
+  BACKGROUND: "#FFFFFF",
+  PURPLE: "#8A3BDA",
+  SOFT_PURPLE: "#F3E8FF",
+  PINK: "#E026C2",
+  RED: "#E22525",
+  GREEN: "#16BA13",
+  DEEP_BLUE: "#1641B8",
+  ORANGE: "#ED4600",
+  YELLOW: "#FFF647",
 };
 
-const FONT_SIZE = {
-  TINY_SMALL: "1rem",
-  EXTRA_SMALL: "1.2rem",
-  SMALL: "1.4rem",
-  MEDIUM: "1.6rem",
-  LARGE: "1.8rem",
-  EXTRA_LARGE: "2.4rem",
+const font = {
+  LIGHT: "NanumSquareRoundL",
+  NORMAL: "NanumSquareRoundB",
+  BOLD: "NanumSquareRoundEB",
+  size: {
+    XS: "0.6rem",
+    S: "1rem",
+    SM: "1.2rem",
+    M: "1.4rem",
+    ML: "1.6rem",
+    L: "1.8rem",
+    XL: "2rem",
+    XXL: "2.3rem",
+    XXXL: "3.6rem",
+  },
 };
 
 const theme = {
-  COLORS,
-  FONT_SIZE,
+  color,
+  font,
 };
 
 export default theme;

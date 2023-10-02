@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import theme from "./Theme";
+import NanumSquareRoundB from "../fonts/NanumSquareRoundB.ttf";
+import NanumSquareRoundEB from "../fonts/NanumSquareRoundEB.ttf";
+import NanumSquareRoundL from "../fonts/NanumSquareRoundL.ttf";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -19,11 +22,11 @@ const GlobalStyle = createGlobalStyle`
 
   body, #root {
     width: 100%;
-    height: 100%;
+    // height: 100%;
   }
 
   body {
-    background-color: ${theme.COLORS.ASH_WHITE}
+    background-color: ${theme.color.BACKGROUND}
   }
 
   #root {
@@ -40,6 +43,40 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
+  }
+
+  .scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  input {
+    outline: none;
+    border: none;
+    border-bottom: 0.1rem solid ${theme.color.TEXT_BLACK}
+  }
+
+  @font-face {
+    font-family: 'NanumSquareRoundB';
+    src: local('NanumSquareRoundB'), local('NanumSquareRoundB');
+    font-style: normal;
+    src: url(${NanumSquareRoundB}) format('truetype');
+  }
+  @font-face {
+    font-family: 'NanumSquareRoundEB';
+    src: local('NanumSquareRoundEB'), local('NanumSquareRoundEB');
+    font-style: normal;
+    src: url(${NanumSquareRoundEB}) format('truetype');
+  }
+  @font-face {
+    font-family: 'NanumSquareRoundL';
+    src: local('NanumSquareRoundL'), local('NanumSquareRoundL');
+    font-style: normal;
+    src: url(${NanumSquareRoundL}) format('truetype');
   }
 `;
 
