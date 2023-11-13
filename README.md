@@ -1,12 +1,22 @@
 # 청건부산 웹 사이트
 
+<div align=center>	
+  <img src="https://github.com/Lee-clipse/tf-15th-website/assets/79911816/fcde06b8-14d3-4b45-a829-41675d22a4a6" width="400" height="560"/>
+</div>
+
 # 프로젝트 정보
 
 <b>15회 TF 청건부산 행사를 위한 모바일 전용 웹 사이트</b>
 
 - 개발 기간: 2023.08.27 ~ 2023.09.22
 - 홈페이지 배포: 2023.09.01
-- 개발 인원: 이진재 (FE & BE & DevOps)
+
+## 개발 팀 소개
+
+|[이진재](https://github.com/Lee-clipse)|
+|:----------------------: |
+|<img src="https://github.com/Lee-clipse/tf-15th-website/assets/79911816/33616fb8-a12f-42b7-9911-49c0b0a2fe3b.png"  width="200" height="220"/>|
+| FE, BE, DevOps |
 
 ## 청건부산이란?
 
@@ -50,7 +60,11 @@ Together Festival 15주년을 맞이하여 열리는 행사입니다.
 
 > 16시 46분 00초 ~ 16시 46분 59초 기준 43명
 
+<img src="https://github.com/Lee-clipse/tf-15th-website/assets/79911816/556143de-6f8d-4550-a0c6-5b2a27ec0d8f.png"  width="750" height="400"/>
+
 서비스 가용성
+
+![image](https://github.com/Lee-clipse/tf-15th-website/assets/79911816/adfd2178-7d17-4600-9b14-c1810fce7d89)
 
 # 주요 기능
 
@@ -60,6 +74,8 @@ QR 코드를 통해 접근한 사용자들에게 전반적인 행사를 소개�
 
 신청 폼, 컨텐츠 소개, 행사 취지 등을 소개합니다.
 
+![image](https://github.com/Lee-clipse/tf-15th-website/assets/79911816/f525031e-c727-43d9-92e4-f599c470a02c)
+
 ## 현장 스텝 관리
 
 스텝들은 참가자들의 개인 식별 QR 코드를 통해 참가자들을 관리합니다.
@@ -67,6 +83,8 @@ QR 코드를 통해 접근한 사용자들에게 전반적인 행사를 소개�
 팀 생성, 팀 참가, 팀 탈퇴, 점수 추가, 굿즈 수령 등의 기능을 수행합니다.
 
 사전에 모집한 스텝들은 별도의 교육을 받으며, 등록 절차를 수행하여 인증합니다.
+
+![image](https://github.com/Lee-clipse/tf-15th-website/assets/79911816/3830c05a-5269-422b-819c-2ec8be6943bf)
 
 ## 제로게임 운영
 
@@ -84,15 +102,15 @@ QR 코드를 통해 접근한 사용자들에게 전반적인 행사를 소개�
 
 -100 점에서 시작하며, 0점을 만드는 데 성공한 팀은 굿즈를 수령할 수 있습니다.
 
+![image](https://github.com/Lee-clipse/tf-15th-website/assets/79911816/c0777b80-d176-41bb-afbd-0b1dcec5e0ce)
+
 # 아키텍쳐
+
+![image](https://github.com/Lee-clipse/tf-15th-website/assets/79911816/80338d51-8e67-4e2f-a6b6-b182f5104029)
 
 # 스택
 
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
-<img src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=NestJS&logoColor=white">
-<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
-<img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white">
-<img src="https://img.shields.io/badge/PM2-2B037A?style=for-the-badge&logo=PM2&logoColor=white">
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=NestJS&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white"> <img src="https://img.shields.io/badge/PM2-2B037A?style=for-the-badge&logo=PM2&logoColor=white">
 
 # 기타
 
